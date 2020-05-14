@@ -16,6 +16,7 @@ import TextField from '@material-ui/core/TextField';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { makeStyles } from '@material-ui/core/styles';
+import api from '../../services/api';
 
 const useStyles = makeStyles({
     root: {
@@ -84,9 +85,15 @@ export default function DefaultTable() {
     }
 
     const classes = useStyles();
-    
+    api.get('/category').then(response => {
+        console.log(response);
+    }).catch(error => {
+        console.log(error);
+    });
+
 
     return (
+
         <Paper elevation={10} square={true}>
 
             <TableContainer>
