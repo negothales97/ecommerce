@@ -13,12 +13,9 @@
 
     @yield('content')
 
-    @include('admin.includes.modals')
 
     @include('admin.includes.footer')
     
-    @include('admin.includes.mask')
-    @include('includes.functions')
 
 </body>
 
