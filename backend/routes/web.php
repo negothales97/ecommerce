@@ -39,6 +39,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
         Route::get('/edit/{product}', 'Admin\ProductController@edit')->name('edit');
         Route::put('/update/{product}', 'Admin\ProductController@update')->name('update');
         Route::delete('/delete/{product}', 'Admin\ProductController@delete')->name('delete');
+        Route::group(['prefix' => '{product}/category', 'as' => 'category.'], function () {
+            Route::post('/', 'Admin\ProductCategoryController@store')->name('store');
+            Route::delete('/delete/{category}', 'Admin\ProductCategoryController@delete')->name('delete');
+        });
+        Route::group(['prefix' => '{product}/tag', 'as' => 'tag.'], function () {
+            Route::post('/', 'Admin\ProductTagController@store')->name('store');
+            Route::delete('/delete/{tag}', 'Admin\ProductTagController@delete')->name('delete');
+        });
     });
 });
 

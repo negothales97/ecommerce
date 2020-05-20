@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\ProductCategory;
 use App\Services\ProductService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
@@ -30,7 +31,12 @@ class ProductController extends Controller
     }
     public function edit(Product $product)
     {
+        $categories = $product->categories;
+        $tags = $product->tags;
+
         return view('admin.pages.product.edit')
+            ->with('categories', $categories)
+            ->with('tags', $tags)
             ->with('product', $product);
     }
 

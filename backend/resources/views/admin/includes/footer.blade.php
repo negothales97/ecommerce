@@ -51,36 +51,8 @@
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{ asset('material') }}/demo/demo.js"></script>
 <script src="{{ asset('material') }}/js/settings.js"></script>
-<script src="{{asset('/js/mask.js')}}"></script>
-<script>
-// Facebook Pixel Code Don't Delete
-! function(f, b, e, v, n, t, s) {
-    if (f.fbq) return;
-    n = f.fbq = function() {
-        n.callMethod ?
-            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-    };
-    if (!f._fbq) f._fbq = n;
-    n.push = n;
-    n.loaded = !0;
-    n.version = '2.0';
-    n.queue = [];
-    t = b.createElement(e);
-    t.async = !0;
-    t.src = v;
-    s = b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t, s)
-}(window,
-    document, 'script', '//connect.facebook.net/en_US/fbevents.js');
-try {
-    fbq('init', '111649226022273');
-    fbq('track', "PageView");
-} catch (err) {
-    console.log('Facebook Track Error:', err);
-}
-</script>
-<noscript>
-    <img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=111649226022273&ev=PageView&noscript=1" />
-</noscript>
+<script src="{{asset('js/mask.js')}}"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 @yield('scripts')

@@ -14,4 +14,9 @@ class Category extends Model
         "meta_title",
         "status",
     ];
+
+    public function categories()
+    {
+        $this->belongsToMany('App\Models\Product');
+    }
 }
