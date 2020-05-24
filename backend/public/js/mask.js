@@ -104,7 +104,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\imax\backend\resources\js\mask.js */"./resources/js/mask.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ecommerce\backend\resources\js\mask.js */"./resources/js/mask.js");
 
 
 /***/ })

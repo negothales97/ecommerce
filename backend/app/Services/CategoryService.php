@@ -15,6 +15,7 @@ class CategoryService
 
     public static function create(array $data)
     {
+        
         return Category::create($data);
     }
 
