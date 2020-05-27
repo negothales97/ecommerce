@@ -14,6 +14,8 @@ class Product extends Model
         'new',
         'sale',
         'slug',
+        'price',
+        'stock',
         'meta_title',
         'meta_description',
     ];

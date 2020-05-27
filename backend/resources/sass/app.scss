@@ -7,6 +7,27 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+
 .display-none{
     display: none;
 }
+
+#label-file{
+    height: 150px;
+    width: 150px;
+    padding: 10px;
+    border: 2px #d6d6d6 dashed;
+    text-align: center;
+    cursor: pointer;
+    i {
+        font-size: 45px;
+        color:#d6d6d6;
+    }
+    &:hover {
+        // border-color: darken($color: #d6d6d6, $amount: 50);
+        i{
+            color: darken($color: #d6d6d6, $amount: 50);
+        }
+    }
+}
+

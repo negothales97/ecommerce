@@ -24,6 +24,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+    // Categorias
     Route::group(['prefix' => 'categoria', 'as' => 'category.'], function () {
         Route::get('/', 'Admin\CategoryController@index')->name('index');
         Route::get('/create', 'Admin\CategoryController@create')->name('create');
@@ -32,6 +33,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
         Route::put('/update/{category}', 'Admin\CategoryController@update')->name('update');
         Route::delete('/delete/{category}', 'Admin\CategoryController@delete')->name('delete');
     });
+    // Produtos
     Route::group(['prefix' => 'produtos', 'as' => 'product.'], function () {
         Route::get('/', 'Admin\ProductController@index')->name('index');
         Route::get('/create', 'Admin\ProductController@create')->name('create');
@@ -39,10 +41,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
         Route::get('/edit/{product}', 'Admin\ProductController@edit')->name('edit');
         Route::put('/update/{product}', 'Admin\ProductController@update')->name('update');
         Route::delete('/delete/{product}', 'Admin\ProductController@delete')->name('delete');
+        // Imagem do produto
+        Route::group(['prefix' => '{product}/image', 'as' => 'image.'], function () {
+            Route::post('/', 'Admin\ProductImageController@store')->name('store');
+            Route::delete('/delete/{category}', 'Admin\ProductImageController@delete')->name('delete');
+        });
+        // Categoria do Produto
         Route::group(['prefix' => '{product}/category', 'as' => 'category.'], function () {
             Route::post('/', 'Admin\ProductCategoryController@store')->name('store');
             Route::delete('/delete/{category}', 'Admin\ProductCategoryController@delete')->name('delete');
         });
+        // Tag do produto
         Route::group(['prefix' => '{product}/tag', 'as' => 'tag.'], function () {
             Route::post('/', 'Admin\ProductTagController@store')->name('store');
             Route::delete('/delete/{tag}', 'Admin\ProductTagController@delete')->name('delete');

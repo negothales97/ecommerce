@@ -18,21 +18,29 @@
             <div class="col-md-12">
                 @csrf
                 @method('put')
-                <div class="card ">
-                    <div class="card-header card-header-info">
-                        <h4 class="card-title">{{ __('Imagens Produto') }}</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <form id="images" method="POST" action="#" class="dropzone">
-                            </form>
+                <form id="images" method="POST" action="{{route('admin.product.image.store', ['product' => $product])}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">{{ __('Imagens Produto') }}</h4>
                         </div>
 
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label for="input-file" id="label-file">
+                                        <i class="material-icons">camera_alt</i>
+                                    </label>
+                                    <input type="file" name="file" id="input-file" multiple class="display-none">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer ml-auto mr-auto">
+                            <button type="submit" class="btn btn-info">{{ __('Salvar') }}</button>
+                        </div>
                     </div>
-                    <div class="card-footer ml-auto mr-auto">
-                        <button type="submit" class="btn btn-info">{{ __('Editar') }}</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="row">
@@ -47,18 +55,6 @@
                             <p class="card-category">{{ __('Dados do produto') }}</p>
                         </div>
                         <div class="card-body ">
-                            @if (session('status'))
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="alert alert-success">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                        <span>{{ session('status') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
                             <div class="row">
                                 <label class="col-sm-3 col-form-label">{{ __('Nome') }}</label>
                                 <div class="col-sm-7">

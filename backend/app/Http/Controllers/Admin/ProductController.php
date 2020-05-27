@@ -27,7 +27,7 @@ class ProductController extends Controller
         $product = ProductService::create($request->all());
         return \redirect()
             ->route('admin.product.edit', ['product' => $product])
-            ->with('status', 'Categoria cadastrada com sucesso');
+            ->with('status', 'Produto cadastrado com sucesso');
     }
     public function edit(Product $product)
     {
@@ -45,7 +45,7 @@ class ProductController extends Controller
         ProductService::update($request->all(), $product);
         return \redirect()
             ->back()
-            ->with('status', 'Categoria editada com sucesso');
+            ->with('status', 'Produto editado com sucesso');
     }
 
     public function delete(Product $product)
@@ -53,6 +53,6 @@ class ProductController extends Controller
         ProductService::delete($product);
         return \redirect()
             ->back()
-            ->with('status', 'Categoria removida com sucesso');
+            ->with('status', 'Produto removido com sucesso');
     }
 }

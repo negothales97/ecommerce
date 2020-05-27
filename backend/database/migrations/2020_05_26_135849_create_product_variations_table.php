@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductsTable extends Migration
+class CreateProductVariationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,9 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('product_variations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->string('slug');
-            $table->string('meta_title');
-            $table->string('meta_description');
-
-            $table->integer('show')->default(0);
-            $table->integer('primary')->default(0);
-            $table->integer('new')->default(0);
-            $table->integer('sale')->default(0);
-            $table->double('has_free_shipping')->default(0);
             
-            $table->double('promotional_price')->nullable();
             $table->double('price')->nullable();
             $table->double('stock')->nullable();
             $table->double('weight')->nullable();
@@ -36,6 +24,11 @@ class CreateProductsTable extends Migration
             $table->double('height')->nullable();
             $table->string('sku')->nullable();
             $table->string('barcode')->nullable();
+            
+
+            $table->integer('show')->default(1);
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });
     }
@@ -47,6 +40,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('product_variations');
     }
 }
