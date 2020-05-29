@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\Admin;
+use App\Models\Customer;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -40,7 +43,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
         $this->middleware('guest:admin');
-        $this->middleware('guest:writer');
+        $this->middleware('guest:customer');
     }
 
     /**
@@ -63,7 +66,7 @@ class RegisterController extends Controller
         return view('auth.register', ['url' => 'admin']);
     }
 
-    public function showWriterRegisterForm()
+    public function showCustomerRegisterForm()
     {
         return view('auth.register', ['url' => 'customer']);
     }
@@ -107,7 +110,7 @@ class RegisterController extends Controller
     protected function createCustomer(Request $request)
     {
         $this->validator($request->all())->validate();
-        Writer::create([
+        Customer::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),

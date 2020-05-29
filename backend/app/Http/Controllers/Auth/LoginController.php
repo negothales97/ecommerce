@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -18,7 +19,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -37,26 +38,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-            $this->middleware('guest:admin')->except('logout');
-            $this->middleware('guest:writer')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:customer')->except('logout');
     }
+
     public function showAdminLoginForm()
     {
-        return view('auth.login', [
-            'url' => Config::get('constants.guards.admin')
-        ]);
+        return view('auth.login', ['url' => 'admin']);
     }
     public function showCustomerLoginForm()
     {
-        return view('auth.login', [
-            'url' => Config::get('constants.guards.customer')
-        ]);
+        return view('auth.login', ['url' => 'customer']);
     }
     protected function validator(Request $request)
     {
         return $this->validate($request, [
-            'email'   => 'required|email',
-            'password' => 'required|min:6'
+            'email' => 'required|email',
+            'password' => 'required|min:6',
         ]);
     }
 
@@ -67,7 +65,7 @@ class LoginController extends Controller
         return Auth::guard($guard)->attempt(
             [
                 'email' => $request->email,
-                'password' => $request->password
+                'password' => $request->password,
             ],
             $request->get('remember')
         );
@@ -82,7 +80,7 @@ class LoginController extends Controller
     }
     public function customerLogin(Request $request)
     {
-        if ($this->guardLogin($request,Config::get('constants.guards.customer'))) {
+        if ($this->guardLogin($request, Config::get('constants.guards.customer'))) {
             return redirect()->intended('/customer');
         }
 
