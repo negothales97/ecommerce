@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
+Route::view('/', 'welcome');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
@@ -26,11 +27,12 @@ Route::post('/login/customer', 'Auth\LoginController@customerLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
 
-Route::view('/admin', 'admin');
+Route::view('/admin', 'admin')->middleware('admin');
 
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+    Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
     // Categorias
     Route::group(['prefix' => 'categoria', 'as' => 'category.'], function () {
         Route::get('/', 'Admin\CategoryController@index')->name('index');
