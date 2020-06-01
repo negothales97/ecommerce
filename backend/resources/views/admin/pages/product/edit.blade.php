@@ -147,7 +147,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card ">
                     <div class="card-header card-header-info">
                         <h4 class="card-title">{{ __('Tags') }}</h4>
@@ -200,7 +200,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card ">
                     <div class="card-header card-header-info">
                         <h4 class="card-title">{{ __('Categorias') }}</h4>
