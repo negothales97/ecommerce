@@ -9,6 +9,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        dd(auth()->guard()->user());
+        return view('admin.pages.dashboard.index');
     }
 }

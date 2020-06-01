@@ -15,16 +15,23 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
 Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();
+// Auth::routes();
 
-Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+
+Route::group(['prefix' => 'admin'], function(){
+    Route::get('/login', 'AdminAuth\LoginController@showLoginForm');
+    Route::post('/login', 'AdminAuth\LoginController@login');
+    Route::get('/register', 'Auth\RegisterController@showAdminRegisterForm')->name('admin.register');
+    Route::post('/register', 'Auth\RegisterController@createAdmin');
+    Route::post('/logout', 'Auth\RegisterController@logout')->name('admin.logout');
+
+});
+
+
+
 Route::get('/login/customer', 'Auth\LoginController@showCustomerLoginForm');
-Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
 Route::get('/register/customer', 'Auth\RegisterController@showCustomerRegisterForm');
-
-Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 Route::post('/login/customer', 'Auth\LoginController@customerLogin');
-Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
 
 Route::view('/admin', 'admin')->middleware('admin');
@@ -32,8 +39,8 @@ Route::view('/admin', 'admin')->middleware('admin');
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
-    Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
     // Categorias
+    Route::get('dashboard', 'Admin\DashboardController@index')->name('dashboard');
     Route::group(['prefix' => 'categoria', 'as' => 'category.'], function () {
         Route::get('/', 'Admin\CategoryController@index')->name('index');
         Route::get('/create', 'Admin\CategoryController@create')->name('create');

@@ -1,4 +1,4 @@
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+<form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
     <input type="hidden" name="_token" value="NKN81BvuQSzEbJlULUVrTDRewUlcAIJhPbOwli18"> </form>
 <div class="wrapper ">
     <div class="sidebar" data-color="azure" data-background-color="white">
@@ -14,8 +14,8 @@
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
+                <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin.dashboard') }}">
                         <i class="material-icons">dashboard</i>
                         <p>{{ __('Dashboard') }}</p>
                     </a>
@@ -88,20 +88,20 @@
                     <span class="navbar-toggler-icon icon-bar"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end">
-                    <form class="navbar-form">
+                    <!-- <form class="navbar-form">
                         <span class="bmd-form-group">
                             <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Search...">
+                                <input type="text" value="" class="form-control" placeholder="Pesquisar...">
                                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
                                     <i class="material-icons">search</i>
                                     <div class="ripple-container"></div>
                                 </button>
                             </div>
                         </span>
-                    </form>
+                    </form> -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">
                                 <i class="material-icons">dashboard</i>
                                 <p class="d-lg-none d-md-block">
                                     Stats
@@ -109,20 +109,18 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink"
+                            <a class="nav-link" href="#" id="navbarNotifications"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons">notifications</i>
-                                <span class="notification">5</span>
+                                <span class="notification">3</span>
                                 <p class="d-lg-none d-md-block">
-                                    Some Actions
+                                    Notificações
                                 </p>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                                <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                                <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                                <a class="dropdown-item" href="#">Another Notification</a>
-                                <a class="dropdown-item" href="#">Another One</a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarNotifications">
+                                <a class="dropdown-item" href="#">Novo pedido</a>
+                                <a class="dropdown-item" href="#">Novo cliente</a>
+                                <a class="dropdown-item" href="#">Novo orçamento</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -134,10 +132,10 @@
                                 </p>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
-                                <a class="dropdown-item" href="#">Settings</a>
+                                <a class="dropdown-item" href="{{ route('profile.edit') }}">Perfil</a>
+                                <a class="dropdown-item" href="#">Configurações</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                <a class="dropdown-item" href="{{ route('admin.logout') }}"
                                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">Log
                                     out</a>
                             </div>

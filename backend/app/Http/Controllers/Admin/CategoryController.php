@@ -23,9 +23,9 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        CategoryService::create($request->all());
+        $category = CategoryService::create($request->all());
         return \redirect()
-            ->back()
+            ->route('admin.category.edit', ['category' => $category])
             ->with('status', 'Categoria cadastrada com sucesso');
     }
     public function edit(Category $category)

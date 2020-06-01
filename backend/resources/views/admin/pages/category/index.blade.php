@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-primary">
+                    <div class="card-header card-header-info">
                         <h4 class="card-title ">Lista de Categorias</h4>
                         <p class="card-category"> Cadastre as categorias que tem no seu site</p>
                     </div>
@@ -26,12 +26,12 @@
                         <div class="row">
                             <div class="col-12 text-right">
                                 <a href="{{route('admin.category.create')}}"
-                                    class="btn btn-sm btn-primary">Adicionar</a>
+                                    class="btn btn-sm btn-info">Adicionar</a>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table">
-                                <thead class=" text-primary">
+                                <thead class=" text-info">
                                     <tr>
                                         <th>Nome</th>
                                         <th>URL da Categoria</th>
@@ -97,7 +97,7 @@
                                             </td>
                                             <td>
                                                 <div class="form-group">
-                                                    <input class="form-control" name="slug" id="input-slug" type="text"
+                                                    <input class="form-control input-slug" name="slug" id="input-slug" type="text"
                                                         placeholder="{{ __('URL da Categoria') }}"
                                                         value="{{ old('slug') }}" required="true"
                                                         aria-required="true" />
@@ -136,7 +136,7 @@
                                                         <i class="material-icons">done</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
-                                                    <a rel="tooltip" class="btn btn-link btn-danger" href="#">
+                                                    <a rel="tooltip" class="btn btn-link btn-danger cancelCategory" href="#">
                                                         <i class="material-icons">close</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
@@ -184,6 +184,8 @@ $('.subcategory').on('click', function(e) {
 });
 
 let btnStore = document.querySelector('.storeCategory');
+// let cancelStore = document.querySelector('.cancelCategory');
+
 btnStore.addEventListener("click", (e) => {
     e.preventDefault();
     let form = $('.addSubcategory form');

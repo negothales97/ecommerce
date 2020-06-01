@@ -8,7 +8,7 @@
                     @csrf
 
                     <div class="card ">
-                        <div class="card-header card-header-primary">
+                        <div class="card-header card-header-info">
                             <h4 class="card-title">{{ __('Criar Categoria') }}</h4>
                             <p class="card-category">{{ __('Dados da categoria') }}</p>
                         </div>
@@ -88,7 +88,7 @@
                             
                         </div>
                         <div class="card-footer ml-auto mr-auto">
-                            <button type="submit" class="btn btn-primary">{{ __('Adicionar') }}</button>
+                            <button type="submit" class="btn btn-info">{{ __('Adicionar') }}</button>
                         </div>
                     </div>
                 </form>

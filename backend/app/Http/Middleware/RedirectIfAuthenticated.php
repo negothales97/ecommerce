@@ -18,13 +18,9 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($guard == "customer" && Auth::guard($guard)->check()) {
-            return redirect('/customer');
-        }
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            return redirect('/admin/dashboard');
         }
-
         return $next($request);
     }
 }
