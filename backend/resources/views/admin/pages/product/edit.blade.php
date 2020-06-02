@@ -336,13 +336,11 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#select-category').select2();
+
     $("#select-tag").select2({
         tags: true,
         tokenSeparators: [',', ' ']
     });
-    getVariations();
-    $('#select-variation').select2();
-    $('#select-variation-option').select2();
 });
 
 const getVariations = async () => {
@@ -352,7 +350,7 @@ const getVariations = async () => {
         })
         .catch(error => console.log(error));
 }
-const getVariationOptions = async (variationId)=> {
+const getVariationOptions = async (variationId) => {
     let url = `{{route('api.variation.show', ['variation' => 'variationValue'])}}`;
     url = url.replace('variationValue', variationId);
     return await axios.get(url)
@@ -374,21 +372,22 @@ window.onload = async () => {
     let selectCategories = document.querySelector('#select-category');
 
     let variations = await getVariations();
+
     let selectVariations = document.querySelector('#select-variation');
 
     await createOptions(categories.data, selectCategories);
     await createOptions(variations.data, selectVariations);
 }
-$('#select-variation').on('change', function(){
-    teste($(this).val());
-});
+// $('#select-variation').on('change', function() {
+//     teste($(this).val());
+// });
 
-const teste = async (optionId) => {
-    let options = await getVariationOptions(optionId);  
-    console.log(options);
-}
+// const teste = async (optionId) => {
+//     let options = await getVariationOptions(optionId);
+//     console.log(options);
+// }
 
-const createOptions = async (options, select) =>{
+const createOptions = async (options, select) => {
     options.forEach((option) => {
         let optionElement = document.createElement('option');
         let textOption = document.createTextNode(option.name);
@@ -400,6 +399,11 @@ const createOptions = async (options, select) =>{
 
 $('.addVariation').on('click', function() {
     $('#modalAddVariation').modal('show');
+});
+$('.new-variation').on('click', function(e){
+    e.preventDefault();
+    $('.new-variation').toggleClass('display-none');
+    $('.main-variation').toggleClass('display-none');
 });
 </script>
 @endsection
@@ -424,19 +428,48 @@ $('.addVariation').on('click', function() {
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
-                                <label for="select-variation">Propriedade</label>
-                                <select class="form-control" name="variation_id" id="select-variation">
-                                </select>
+                            <button class="btn btn-link btn-info new-variation">Adicionar Nova propriedade</button>
+                        </div>
+                    </div>
+                    <div class="main-variation">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="select-variation">Propriedade</label>
+                                    <select class="form-control" name="variation_id" id="select-variation">
+                                        <option disabled selected>Selecione..</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="select-variation-option">Valores da propriedade selecionadas</label>
+                                    <select class="form-control" name="variation_option" id="select-variation-option">
+                                        <option disabled selected>Selecione..</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label for="select-variation-option">Valores da propriedade selecionadas</label>
-                                <select class="form-control" name="variation_option" id="select-variation-option">
-                                </select>
+                    <div class="new-variation display-none">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="input-variation">Propriedade</label>
+                                    <input type="text" class="form-control" name="variation_name" id="input-variation">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="input-variation-option">Valores da propriedade selecionadas (separe por
+                                        vírgula)</label>
+                                    <input type="text" class="form-control" name="variation_name_option"
+                                        id="input-variation-option">
+                                </div>
                             </div>
                         </div>
                     </div>
