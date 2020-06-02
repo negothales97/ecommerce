@@ -153,10 +153,77 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title ">Variações</h4>
+                        <p class="card-category"> Exemplos de variações são: cores e tamanhos</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 text-right">
+                                <a href="#" class="btn btn-sm btn-info addVariation">Adicionar Variáveis</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-info">
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>URL do Produto</th>
+                                        <th>Título para SEO</th>
+                                        <th>Descrição para SEO</th>
+                                        <th class="text-right">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($product->products as $product)
+                                    <tr>
+                                        <td>{{$product->name}}</td>
+                                        <td>{{$product->slug}}</td>
+                                        <td>{{$product->meta_title}}</td>
+                                        <td>{{$product->meta_description}}</td>
+                                        <td class="td-actions text-right">
+                                            <div class="btn-group">
+                                                <a rel="tooltip" class="btn btn-info"
+                                                    href="{{route('admin.product.edit', ['product' => $product])}}"
+                                                    title="Editar">
+                                                    <i class="material-icons">edit</i>
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                                <a rel="tooltip" class="btn btn-danger btn-delete" href="#"
+                                                    title="Remover">
+                                                    <i class="material-icons">delete</i>
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </div>
+                                            <form id="delete-form"
+                                                action="{{route('admin.product.delete', ['product' => $product])}}"
+                                                method="POST" style="display: none;">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="5">Nenhum variação cadastrada</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="card ">
                     <div class="card-header card-header-info">
                         <h4 class="card-title">{{ __('Tags') }}</h4>
+                        <p class="card-category"> Exemplos de variações são: cores e tamanhos</p>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -210,6 +277,8 @@
                 <div class="card ">
                     <div class="card-header card-header-info">
                         <h4 class="card-title">{{ __('Categorias') }}</h4>
+                        <p class="card-category"> Você vai ajudar seus clientes a encontrarem seus produtos mais rápido.
+                        </p>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -271,7 +340,27 @@ $(document).ready(function() {
         tags: true,
         tokenSeparators: [',', ' ']
     });
+    getVariations();
+    $('#select-variation').select2();
+    $('#select-variation-option').select2();
 });
+
+const getVariations = async () => {
+    return await axios.get(`{{route('api.variation.index')}}`)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => console.log(error));
+}
+const getVariationOptions = async (variationId)=> {
+    let url = `{{route('api.variation.show', ['variation' => 'variationValue'])}}`;
+    url = url.replace('variationValue', variationId);
+    return await axios.get(url)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => console.log(error));
+}
 
 const getCategories = async () => {
     return await axios.get(`{{route('api.category.index')}}`)
@@ -279,22 +368,87 @@ const getCategories = async () => {
             return response.data;
         }).catch(error => console.log(error));
 }
+
 window.onload = async () => {
     let categories = await getCategories();
     let selectCategories = document.querySelector('#select-category');
 
-    categories.data.forEach((category) => {
-        let option = document.createElement('option');
-        let textOption = document.createTextNode(category.name);
-        option.value = category.id;
-        option.appendChild(textOption);
-        selectCategories.appendChild(option)
+    let variations = await getVariations();
+    let selectVariations = document.querySelector('#select-variation');
+
+    await createOptions(categories.data, selectCategories);
+    await createOptions(variations.data, selectVariations);
+}
+$('#select-variation').on('change', function(){
+    teste($(this).val());
+});
+
+const teste = async (optionId) => {
+    let options = await getVariationOptions(optionId);  
+    console.log(options);
+}
+
+const createOptions = async (options, select) =>{
+    options.forEach((option) => {
+        let optionElement = document.createElement('option');
+        let textOption = document.createTextNode(option.name);
+        optionElement.value = option.id;
+        optionElement.appendChild(textOption);
+        select.appendChild(optionElement)
     });
 }
+
+$('.addVariation').on('click', function() {
+    $('#modalAddVariation').modal('show');
+});
 </script>
 @endsection
 
 @section('modals')
+<div class="modal fade" id="modalAddVariation" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar Variáveis</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{route('admin.product.category.store', ['product' => $product])}}" method="post"
+                autocomplete="off" class="form-horizontal">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="select-variation">Propriedade</label>
+                                <select class="form-control" name="variation_id" id="select-variation">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="select-variation-option">Valores da propriedade selecionadas</label>
+                                <select class="form-control" name="variation_option" id="select-variation-option">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-info">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

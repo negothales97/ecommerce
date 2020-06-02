@@ -25,6 +25,10 @@ class Product extends Model
         return $this->hasMany('App\Models\ProductImage', 'product_id');
     }
 
+    public function products()
+    {
+        return $this->hasMany('App\Models\ProductVariation', 'product_id');
+    }
    
     public function categories()
     {
