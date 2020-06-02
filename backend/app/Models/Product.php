@@ -20,6 +20,11 @@ class Product extends Model
         'meta_description',
     ];
 
+    public function images()
+    {
+        return $this->hasMany('App\Models\ProductImage', 'product_id');
+    }
+
    
     public function categories()
     {

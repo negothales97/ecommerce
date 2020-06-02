@@ -18,7 +18,8 @@
             <div class="col-md-12">
                 @csrf
                 @method('put')
-                <form id="images" method="POST" action="{{route('admin.product.image.store', ['product' => $product])}}" enctype="multipart/form-data">
+                <form id="images" method="POST" action="{{route('admin.product.image.store', ['product' => $product])}}"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header card-header-info">
@@ -33,6 +34,11 @@
                                     </label>
                                     <input type="file" name="file" id="input-file" multiple class="display-none">
                                 </div>
+                                @foreach($product->images as $image)
+                                <div class="col-sm-4">
+                                    <img src="{{asset('uploads/products/thumbnail/')}}/{{$image->file}}" alt="">
+                                </div>
+                                @endforeach
                             </div>
 
                         </div>
