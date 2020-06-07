@@ -1,19 +1,13 @@
 @extends('admin.templates.default', ['activePage' => 'product', 'titlePage' => __('Produtos')])
 @section('content')
 <div class="content">
-    <div class="container-fluid">
-        @if (session('status'))
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <i class="material-icons">close</i>
-                    </button>
-                    <span>{{ session('status') }}</span>
-                </div>
-            </div>
+    <nav class="navbar sticky-top navbar-light bg-default">
+        <div class="container">
+            <button type="submit" class="btn btn-default btn-link"><i class="material-icons">delete_outline</i>{{ __('Apagar') }}</button>
+            <button type="submit" class="btn btn-info" id="save">{{ __('Salvar Alterações') }}</button>
         </div>
-        @endif
+    </nav>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 @csrf
@@ -50,7 +44,7 @@
             </div>
         </div>
 
-        <form method="post" action="{{ route('admin.product.update', ['product' => $product]) }}" autocomplete="off"
+        <form method="post" action="{{ route('admin.product.update', ['product' => $product]) }}" autocomplete="off" id="formUpdate"
             class="form-horizontal">
             @csrf
             @method('put')
@@ -144,7 +138,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -533,14 +526,19 @@ window.onload = async () => {
     await createOptions(categories.data, selectCategories);
     await createOptions(variations.data, selectVariations);
 }
-// $('#select-variation').on('change', function() {
-//     teste($(this).val());
-// });
+$('#select-variation').on('change', function() {
+    requestSend($(this).val());
+});
 
-// const teste = async (optionId) => {
-//     let options = await getVariationOptions(optionId);
-//     console.log(options);
-// }
+const requestSend = async (optionId) => {
+    let variation = await getVariationOptions(optionId);
+    console.log(variation.options);
+}
+
+$('#save').on('click', function(e){
+    e.preventDefault();
+    $('#formUpdate').submit();
+});
 
 const createOptions = async (options, select) => {
     options.forEach((option) => {

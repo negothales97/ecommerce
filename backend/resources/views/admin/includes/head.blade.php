@@ -6,7 +6,6 @@
 <!-- Canonical SEO -->
 <link rel="canonical" href="https://www.creative-tim.com/product/material-dashboard-laravel" />
 
-
 <!--  Social tags      -->
 <meta name="keywords"
     content="creative tim, html dashboard, laravel, html css dashboard laravel, web dashboard, bootstrap 4 dashboard laravel, bootstrap 4, css3 dashboard, bootstrap 4 admin laravel, material ui dashboard bootstrap 4 laravel, frontend, responsive bootstrap 4 dashboard, material design, material laravel bootstrap 4 dashboard">
@@ -57,5 +56,3 @@
 <!-- CSS Files -->
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
 <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.3" rel="stylesheet" />
-<!-- CSS Just for demo purpose, don't include it in your project -->
-<!-- <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" /> -->
