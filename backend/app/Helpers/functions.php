@@ -30,3 +30,33 @@ function getNameFile($name, $originalImage)
 
     return $fileName;
 }
+
+
+function convertMoneyBrazilToUSA($value)
+{
+    $value = str_replace(',', '.', str_replace('.', '', $value));
+    $value = floatval($value);
+
+    return $value;
+}
+function convertMoneyUSAToBrazil($value)
+{
+    $value = number_format($value, 2, ',', '.');
+
+    return $value;
+}
+
+function convertDateBrazilToUSA($date)
+{
+    $date = implode("-", array_reverse(explode("/", $date)));
+
+    return $date;
+}
+
+function convertDateUSAToBrazil($date)
+{
+    // $date = implode("/", array_reverse(explode("-", $date)));
+    $date = date("d/m/Y", strtotime($date));
+    return $date;
+}
+

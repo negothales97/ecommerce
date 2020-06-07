@@ -74,6 +74,15 @@ function slugify(string) {
     .replace(/-+$/, '') // Trim - from end of text
     */
 }
+const createOptions = async (options, select) => {
+    options.forEach((option) => {
+        let optionElement = document.createElement('option');
+        let textOption = document.createTextNode(option.name);
+        optionElement.value = option.id;
+        optionElement.appendChild(textOption);
+        select.appendChild(optionElement)
+    });
+}
 
 $('.input-slug').keyup(function() {
     var slug = slugify($(this).val());

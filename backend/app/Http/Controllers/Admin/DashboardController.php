@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Product;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.dashboard.index');
+        $categories = Category::get();
+        $products = Product::get();
+        return view('admin.pages.dashboard.index')
+            ->with('categories', $categories)
+            ->with('products', $products);
     }
 }

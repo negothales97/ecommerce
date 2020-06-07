@@ -3,7 +3,8 @@
 <div class="content">
     <nav class="navbar sticky-top navbar-light bg-default">
         <div class="container">
-            <button type="submit" class="btn btn-default btn-link"><i class="material-icons">delete_outline</i>{{ __('Apagar') }}</button>
+            <button type="submit" class="btn btn-default btn-link"><i
+                    class="material-icons">delete_outline</i>{{ __('Apagar') }}</button>
             <button type="submit" class="btn btn-info" id="save">{{ __('Salvar Alterações') }}</button>
         </div>
     </nav>
@@ -22,17 +23,22 @@
 
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <label for="input-file" id="label-file">
-                                        <i class="material-icons">camera_alt</i>
-                                    </label>
-                                    <input type="file" name="file" id="input-file" multiple class="display-none">
-                                </div>
                                 @foreach($product->images as $image)
-                                <div class="col-sm-4">
-                                    <img src="{{asset('uploads/products/thumbnail/')}}/{{$image->file}}" alt="">
+                                <div class="col-sm-3 ">
+                                    <div class="d-flex justify-content-center">
+                                        <img src="{{asset('uploads/products/thumbnail/')}}/{{$image->file}}"
+                                            class="product-img mx-auto">
+                                    </div>
                                 </div>
                                 @endforeach
+                                <div class="col-sm-3">
+                                    <div class="d-flex justify-content-center">
+                                        <label for="input-file" id="label-file">
+                                            <i class="material-icons">camera_alt</i>
+                                        </label>
+                                        <input type="file" name="file" id="input-file" multiple class="display-none">
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -44,8 +50,8 @@
             </div>
         </div>
 
-        <form method="post" action="{{ route('admin.product.update', ['product' => $product]) }}" autocomplete="off" id="formUpdate"
-            class="form-horizontal">
+        <form method="post" action="{{ route('admin.product.update', ['product' => $product]) }}" autocomplete="off"
+            id="formUpdate" class="form-horizontal">
             @csrf
             @method('put')
             <div class="row">
@@ -319,25 +325,27 @@
                         <table class="table">
                             <thead class=" text-info">
                                 <tr>
-                                    <th>Nome</th>
-                                    <th>URL do Produto</th>
-                                    <th>Título para SEO</th>
-                                    <th>Descrição para SEO</th>
+                                    <th>Foto</th>
+                                    <th>Variação</th>
+                                    <th>Estoque</th>
+                                    <th>Preço</th>
+                                    <th>Peso</th>
                                     <th class="text-right">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($product->products as $product)
+                                @forelse($product->products as $variation)
                                 <tr>
-                                    <td>{{$product->name}}</td>
-                                    <td>{{$product->slug}}</td>
-                                    <td>{{$product->meta_title}}</td>
-                                    <td>{{$product->meta_description}}</td>
+                                    <td>
+                                        <img class="photo" src="{{asset('img/no-photo-50.png')}}" alt="" width="50">
+                                    </td>
+                                    <td>{{$variation->variation}}</td>
+                                    <td> @if($variation->stock == null)&infin; @else $variation->stock @endif</td>
+                                    <td>R$ {!!convertMoneyUSAToBrazil($variation->price)!!}</td>
+                                    <td>{{convertMoneyUSAToBrazil($variation->weight)}} Kg</td>
                                     <td class="td-actions text-right">
                                         <div class="btn-group">
-                                            <a rel="tooltip" class="btn btn-info"
-                                                href="{{route('admin.product.edit', ['product' => $product])}}"
-                                                title="Editar">
+                                            <a rel="tooltip" class="btn btn-info" href="#" title="Editar">
                                                 <i class="material-icons">edit</i>
                                                 <div class="ripple-container"></div>
                                             </a>
@@ -347,7 +355,7 @@
                                             </a>
                                         </div>
                                         <form id="delete-form"
-                                            action="{{route('admin.product.delete', ['product' => $product])}}"
+                                            action="{{route('admin.product.delete', ['product' => $variation])}}"
                                             method="POST" style="display: none;">
                                             @csrf
                                             @method('delete')
@@ -532,23 +540,15 @@ $('#select-variation').on('change', function() {
 
 const requestSend = async (optionId) => {
     let variation = await getVariationOptions(optionId);
-    console.log(variation.options);
+    let selectOption = document.querySelector('#select-variation-option');
+    createOptions(variation.options, selectOption);
 }
 
-$('#save').on('click', function(e){
+$('#save').on('click', function(e) {
     e.preventDefault();
     $('#formUpdate').submit();
 });
 
-const createOptions = async (options, select) => {
-    options.forEach((option) => {
-        let optionElement = document.createElement('option');
-        let textOption = document.createTextNode(option.name);
-        optionElement.value = option.id;
-        optionElement.appendChild(textOption);
-        select.appendChild(optionElement)
-    });
-}
 
 $('.addVariation').on('click', function() {
     $('#modalAddVariation').modal('show');

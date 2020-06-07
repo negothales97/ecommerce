@@ -11,12 +11,12 @@
                             <i class="material-icons">category</i>
                         </div>
                         <p class="card-category">Categorias</p>
-                        <h3 class="card-title">0
+                        <h3 class="card-title">{{$categories->count()}}
                         </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <a href="#">Mais informações</a>
+                            <a href="{{route('admin.category.index')}}">Mais informações</a>
                         </div>
                     </div>
                 </div>
@@ -57,14 +57,14 @@
                 <div class="card card-stats">
                     <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
-                            <i class="material-icons">view_list</i>
+                            <i class="material-icons">local_offer</i>
                         </div>
-                        <p class="card-category">Pedidos</p>
-                        <h3 class="card-title">10</h3>
+                        <p class="card-category">Produtos</p>
+                        <h3 class="card-title">{{$products->count()}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <a href="#">Mais informações</a>
+                            <a href="{{route('admin.product.index')}}">Mais informações</a>
                         </div>
                     </div>
                 </div>

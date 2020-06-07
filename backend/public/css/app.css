@@ -10940,18 +10940,42 @@ a.text-dark:focus {
 #label-file {
   height: 150px;
   width: 150px;
-  padding: 10px;
   border: 2px #d6d6d6 dashed;
+  position: relative;
   text-align: center;
   cursor: pointer;
 }
 
 #label-file i {
   font-size: 45px;
+  position: absolute;
+  top: 52px;
+  left: 52px;
   color: #d6d6d6;
 }
 
 #label-file:hover i {
   color: #575757;
+}
+
+.photo {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 3px;
+  background: #FAFAFA;
+  border: 1px solid;
+  border-top: #EEE;
+  border-left: #DDD;
+  border-right: #DDD;
+  border-bottom: #CCC;
+}
+
+.product-img {
+  width: 150px;
+  height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid #000;
+  border-radius: 2px;
 }
 

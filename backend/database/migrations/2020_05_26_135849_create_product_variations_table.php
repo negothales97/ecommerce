@@ -23,9 +23,12 @@ class CreateProductVariationsTable extends Migration
             $table->double('width')->nullable();
             $table->double('height')->nullable();
             $table->string('sku')->nullable();
-            $table->string('barcode')->nullable();
-    
+            $table->string('barcode')->nullable();           
+            
             $table->integer('show')->default(1);
+            $table->unsignedBigInteger('variation_id');
+            $table->unsignedBigInteger('variation_option_id');
+            $table->unsignedBigInteger('product_image_id')->nullable();           
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
