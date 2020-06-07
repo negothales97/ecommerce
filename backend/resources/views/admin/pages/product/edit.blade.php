@@ -49,12 +49,13 @@
                 </form>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <form method="post" action="{{ route('admin.product.update', ['product' => $product]) }}"
-                    autocomplete="off" class="form-horizontal">
-                    @csrf
-                    @method('put')
+
+        <form method="post" action="{{ route('admin.product.update', ['product' => $product]) }}" autocomplete="off"
+            class="form-horizontal">
+            @csrf
+            @method('put')
+            <div class="row">
+                <div class="col-md-12">
                     <div class="card ">
                         <div class="card-header card-header-info">
                             <h4 class="card-title">{{ __('Editar Produto') }}</h4>
@@ -145,60 +146,264 @@
                             </div>
 
                         </div>
-                        <div class="card-footer ml-auto mr-auto">
-                            <button type="submit" class="btn btn-info">{{ __('Editar') }}</button>
-                        </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-info">
-                        <h4 class="card-title ">Variações</h4>
-                        <p class="card-category"> Exemplos de variações são: cores e tamanhos</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 text-right">
-                                <a href="#" class="btn btn-sm btn-info addVariation">Adicionar Variáveis</a>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card ">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">{{ __('Preços') }}</h4>
+                        </div>
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('price') ? ' has-danger' : '' }}">
+                                        <input
+                                            class="input-money form-control{{ $errors->has('price') ? ' is-invalid' : '' }}"
+                                            name="price" id="input-price" type="text"
+                                            placeholder="{{ __('Preço Original') }}"
+                                            value="{{ old('price', $product->price) }}" required="true"
+                                            aria-required="true" />
+                                        @if ($errors->has('price'))
+                                        <span id="price-error" class="error text-danger"
+                                            for="input-price">{{ $errors->first('price') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('promotional_price') ? ' has-danger' : '' }}">
+                                        <input
+                                            class="input-money form-control{{ $errors->has('promotional_price') ? ' is-invalid' : '' }}"
+                                            name="promotional_price" id="input-promotional_price" type="text"
+                                            placeholder="{{ __('Preço Promocional') }}"
+                                            value="{{ old('promotional_price', $product->promotional_price) }}"
+                                            required="true" aria-required="true" />
+                                        @if ($errors->has('promotional_price'))
+                                        <span id="promotional_price-error" class="error text-danger"
+                                            for="input-promotional_price">{{ $errors->first('promotional_price') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">{{ __('Gestão') }}</h4>
+                        </div>
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('stock') ? ' has-danger' : '' }}">
+                                        <input class="form-control{{ $errors->has('stock') ? ' is-invalid' : '' }}"
+                                            name="stock" id="input-stock" type="text" placeholder="{{ __('Estoque') }}"
+                                            value="{{ old('stock', $product->stock) }}" required="true"
+                                            aria-required="true" />
+                                        @if ($errors->has('stock'))
+                                        <span id="stock-error" class="error text-danger"
+                                            for="input-stock">{{ $errors->first('stock') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('sku') ? ' has-danger' : '' }}">
+                                        <input class="form-control{{ $errors->has('sku') ? ' is-invalid' : '' }}"
+                                            name="sku" id="input-sku" type="text" placeholder="{{ __('SKU') }}"
+                                            value="{{ old('sku', $product->sku) }}" required="true"
+                                            aria-required="true" />
+                                        @if ($errors->has('sku'))
+                                        <span id="sku-error" class="error text-danger"
+                                            for="input-sku">{{ $errors->first('sku') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('barcode') ? ' has-danger' : '' }}">
+                                        <input class="form-control{{ $errors->has('barcode') ? ' is-invalid' : '' }}"
+                                            name="barcode" id="input-barcode" type="text"
+                                            placeholder="{{ __('Código de barras (GTIN, EAN, ISBN, etc.)') }}"
+                                            value="{{ old('barcode', $product->barcode) }}" required="true"
+                                            aria-required="true" />
+                                        @if ($errors->has('barcode'))
+                                        <span id="barcode-error" class="error text-danger"
+                                            for="input-barcode">{{ $errors->first('barcode') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">{{ __('Peso e Dimensões') }}</h4>
+                        </div>
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group{{ $errors->has('weight') ? ' has-danger' : '' }}">
+                                        <input
+                                            class="input-money form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}"
+                                            name="weight" id="input-weight" type="text" placeholder="{{ __('Peso') }}"
+                                            value="{{ old('weight', $product->weight) }}" required="true"
+                                            aria-required="true" />
+                                        @if ($errors->has('weight'))
+                                        <span id="weight-error" class="error text-danger"
+                                            for="input-weight">{{ $errors->first('weight') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group{{ $errors->has('depth') ? ' has-danger' : '' }}">
+                                        <input
+                                            class="input-money form-control{{ $errors->has('depth') ? ' is-invalid' : '' }}"
+                                            name="depth" id="input-depth" type="text"
+                                            placeholder="{{ __('Comprimento') }}"
+                                            value="{{ old('depth', $product->depth) }}" required="true"
+                                            aria-required="true" />
+                                        @if ($errors->has('depth'))
+                                        <span id="depth-error" class="error text-danger"
+                                            for="input-depth">{{ $errors->first('depth') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group{{ $errors->has('width') ? ' has-danger' : '' }}">
+                                        <input
+                                            class="input-money form-control{{ $errors->has('width') ? ' is-invalid' : '' }}"
+                                            name="width" id="input-width" type="text" placeholder="{{ __('Largura') }}"
+                                            value="{{ old('width', $product->width) }}" required="true"
+                                            aria-required="true" />
+                                        @if ($errors->has('width'))
+                                        <span id="width-error" class="error text-danger"
+                                            for="input-width">{{ $errors->first('width') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group{{ $errors->has('height') ? ' has-danger' : '' }}">
+                                        <input
+                                            class="input-money form-control{{ $errors->has('height') ? ' is-invalid' : '' }}"
+                                            name="height" id="input-height" type="text" placeholder="{{ __('Altura') }}"
+                                            value="{{ old('height', $product->height) }}" required="true"
+                                            aria-required="true" />
+                                        @if ($errors->has('height'))
+                                        <span id="height-error" class="error text-danger"
+                                            for="input-height">{{ $errors->first('height') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">Variações</h4>
+                    <p class="card-category"> Exemplos de variações são: cores e tamanhos</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <a href="#" class="btn btn-sm btn-info addVariation">Adicionar Variáveis</a>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-info">
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>URL do Produto</th>
+                                    <th>Título para SEO</th>
+                                    <th>Descrição para SEO</th>
+                                    <th class="text-right">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($product->products as $product)
+                                <tr>
+                                    <td>{{$product->name}}</td>
+                                    <td>{{$product->slug}}</td>
+                                    <td>{{$product->meta_title}}</td>
+                                    <td>{{$product->meta_description}}</td>
+                                    <td class="td-actions text-right">
+                                        <div class="btn-group">
+                                            <a rel="tooltip" class="btn btn-info"
+                                                href="{{route('admin.product.edit', ['product' => $product])}}"
+                                                title="Editar">
+                                                <i class="material-icons">edit</i>
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                            <a rel="tooltip" class="btn btn-danger btn-delete" href="#" title="Remover">
+                                                <i class="material-icons">delete</i>
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </div>
+                                        <form id="delete-form"
+                                            action="{{route('admin.product.delete', ['product' => $product])}}"
+                                            method="POST" style="display: none;">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="5">Nenhum variação cadastrada</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title">{{ __('Tags') }}</h4>
+                    <p class="card-category"> Exemplos de variações são: cores e tamanhos</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-info">
                                     <tr>
                                         <th>Nome</th>
-                                        <th>URL do Produto</th>
-                                        <th>Título para SEO</th>
-                                        <th>Descrição para SEO</th>
                                         <th class="text-right">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($product->products as $product)
+                                    @forelse($tags as $tag)
                                     <tr>
-                                        <td>{{$product->name}}</td>
-                                        <td>{{$product->slug}}</td>
-                                        <td>{{$product->meta_title}}</td>
-                                        <td>{{$product->meta_description}}</td>
+                                        <td>{{$tag->name}}</td>
                                         <td class="td-actions text-right">
                                             <div class="btn-group">
-                                                <a rel="tooltip" class="btn btn-info"
-                                                    href="{{route('admin.product.edit', ['product' => $product])}}"
-                                                    title="Editar">
-                                                    <i class="material-icons">edit</i>
-                                                    <div class="ripple-container"></div>
-                                                </a>
-                                                <a rel="tooltip" class="btn btn-danger btn-delete" href="#"
-                                                    title="Remover">
+                                                <a rel="tooltip" class="btn btn-lg btn-link" href="#" title="Remover">
                                                     <i class="material-icons">delete</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
                                             </div>
                                             <form id="delete-form"
-                                                action="{{route('admin.product.delete', ['product' => $product])}}"
+                                                action="{{route('admin.product.tag.delete', ['product' => $product, 'tag'=> $tag])}}"
                                                 method="POST" style="display: none;">
                                                 @csrf
                                                 @method('delete')
@@ -208,7 +413,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="5">Nenhum variação cadastrada</td>
+                                        <td>Nenhuma tag vinculada</td>
                                     </tr>
                                     @endforelse
                                 </tbody>
@@ -216,120 +421,70 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card ">
-                    <div class="card-header card-header-info">
-                        <h4 class="card-title">{{ __('Tags') }}</h4>
-                        <p class="card-category"> Exemplos de variações são: cores e tamanhos</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class=" text-info">
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th class="text-right">Ações</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($tags as $tag)
-                                        <tr>
-                                            <td>{{$tag->name}}</td>
-                                            <td class="td-actions text-right">
-                                                <div class="btn-group">
-                                                    <a rel="tooltip" class="btn btn-lg btn-link" href="#"
-                                                        title="Remover">
-                                                        <i class="material-icons">delete</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                </div>
-                                                <form id="delete-form"
-                                                    action="{{route('admin.product.tag.delete', ['product' => $product, 'tag'=> $tag])}}"
-                                                    method="POST" style="display: none;">
-                                                    @csrf
-                                                    @method('delete')
-                                                </form>
-
-                                            </td>
-                                        </tr>
-                                        @empty
-                                        <tr>
-                                            <td>Nenhuma tag vinculada</td>
-                                        </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer ml-auto mr-auto">
-                        <button class="btn btn-info btn-fab btn-round" data-toggle="modal" data-target="#addTag">
-                            <i class="material-icons">add</i>
-                        </button>
-                    </div>
+                <div class="card-footer ml-auto mr-auto">
+                    <button class="btn btn-info btn-fab btn-round" data-toggle="modal" data-target="#addTag">
+                        <i class="material-icons">add</i>
+                    </button>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card ">
-                    <div class="card-header card-header-info">
-                        <h4 class="card-title">{{ __('Categorias') }}</h4>
-                        <p class="card-category"> Você vai ajudar seus clientes a encontrarem seus produtos mais rápido.
-                        </p>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class=" text-info">
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th class="text-right">Ações</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($categories as $category)
-                                        <tr>
-                                            <td>{{$category->name}}</td>
-                                            <td class="td-actions text-right">
-                                                <div class="btn-group">
-                                                    <a rel="tooltip" class="btn btn-lg btn-link" href="#"
-                                                        title="Remover">
-                                                        <i class="material-icons">delete</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                </div>
-                                                <form id="delete-form"
-                                                    action="{{route('admin.product.category.delete', ['product' => $product, 'category'=> $category])}}"
-                                                    method="POST" style="display: none;">
-                                                    @csrf
-                                                    @method('delete')
-                                                </form>
+        </div>
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title">{{ __('Categorias') }}</h4>
+                    <p class="card-category"> Você vai ajudar seus clientes a encontrarem seus produtos mais rápido.
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-info">
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th class="text-right">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($categories as $category)
+                                    <tr>
+                                        <td>{{$category->name}}</td>
+                                        <td class="td-actions text-right">
+                                            <div class="btn-group">
+                                                <a rel="tooltip" class="btn btn-lg btn-link" href="#" title="Remover">
+                                                    <i class="material-icons">delete</i>
+                                                    <div class="ripple-container"></div>
+                                                </a>
+                                            </div>
+                                            <form id="delete-form"
+                                                action="{{route('admin.product.category.delete', ['product' => $product, 'category'=> $category])}}"
+                                                method="POST" style="display: none;">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
 
-                                            </td>
-                                        </tr>
-                                        @empty
-                                        <tr>
-                                            <td>Nenhuma categoria vinculada</td>
-                                        </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        <td>Nenhuma categoria vinculada</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="card-footer ml-auto mr-auto">
-                        <button class="btn btn-info btn-fab btn-round" data-toggle="modal" data-target="#addCategory">
-                            <i class="material-icons">add</i>
-                        </button>
-                    </div>
+                </div>
+                <div class="card-footer ml-auto mr-auto">
+                    <button class="btn btn-info btn-fab btn-round" data-toggle="modal" data-target="#addCategory">
+                        <i class="material-icons">add</i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 @endsection
 @section('scripts')
@@ -466,7 +621,8 @@ $('.new-variation-btn').on('click', function(e) {
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <button class="btn btn-link btn-sm btn-info new-variation-btn">Adicionar Nova propriedade</button>
+                            <button class="btn btn-link btn-sm btn-info new-variation-btn">Adicionar Nova
+                                propriedade</button>
                         </div>
                     </div>
                 </div>

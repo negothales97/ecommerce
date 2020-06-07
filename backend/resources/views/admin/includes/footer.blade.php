@@ -51,8 +51,12 @@
 <script src="{{ asset('material') }}/demo/demo.js"></script>
 <script src="{{ asset('material') }}/js/settings.js"></script>
 <script src="{{asset('js/mask.js')}}"></script>
+<!-- Select 2 -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<!-- MaskMoney -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+<!-- Axios -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 function slugify(string) {
@@ -74,6 +78,12 @@ function slugify(string) {
 $('.input-slug').keyup(function() {
     var slug = slugify($(this).val());
     $(this).val(slug);
+});
+$(".input-money").maskMoney({
+    thousands: '.',
+    decimal: ',',
+    allowZero: true,
+    symbolStay: true
 });
 </script>
 

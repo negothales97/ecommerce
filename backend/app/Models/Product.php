@@ -9,15 +9,23 @@ class Product extends Model
     protected $fillable = [
         'name',
         'description',
-        'status',
+        'slug',
+        'meta_title',
+        'meta_description',
+        'show',
         'primary',
         'new',
         'sale',
-        'slug',
+        'has_free_shipping',
+        'promotional_price',
         'price',
         'stock',
-        'meta_title',
-        'meta_description',
+        'weight',
+        'depth',
+        'width',
+        'height',
+        'sku',
+        'barcode',
     ];
 
     public function images()
