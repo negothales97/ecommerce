@@ -72,6 +72,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
             Route::post('/', 'Admin\ProductTagController@store')->name('store');
             Route::delete('/delete/{tag}', 'Admin\ProductTagController@delete')->name('delete');
         });
+        // Variação do produto
+        Route::group(['prefix' => '{product}/variation', 'as' => 'variation.'], function () {
+            Route::post('/', 'Admin\ProductVariationController@store')->name('store');
+            Route::delete('/delete/{variation}', 'Admin\ProductVariationController@delete')->name('delete');
+        });
     });
 });
 

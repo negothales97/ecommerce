@@ -400,7 +400,7 @@ const createOptions = async (options, select) => {
 $('.addVariation').on('click', function() {
     $('#modalAddVariation').modal('show');
 });
-$('.new-variation').on('click', function(e){
+$('.new-variation-btn').on('click', function(e) {
     e.preventDefault();
     $('.new-variation').toggleClass('display-none');
     $('.main-variation').toggleClass('display-none');
@@ -418,19 +418,10 @@ $('.new-variation').on('click', function(e){
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{route('admin.product.category.store', ['product' => $product])}}" method="post"
+            <form action="{{route('admin.product.variation.store', ['product' => $product])}}" method="post"
                 autocomplete="off" class="form-horizontal">
                 @csrf
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <button class="btn btn-link btn-info new-variation">Adicionar Nova propriedade</button>
-                        </div>
-                    </div>
                     <div class="main-variation">
                         <div class="row">
                             <div class="col-sm-12">
@@ -471,6 +462,11 @@ $('.new-variation').on('click', function(e){
                                         id="input-variation-option">
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-link btn-sm btn-info new-variation-btn">Adicionar Nova propriedade</button>
                         </div>
                     </div>
                 </div>
