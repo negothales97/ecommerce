@@ -10,7 +10,7 @@ class CategoryService
 
     public static function index(Request $request)
     {
-        return Category::paginate($request->per_page);
+        return Category::with('categories')->paginate($request->per_page);
     }
 
     public static function create(array $data)

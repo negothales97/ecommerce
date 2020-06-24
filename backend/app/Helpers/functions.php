@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
@@ -31,7 +32,6 @@ function getNameFile($name, $originalImage)
     return $fileName;
 }
 
-
 function convertMoneyBrazilToUSA($value)
 {
     $value = str_replace(',', '.', str_replace('.', '', $value));
@@ -60,3 +60,12 @@ function convertDateUSAToBrazil($date)
     return $date;
 }
 
+function getSubcategories(Category $category)
+{
+    if ($category->categories->count() > 0) {
+        foreach ($category->categories as $subcategory) {
+            getSubcategories($subcategory);
+        }
+    }
+
+}

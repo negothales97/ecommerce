@@ -25,8 +25,7 @@
                         @endif
                         <div class="row">
                             <div class="col-12 text-right">
-                                <a href="{{route('admin.category.create')}}"
-                                    class="btn btn-sm btn-info">Adicionar</a>
+                                <a href="{{route('admin.category.create')}}" class="btn btn-sm btn-info">Adicionar</a>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -41,46 +40,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($categories as $category)
-                                    <tr>
-                                        <td>{{$category->name}}</td>
-                                        <td>{{$category->slug}}</td>
-                                        <td>{{$category->meta_title}}</td>
-                                        <td>{{$category->meta_description}}</td>
-                                        <td class="td-actions text-right">
-                                            <div class="btn-group">
-                                                <a rel="tooltip" class="btn btn-info subcategory"
-                                                    data-parent_id="{{$category->id}}" href="#"
-                                                    title="Adicionar categoria filha">
-                                                    <i class="material-icons">add</i>
-                                                    <div class="ripple-container"></div>
-                                                </a>
-                                                <a rel="tooltip" class="btn btn-info"
-                                                    href="{{route('admin.category.edit', ['category' => $category])}}"
-                                                    title="Editar">
-                                                    <i class="material-icons">edit</i>
-                                                    <div class="ripple-container"></div>
-                                                </a>
-                                                <a rel="tooltip" class="btn btn-danger btn-delete" href="#"
-                                                    title="Remover">
-                                                    <i class="material-icons">delete</i>
-                                                    <div class="ripple-container"></div>
-                                                </a>
-                                            </div>
-                                            <form id="delete-form"
-                                                action="{{route('admin.category.delete', ['category' => $category])}}"
-                                                method="POST" style="display: none;">
-                                                @csrf
-                                                @method('delete')
-                                            </form>
-
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="5">Nenhuma categoria cadastrada</td>
-                                    </tr>
-                                    @endforelse
                                     <tr class="addSubcategory display-none">
                                         <form action="{{route('admin.category.store')}}" method="post"
                                             autocomplete="off">
@@ -97,8 +56,8 @@
                                             </td>
                                             <td>
                                                 <div class="form-group">
-                                                    <input class="form-control input-slug" name="slug" id="input-slug" type="text"
-                                                        placeholder="{{ __('URL da Categoria') }}"
+                                                    <input class="form-control input-slug" name="slug" id="input-slug"
+                                                        type="text" placeholder="{{ __('URL da Categoria') }}"
                                                         value="{{ old('slug') }}" required="true"
                                                         aria-required="true" />
                                                     <span id="slug-error" class="error text-danger display-none"
@@ -136,7 +95,8 @@
                                                         <i class="material-icons">done</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
-                                                    <a rel="tooltip" class="btn btn-link btn-danger cancelCategory" href="#">
+                                                    <a rel="tooltip" class="btn btn-link btn-danger cancelCategory"
+                                                        href="#">
                                                         <i class="material-icons">close</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
@@ -160,10 +120,127 @@
 
 @section('scripts')
 <script type="text/javascript">
+var categories = '';
+window.onload = async ()=> {
+    categories = await getCategories();
+    const firstCategories = categories.data.filter(item => !item.parent_id);
+    firstCategories.forEach(category => createTreeView(category));
+}
+
+const getCategories = async()=> {
+    return await axios.get("{{route('api.category.index')}}")
+    .then(response => response.data);
+}
+
+const createTreeView = async (category) => {
+    let tbody = $('tbody');
+
+    let urlEdit = "{{route('admin.category.edit', ['category' =>'idCategory'])}}";
+    urlEdit.replace('idCategory', category.id);
+
+    let urlDelete = "{{route('admin.category.delete', ['category' =>'idCategory'])}}";
+    urlDelete.replace('idCategory', category.id);
+
+    let trCategory = $("<tr>");
+    let tdName = $("<td>", {
+        text: category.name
+    });
+    let tdSlug = $("<td>", {
+        text: category.slug
+    });
+    let tdMetaTitle = $("<td>", {
+        text: category.meta_title
+    });
+    let tdMetaDescription = $("<td>", {
+        text: category.meta_description
+    });
+    let tdActions = $("<td>", {
+        class: "td-actions text-right"
+    });
+    let divBtnGroup = $("<div>", {
+        class: "btn-group"
+    });
+
+    let btnAddChildren = $("<a>", {
+        "data-parent_id": category.id,
+        class: "btn btn-info subcategory",
+        href: "#"
+    });
+    let iconAddChildren = $("<i>", {
+        class: "material-icons",
+        text: "add"
+    });
+
+    let btnEdit = $("<a>", {
+        "data-parent_id": category.id,
+        class: "btn btn-info",
+        href: urlEdit
+    });
+    let iconEdit = $("<i>", {
+        class: "material-icons",
+        text: "edit"
+    });
+    let btnDelete = $("<a>", {
+        "data-parent_id": category.id,
+        class: "btn btn-danger btn-delete",
+        href: '#'
+    });
+    let iconDelete = $("<i>", {
+        class: "material-icons",
+        text: "delete"
+    });
+    let formDelete = $("<form>", {
+        id: "delete-form",
+        action: urlDelete,
+        method: 'post',
+        class: "display-none"
+    });
+
+    let inputToken = $("<input>", {
+        type: "hidden",
+        name: "_token",
+        value: "{{ csrf_token() }}"
+    });
+    let inputMethod = $("<input>", {
+        type: "hidden",
+        name: "_method",
+        value: "delete"
+    });
+
+    // Formulário de Exclusão
+    formDelete.append(inputToken);
+    formDelete.append(inputMethod);
+
+    // Grupo de Botões
+    btnAddChildren.append(iconAddChildren);
+    btnEdit.append(iconEdit);
+    btnDelete.append(iconDelete);
+
+    divBtnGroup.append(btnAddChildren);
+    divBtnGroup.append(btnEdit);
+    divBtnGroup.append(btnDelete);
+    // TD Actions
+    tdActions.append(divBtnGroup);
+    // TR Completa
+    trCategory.append(tdName);
+    trCategory.append(tdSlug);
+    trCategory.append(tdMetaTitle);
+    trCategory.append(tdMetaDescription);
+    trCategory.append(tdActions);
+    trCategory.append(formDelete);
+    tbody.append(trCategory);
+
+    const children = categories.data.filter(child => child.parent_id === category.id);
+    if (children.length > 0) {
+        children.map(createTreeView);
+    }
+}
+
+
 $('.btn-delete').on('click', function() {
     $('#delete-form').submit();
 });
-$('.subcategory').on('click', function(e) {
+$(document).on('click','.subcategory', function(e) {
     e.preventDefault();
 
     let icon = $(this).find('i');
