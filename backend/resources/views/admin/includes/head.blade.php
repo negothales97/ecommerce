@@ -54,5 +54,5 @@
     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <!-- CSS Files -->
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
+<link rel="stylesheet" href="{{asset('css/admin.css')}}">
 <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.3" rel="stylesheet" />

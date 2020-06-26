@@ -163,7 +163,7 @@
                                             class="input-money form-control{{ $errors->has('price') ? ' is-invalid' : '' }}"
                                             name="price" id="input-price" type="text"
                                             placeholder="{{ __('Preço Original') }}"
-                                            value="{{ old('price', $product->price) }}" required="true"
+                                            value="{{ convertMoneyUSAToBrazil(old('price', $product->price)) }}" required="true"
                                             aria-required="true" />
                                         @if ($errors->has('price'))
                                         <span id="price-error" class="error text-danger"
@@ -177,7 +177,7 @@
                                             class="input-money form-control{{ $errors->has('promotional_price') ? ' is-invalid' : '' }}"
                                             name="promotional_price" id="input-promotional_price" type="text"
                                             placeholder="{{ __('Preço Promocional') }}"
-                                            value="{{ old('promotional_price', $product->promotional_price) }}"
+                                            value="{{ convertMoneyUSAToBrazil(old('promotional_price', $product->promotional_price)) }}"
                                             required="true" aria-required="true" />
                                         @if ($errors->has('promotional_price'))
                                         <span id="promotional_price-error" class="error text-danger"
@@ -253,7 +253,7 @@
                                         <input
                                             class="input-money form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}"
                                             name="weight" id="input-weight" type="text" placeholder="{{ __('Peso') }}"
-                                            value="{{ old('weight', $product->weight) }}" required="true"
+                                            value="{{ convertMoneyUsaToBrazil(old('weight', $product->weight)) }}" required="true"
                                             aria-required="true" />
                                         @if ($errors->has('weight'))
                                         <span id="weight-error" class="error text-danger"
@@ -267,7 +267,7 @@
                                             class="input-money form-control{{ $errors->has('depth') ? ' is-invalid' : '' }}"
                                             name="depth" id="input-depth" type="text"
                                             placeholder="{{ __('Comprimento') }}"
-                                            value="{{ old('depth', $product->depth) }}" required="true"
+                                            value="{{ convertMoneyUsaToBrazil(old('depth', $product->depth)) }}" required="true"
                                             aria-required="true" />
                                         @if ($errors->has('depth'))
                                         <span id="depth-error" class="error text-danger"
@@ -280,7 +280,7 @@
                                         <input
                                             class="input-money form-control{{ $errors->has('width') ? ' is-invalid' : '' }}"
                                             name="width" id="input-width" type="text" placeholder="{{ __('Largura') }}"
-                                            value="{{ old('width', $product->width) }}" required="true"
+                                            value="{{ convertMoneyUsaToBrazil(old('width', $product->width)) }}" required="true"
                                             aria-required="true" />
                                         @if ($errors->has('width'))
                                         <span id="width-error" class="error text-danger"
@@ -293,7 +293,7 @@
                                         <input
                                             class="input-money form-control{{ $errors->has('height') ? ' is-invalid' : '' }}"
                                             name="height" id="input-height" type="text" placeholder="{{ __('Altura') }}"
-                                            value="{{ old('height', $product->height) }}" required="true"
+                                            value="{{ convertMoneyUsaToBrazil(old('height', $product->height)) }}" required="true"
                                             aria-required="true" />
                                         @if ($errors->has('height'))
                                         <span id="height-error" class="error text-danger"
@@ -617,12 +617,12 @@ $('.new-variation-btn').on('click', function(e) {
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-sm-12">
                             <button class="btn btn-link btn-sm btn-info new-variation-btn">Adicionar Nova
                                 propriedade</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -668,7 +668,7 @@ $('.new-variation-btn').on('click', function(e) {
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Adicionar Categoria</h5>
+                <h5 class="modal-title">Adicionar Tag</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -26,7 +26,7 @@ class CategoryController extends Controller
         $category = CategoryService::create($request->all());
         return \redirect()
             ->route('admin.category.edit', ['category' => $category])
-            ->with('status', 'Categoria cadastrada com sucesso');
+            ->with('success', 'Categoria cadastrada com sucesso');
     }
     public function edit(Category $category)
     {
@@ -39,7 +39,7 @@ class CategoryController extends Controller
         CategoryService::update($request->all(), $category);
         return \redirect()
             ->back()
-            ->with('status', 'Categoria editada com sucesso');
+            ->with('success', 'Categoria editada com sucesso');
     }
 
     public function delete(Category $category)
@@ -47,7 +47,7 @@ class CategoryController extends Controller
         CategoryService::delete($category);
         return \redirect()
             ->back()
-            ->with('status', 'Categoria removida com sucesso');
+            ->with('success', 'Categoria removida com sucesso');
     }
 
 }

@@ -67,5 +67,16 @@ function getSubcategories(Category $category)
             getSubcategories($subcategory);
         }
     }
+}
+
+function validateRequest(String $input)
+{
+    if(request()->has($input)){
+        if(request($input) != ''){
+            return true;
+        }
+        return false;
+    }
+    return false;
 
 }

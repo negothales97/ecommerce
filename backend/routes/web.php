@@ -12,12 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
-Route::view('/', 'welcome');
-
-Route::get('/home', 'HomeController@index')->name('home');
-// Auth::routes();
+Route::get('/', 'Customer\HomeController@index');
+Route::get('/checkout', 'Customer\CheckoutController@index');
 
 
+Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('login');
 Route::group(['prefix' => 'admin'], function(){
     Route::get('/login', 'AdminAuth\LoginController@showLoginForm');
     Route::post('/login', 'AdminAuth\LoginController@login');
@@ -27,17 +26,11 @@ Route::group(['prefix' => 'admin'], function(){
 
 });
 
-
-
 Route::get('/login/customer', 'Auth\LoginController@showCustomerLoginForm');
 Route::get('/register/customer', 'Auth\RegisterController@showCustomerRegisterForm');
 Route::post('/login/customer', 'Auth\LoginController@customerLogin');
 Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
 
-Route::view('/admin', 'admin')->middleware('admin');
-
-
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
     // Categorias
     Route::get('dashboard', 'Admin\DashboardController@index')->name('dashboard');
@@ -48,6 +41,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
         Route::get('/edit/{category}', 'Admin\CategoryController@edit')->name('edit');
         Route::put('/update/{category}', 'Admin\CategoryController@update')->name('update');
         Route::delete('/delete/{category}', 'Admin\CategoryController@delete')->name('delete');
+    });
+    Route::group(['prefix' => 'variacao', 'as' => 'variation.'], function () {
+        Route::get('/', 'Admin\VariationController@index')->name('index');
+        Route::get('/create', 'Admin\VariationController@create')->name('create');
+        Route::post('/store', 'Admin\VariationController@store')->name('store');
+        Route::get('/edit/{variation}', 'Admin\VariationController@edit')->name('edit');
+        Route::put('/update/{variation}', 'Admin\VariationController@update')->name('update');
+        Route::delete('/delete/{variation}', 'Admin\VariationController@delete')->name('delete');
     });
     // Produtos
     Route::group(['prefix' => 'produtos', 'as' => 'product.'], function () {
@@ -80,7 +81,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     });
 });
 
-Route::group(['middleware' => 'auth'], function () {
     Route::get('table-list', function () {
         return view('pages.table_list');
     })->name('table');
@@ -108,7 +108,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('upgrade', function () {
         return view('pages.upgrade');
     })->name('upgrade');
-});
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('user', 'UserController', ['except' => ['show']]);

@@ -12,8 +12,7 @@ class ProductVariationController extends Controller
 {
     public function store(Request $request, Product $product)
     {
-        if ($request->has('variation_name')) {
-            if($request->variation_name != ''){
+        if(validateRequest('variation_name')){
                 $variation = Variation::create([
                     'name' => $request->variation_name,
                 ]);
@@ -24,11 +23,11 @@ class ProductVariationController extends Controller
                         'name' => $option,
                     ]);
                 }
-            }
         }
+
         ProductVariationService::create($product, $request->all());
         
         return \redirect()->back()
-        ->with('status', 'Variações Adicionadas');
+        ->with('success', 'Variações Adicionadas');
     }
 }

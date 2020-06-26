@@ -75,6 +75,7 @@ function slugify(string) {
     */
 }
 const createOptions = async (options, select) => {
+    select.innerHTML = "<option disabled selected>Selecione..</option>";
     options.forEach((option) => {
         let optionElement = document.createElement('option');
         let textOption = document.createTextNode(option.name);
@@ -83,6 +84,33 @@ const createOptions = async (options, select) => {
         select.appendChild(optionElement)
     });
 }
+
+const validateError = (response) => {
+    const {
+        status
+    } = response;
+    if (status === 422) {
+        const {
+            data: {
+                errors
+            }
+        } = response;
+
+        for (error in errors) {
+            let elementError = $(`input[name=${error}]`);
+            let spanError = $(`#${error}-error`);
+
+            elementError.addClass('is-invalid');
+            elementError.parent().addClass('has-error');
+            spanError.removeClass('display-none');
+            spanError.text(errors[error]);
+        }
+    }
+}
+
+$('.btn-delete').on('click', function() {
+    $('#delete-form').submit();
+});
 
 $('.input-slug').keyup(function() {
     var slug = slugify($(this).val());

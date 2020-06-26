@@ -46,15 +46,15 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('table') }}">
-                        <i class="material-icons">content_paste</i>
-                        <p>{{ __('Table List') }}</p>
+                    <a class="nav-link" href="{{route('admin.variation.index')}}">
+                        <i class="material-icons">library_books</i>
+                        <p>{{ __('Variações') }}</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('typography') }}">
-                        <i class="material-icons">library_books</i>
-                        <p>{{ __('Typography') }}</p>
+                    <a class="nav-link" href="{{ route('table') }}">
+                        <i class="material-icons">content_paste</i>
+                        <p>{{ __('Table List') }}</p>
                     </a>
                 </li>
                 <li class="nav-item">

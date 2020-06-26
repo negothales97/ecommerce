@@ -20,6 +20,24 @@ class ProductService
 
     public static function update(array $data, Product $product)
     {
+        if(validateRequest('price')){
+            $data['price'] = \convertMoneyBrazilToUSA($data['price']);
+        }
+        if(validateRequest('promotional_price')){
+            $data['promotional_price'] = \convertMoneyBrazilToUSA($data['promotional_price']);
+        }
+        if(validateRequest('weight')){
+            $data['weight'] = \convertMoneyBrazilToUSA($data['weight']);
+        }
+        if(validateRequest('depth')){
+            $data['depth'] = \convertMoneyBrazilToUSA($data['depth']);
+        }
+        if(validateRequest('width')){
+            $data['width'] = \convertMoneyBrazilToUSA($data['width']);
+        }
+        if(validateRequest('height')){
+            $data['height'] = \convertMoneyBrazilToUSA($data['height']);
+        }
         $product->fill($data);
         $product->save();
 
