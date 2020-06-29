@@ -2,8 +2,9 @@
 @section('content')
 
 <section class="checkout">
-    <div class="container">
+    <div class="container-fluid">
         <form action="{{route('checkout')}}" method="post">
+        @csrf
             <div class="row">
                 <div class="col-md-4">
 
@@ -16,7 +17,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="input-email">E-mail</label>
-                                        <input type="text" class="form-control" id="input-email" name="email">
+                                        <input type="email" class="form-control" id="input-email" name="email">
                                     </div>
                                 </div>
                             </div>
@@ -24,7 +25,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="input-password">Criar uma senha</label>
-                                        <input type="text" class="form-control" id="input-password" name="password">
+                                        <input type="password" class="form-control" id="input-password" name="password">
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +33,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="input-password_confirmation">Confirmar senha</label>
-                                        <input type="text" class="form-control" id="input-password_confirmation"
+                                        <input type="password" class="form-control" id="input-password_confirmation"
                                             name="password_confirmation">
                                     </div>
                                 </div>
@@ -45,7 +46,7 @@
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input type="radio" name="type" class="form-check-input" id="radio-pj">
-                                        <label for="radio-pj" class="form-check-label">Pessoa física</label>
+                                        <label for="radio-pj" class="form-check-label">Pessoa Jurídica</label>
                                     </div>
                                 </div>
                             </div>
@@ -60,17 +61,17 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="input-city">CPF</label>
-                                        <input type="text" class="form-control" id="input-city" name="city">
+                                        <label for="input-cpf">CPF</label>
+                                        <input type="text" class="form-control input-cpf" id="input-cpf"
+                                            name="document_number">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="input-document_number">CNPJ</label>
-                                        <input type="text" class="form-control" id="input-document_number"
-                                            name="document_number">
+                                        <label for="input-cnpj">CNPJ</label>
+                                        <input type="text" class="form-control" id="input-cnpj" name="document_number">
                                     </div>
                                 </div>
                             </div>
@@ -85,9 +86,9 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="input-password_confirmation">Celular</label>
-                                        <input type="text" class="form-control" id="input-password_confirmation"
-                                            name="password_confirmation">
+                                        <label for="input-phone">Celular</label>
+                                        <input type="text" class="form-control input-phone" id="input-phone"
+                                            name="phone">
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +113,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="input-zip_code">Escolha a forma de entrega</label>
+                                        <label>Escolha a forma de entrega</label>
 
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -193,7 +194,7 @@
                                                 <input type="radio">
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="payment_method">
                                     </div>
                                 </div>
                             </div>
@@ -241,8 +242,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-check form-check-inline">
-                                        <input type="radio" name="type" class="form-check-input" id="radio-pf">
-                                        <label for="radio-pf" class="form-check-label">Endereço de entrega igual ao de
+                                        <input type="radio" name="type" class="form-check-input" id="radio-same-address">
+                                        <label for="radio-same-address" class="form-check-label">Endereço de entrega igual ao de
                                             cobrança</label>
                                     </div>
                                 </div>

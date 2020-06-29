@@ -17,8 +17,10 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <img id="logo" data-url="{{url('/')}}" src="{{asset('img/logo.png')}}" alt="Softrinic"
-                    class="float-left animated fadeInUp delay-1s">
+
+                <div class="logo">
+                    <img id="img-logo" src="{{asset('img/logo.png')}}" alt="Keep Jeans">
+                </div>
                 <div id="menu" class="animated fadeInUp delay-1s">
                     <form id="form-search" action="{{route('search')}}">
                         <div id="box-search" class="input-group float-right">
@@ -40,7 +42,25 @@
                     <div></div>
                     <div></div>
                 </div>
+                <!-- <div id="btn-cart">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div> -->
             </div>
+        </div><!-- ./row-->
+        <div class="row">
+            <div class="col">
+                <form id="form-search-mobile" action="#">
+                    <div id="box-search-mobile" class="input-group float-right">
+                        <input type="text" value="{{request('search_string')}}" name="search_string"
+                            class="form-control" placeholder="Pesquise um produto">
+                        <img src="{{asset('img/search-dark.png')}}" alt="Buscar" width="40" class="search-button">
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </header>

@@ -15,6 +15,7 @@ button:focus {
 
 body {
     padding-top: 90px;
+    background-color: #fff;
 }
 
 @media(max-width: 1200px) {
@@ -25,31 +26,39 @@ body {
 
 header {
     position: fixed;
-    background: #000;
     z-index: 999;
     width: 100%;
     top: 0;
     left: 0;
     right: 0;
-    transition: .3s;
+
+    .header-scroll {
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        backdrop-filter: saturate(180%) blur(20px);
+    }
+
+    @media(max-width: 1200px) {
+        height: 56px;
+    }
 }
 
-header.header-scroll {
-    background: rgba(0, 0, 0, 0.8);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-}
 
-#logo {
+.logo {
     cursor: pointer;
-    padding: 15px 0;
+    width: 100%;
+    position: absolute;
+
+    #img-logo {
+        margin: 0 auto;
+        display: block;
+        max-width: 120px;
+    }
 }
 
 #menu>ul {
     margin: 0;
     padding: 0;
 }
-
 
 #menu>ul>li {
     margin: 0;
@@ -62,13 +71,19 @@ header.header-scroll {
     padding: 22px 12px;
     line-height: 62px;
     text-transform: uppercase;
-    color: #fff;
+    color: #000;
     text-decoration: none;
     transition: .4s;
 }
 
 #menu>ul>li>a:hover {
     opacity: .8;
+}
+
+@media(max-width: 1200px) {
+    #menu {
+        display: none;
+    }
 }
 
 #overlay-menu {
@@ -84,13 +99,12 @@ header.header-scroll {
     background: rgba(0, 0, 0, 0.7);
     -webkit-backdrop-filter: saturate(180%) blur(6px);
     backdrop-filter: saturate(180%) blur(6px);
-}
 
-@media(max-width: 1200px) {
-    #overlay-menu {
+    @media(max-width: 1200px) {
         top: 56px;
     }
 }
+
 
 #submenu-products-desktop {
     display: none;
@@ -191,18 +205,22 @@ header.header-scroll {
     display: none;
     position: relative;
     width: 28px;
-    float: right;
+    float: left;
     padding: 14px 0;
-}
 
-#btn-toggle-menu div {
-    opacity: 1;
-    background-color: #fff;
-    height: 3px;
-    border-radius: 3px;
-    margin: 2px 0;
-    float: right;
-    transition: all 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    div {
+        opacity: 1;
+        background-color: #000;
+        height: 3px;
+        border-radius: 3px;
+        margin: 2px 0;
+        float: right;
+        transition: all 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    }
+
+    @media(max-width: 1200px) {
+        display: block;
+    }
 }
 
 #btn-toggle-menu div:first-child,
@@ -246,8 +264,9 @@ header.header-scroll {
     left: 0;
     width: 300px;
     max-width: 100%;
-    background-color: #dddbdb;
+    background-color: #efefef;
     box-shadow: 12px 0px 20px 0px rgba(0, 0, 0, 0.5);
+
 }
 
 #menu-mobile button,
@@ -256,23 +275,14 @@ header.header-scroll {
     position: relative;
     width: 100%;
     border: none;
-    padding: 16px 35px 16px 14px;
-    margin-bottom: 2px;
+    border-radius: 50px;
+    padding: 10px 35px 10px 20px;
+    margin: 0 auto 5px;
+    max-width: 270px;
     text-align: left;
     background-color: #fff;
-    font-size: 15px;
-}
-
-#menu-mobile button.w-submenu:after {
-    width: 35px;
-    height: 54px;
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    background-size: 8px;
-    background-color: #ffffff;
+    font-size: 1em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 #menu-mobile button.btn-back {
@@ -282,6 +292,10 @@ header.header-scroll {
     padding: 0;
     text-align: center;
     padding: 0 0 3px;
+}
+.button-mobile {
+    display: flex;
+    flex-direction: column;
 }
 
 #menu-mobile button.btn-back:after {
@@ -307,17 +321,16 @@ header.header-scroll {
 #menu-mobile p {
     margin-top: 12px;
     margin-bottom: 15px;
-    margin-left: 14px;
 }
 
 #box-search-mobile {
     width: 100%;
-    padding: 34px 14px 16px;
+    padding: 10px 14px;
 }
 
 #box-search-mobile>input,
 #box-search>input:focus {
-    background-color: #fff;
+    background-color: #eee;
     border: none;
     padding: 8px 20px;
     border-radius: 44px;
@@ -331,32 +344,10 @@ header.header-scroll {
     height: 27px;
     position: absolute;
     right: 26px;
-    top: 40px;
+    top: 15px;
     z-index: 4;
-    background: #fff;
+    background: #eee;
     padding: 4px;
-}
-
-@media(max-width: 1200px) {
-    header {
-        height: 56px;
-    }
-
-    #logo {
-        padding: 12px 0 18px;
-    }
-
-    #top {
-        display: none;
-    }
-
-    #menu {
-        display: none;
-    }
-
-    #btn-toggle-menu {
-        display: block;
-    }
 }
 
 #mainmenu-mobile button,
@@ -367,6 +358,10 @@ header.header-scroll {
 #mainmenu-mobile button:hover,
 #submenu-mobile button:hover {
     opacity: 0.6;
+}
+#close-menu {
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -400,12 +395,17 @@ header.header-scroll {
 #top {
     background-color: #1b1b1b;
     padding: 2px 0;
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    @media(max-width: 1200px) {
+        display: none;
+    }
 }
 
-#top ul {
-    margin: 0;
-    padding: 0;
-}
 
 
 #top ul li {
@@ -450,7 +450,7 @@ header.header-scroll {
 }
 
 .bg-gradient {
-    background: linear-gradient( #ed1d25, #f26548);
+    background: linear-gradient(#ed1d25, #f26548);
     color: #fff;
 }
 

@@ -9,5 +9,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pretty-checkbox/3.0.0/pretty-checkbox.min.css">
-
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{{asset('plugins/fontawesome/css/all.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/app.css')}}?v=1">

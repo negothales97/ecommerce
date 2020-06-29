@@ -16,6 +16,7 @@ Route::get('/', 'Customer\HomeController@index');
 Route::get('/search', 'Customer\SearchController@index')->name('search');
 Route::get('/product/{slug}', 'Customer\ProductController@index')->name('product');
 Route::get('/checkout', 'Customer\CheckoutController@index')->name('checkout');
+Route::post('/checkout', 'Customer\CheckoutController@store')->name('store');
 
 Route::group(['prefix' => 'carrinho', 'as' => 'cart.'], function(){
     Route::get('/', 'Customer\CartController@index')->name('index');

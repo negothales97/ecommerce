@@ -95,24 +95,29 @@
 
 var btnToggleMenu = document.getElementById('btn-toggle-menu');
 var logo = document.getElementById('logo');
+var bntCloseMenu = document.getElementById('close-menu');
 
 btnToggleMenu.onclick = function () {
-  btnToggleMenu.classList.toggle("menu-close");
-
-  if (btnToggleMenu.classList.contains('menu-close')) {
+  if (!btnToggleMenu.classList.contains('menu-close')) {
     showMenuMobile();
   } else {
     hideMenuMobile();
   }
 };
 
+bntCloseMenu.onclick = function () {
+  return hideMenuMobile();
+};
+
 function showMenuMobile() {
+  btnToggleMenu.classList.toggle("menu-close");
   document.getElementById("menu-mobile").classList.remove("slideOutLeft");
   document.getElementById("menu-mobile").classList.add("slideInLeft");
   document.getElementById("menu-mobile").style.display = "block";
 }
 
 function hideMenuMobile() {
+  btnToggleMenu.classList.toggle("menu-close");
   document.getElementById("menu-mobile").classList.remove("slideInLeft");
   document.getElementById("menu-mobile").classList.add("slideOutLeft");
 }
