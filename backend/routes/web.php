@@ -13,7 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
  */
 Route::get('/', 'Customer\HomeController@index');
-Route::get('/checkout', 'Customer\CheckoutController@index');
+Route::get('/search', 'Customer\SearchController@index')->name('search');
+Route::get('/product/{slug}', 'Customer\ProductController@index')->name('product');
+Route::get('/checkout', 'Customer\CheckoutController@index')->name('checkout');
+
+Route::group(['prefix' => 'carrinho', 'as' => 'cart.'], function(){
+    Route::get('/', 'Customer\CartController@index')->name('index');
+    Route::post('/cart', 'Customer\CartController@store')->name('store');
+
+});
 
 
 Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('login');
@@ -49,6 +57,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
         Route::get('/edit/{variation}', 'Admin\VariationController@edit')->name('edit');
         Route::put('/update/{variation}', 'Admin\VariationController@update')->name('update');
         Route::delete('/delete/{variation}', 'Admin\VariationController@delete')->name('delete');
+        Route::put('option/update/{option}', 'Admin\VariationController@optionUupdate')->name('option.update');
+        Route::delete('option/delete/{option}', 'Admin\VariationController@optionDelete')->name('option.delete');
     });
     // Produtos
     Route::group(['prefix' => 'produtos', 'as' => 'product.'], function () {

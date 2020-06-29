@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Variation;
-use App\Services\VariationService;
 use Illuminate\Http\Request;
+use App\Models\VariationOption;
+use App\Services\VariationService;
+use App\Http\Controllers\Controller;
 
 class VariationController extends Controller
 {
@@ -27,5 +28,21 @@ class VariationController extends Controller
     {
         return view('admin.pages.variation.edit')
             ->with('variation', $variation);
+    }
+
+    public function optionUupdate(Request $request, VariationOption $option)
+    {
+        $option->update([
+            'name' => $request->variation_name_option
+        ]);
+        return \redirect()->back()
+            ->with('success', 'Propriedade atualizada com sucesso');
+    }
+
+    public function optionDelete(VariationOption $option)
+    {
+        $option->delete();
+        return \redirect()->back()
+        ->with('success', 'Propriedade removida com sucesso.');
     }
 }

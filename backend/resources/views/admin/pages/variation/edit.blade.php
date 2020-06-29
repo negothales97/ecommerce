@@ -59,43 +59,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse($variation->options as $option)
                                     <tr>
-                                        <td>
-                                            <div class="inline-text-field-container">
-
-                                                <div class="mdc-text-field mdc-text-field--outlined">
-
-
-                                                    <input class="mdc-text-field__input" autocorrect="off"
-                                                        autocomplete="off" spellcheck="false" id="demo-mdc-text-field"
-                                                        maxlength="524288">
-
-                                                    <div class="mdc-notched-outline mdc-notched-outline--upgraded">
-                                                        <div class="mdc-notched-outline__leading"></div>
-                                                        <div class="mdc-notched-outline__notch" style="">
-
-                                                            <label for="demo-mdc-text-field" class="mdc-floating-label"
-                                                                style="">
-                                                                <!---->Label
-                                                                <!----></label>
-
-                                                        </div>
-                                                        <div class="mdc-notched-outline__trailing"></div>
-                                                    </div>
-
+                                        <td id="table-{{$option->id}}">{{$option->name}}</td>
+                                        <td class="display-none" id="form-{{$option->id}}">
+                                            <form
+                                                action="{{route('admin.variation.option.update', ['option' => $option])}}"
+                                                method="POST">
+                                                @csrf
+                                                @method('put')
+                                                <div class="form-group">
+                                                    <label for="input-variation-option">Propriedade</label>
+                                                    <input type="text" name="variation_name_option" class="form-control"
+                                                        id="input-variation-option" placeholder="Propriedade"
+                                                        value="{{$option->name}}">
                                                 </div>
-
-                                            </div>
+                                            </form>
                                         </td>
-                                    </tr>
-                                    @forelse($variation->options as $subcategory)
-                                    <tr>
-                                        <td>{{$subcategory->name}}</td>
                                         <td class="td-actions text-right">
                                             <div class="btn-group">
-                                                <a rel="tooltip" class="btn btn-info"
-                                                    href="{{route('admin.category.edit', ['category' => $subcategory])}}"
-                                                    title="Editar">
+                                                <a rel="tooltip" class="btn btn-info btn-edit" href="#"
+                                                    data-id="{{$option->id}}" title="Editar">
                                                     <i class="material-icons">edit</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
@@ -103,86 +87,23 @@
                                                     title="Remover">
                                                     <i class="material-icons">delete</i>
                                                     <div class="ripple-container"></div>
+                                                    <form class="form-delete"
+                                                        action="{{route('admin.variation.option.delete', ['option' => $option])}}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('delete')
+                                                    </form>
                                                 </a>
                                             </div>
-                                            <form id="delete-form"
-                                                action="{{route('admin.category.delete', ['category' => $subcategory])}}"
-                                                method="POST" style="display: none;">
-                                                @csrf
-                                                @method('delete')
-                                            </form>
 
                                         </td>
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="5">Nenhuma categoria cadastrada</td>
+                                        <td colspan="5">Nenhuma propriedade cadastrada</td>
                                     </tr>
                                     @endforelse
-                                    <tr class="addSubcategory display-none">
-                                        <form action="{{route('admin.category.store')}}" method="post"
-                                            autocomplete="off">
-                                            @csrf
-                                            <input type="hidden" name="parent_id" id="parent_id">
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" name="name" id="input-name" type="text"
-                                                        placeholder="{{ __('Nome') }}" value="{{ old('name') }}"
-                                                        required="true" aria-required="true" />
-                                                    <span id="name-error" class="error text-danger display-none"
-                                                        for="input-name"></span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control input-slug" name="slug" id="input-slug"
-                                                        type="text" placeholder="{{ __('URL da Categoria') }}"
-                                                        value="{{ old('slug') }}" required="true"
-                                                        aria-required="true" />
-                                                    <span id="slug-error" class="error text-danger display-none"
-                                                        for="input-slug"></span>
-                                                </div>
 
-                                            </td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" name="meta_title" id="input-meta_title"
-                                                        type="text" placeholder="{{ __('Título para SEO') }}"
-                                                        value="{{ old('meta_title') }}" required="true"
-                                                        aria-required="true" />
-                                                    <span id="meta_title-error" class="error text-danger display-none"
-                                                        for="input-meta_title">{{ $errors->first('meta_title') }}</span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-group">
-                                                    <input class="form-control" name="meta_description"
-                                                        id="input-meta_description" type="text"
-                                                        placeholder="{{ __('Descrição para SEO') }}"
-                                                        value="{{ old('meta_description') }}" required="true"
-                                                        aria-required="true" />
-                                                    <span id="meta_description-error"
-                                                        class="error text-danger display-none"
-                                                        for="input-meta_description"></span>
-                                                </div>
-                                            </td>
-
-                                            <td class="td-actions text-right">
-                                                <div class="btn-group">
-                                                    <a rel="tooltip" class="btn btn-link btn-success storeCategory"
-                                                        href="#">
-                                                        <i class="material-icons">done</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                    <a rel="tooltip" class="btn btn-link btn-danger cancelCategory"
-                                                        href="#">
-                                                        <i class="material-icons">close</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </form>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -192,4 +113,28 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+$('.btn-delete').on('click', function(e) {
+    e.preventDefault();
+    $(this).find('.form-delete').submit();
+})
+$(document).on('click', '.btn-edit', function(e) {
+    e.preventDefault();
+
+    let icon = $(this).find('i');
+    let idOption = $(this).data('id');
+    let form = $(`#form-${idOption}`);
+    let table = $(`#table-${idOption}`);
+
+    if (icon.text() == 'edit') {
+        icon.text('check');
+        form.removeClass('display-none');
+        table.addClass('display-none');
+    } else {
+        form.find('form').submit();
+    }
+});
+</script>
 @endsection

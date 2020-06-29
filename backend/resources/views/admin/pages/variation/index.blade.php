@@ -29,7 +29,7 @@
                                     @forelse($variations as $variation)
                                     <tr>
                                         <td>{{$variation->name}}</td>
-                                        <td>{{$variation->options()->count()}}</td>
+                                        <td>{{$variation->options()->count()}} Propriedades</td>
                                         <td class="td-actions text-right">
                                             <div class="btn-group">
                                                 <a rel="tooltip" class="btn btn-info"

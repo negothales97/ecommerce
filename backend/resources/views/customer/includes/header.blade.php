@@ -20,7 +20,7 @@
                 <img id="logo" data-url="{{url('/')}}" src="{{asset('img/logo.png')}}" alt="Softrinic"
                     class="float-left animated fadeInUp delay-1s">
                 <div id="menu" class="animated fadeInUp delay-1s">
-                    <form id="form-search" action="#">
+                    <form id="form-search" action="{{route('search')}}">
                         <div id="box-search" class="input-group float-right">
                             <input type="text" name="search_string" value="{{request('search_string')}}"
                                 class="form-control" placeholder="Pesquise um produto">
@@ -28,7 +28,7 @@
                         </div>
                     </form>
                     <ul class="float-right">
-                        <li id="menu-products"><a href="#">Produtos</a></li>
+                        <li id="menu-products"><a href="{{route('search')}}">Produtos</a></li>
                         <li><a href="#">Empresa</a></li>
                         <li><a href="#">Seja um revendedor</a></li>
                         <li><a href="#">Fale conosco</a></li>

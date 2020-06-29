@@ -21,10 +21,6 @@ function hideMenuMobile(){
 	document.getElementById("menu-mobile").classList.remove("slideInLeft");
 	document.getElementById("menu-mobile").classList.add("slideOutLeft");
 }
-
-
-
-
 $(window).scroll(function() { 
 	var height = $(window).scrollTop();
 	if(height  > 100) {
@@ -35,3 +31,4 @@ $(window).scroll(function() {
 		$("header").removeClass('header-scroll');
 	}
 });
+// mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));

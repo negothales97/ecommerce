@@ -3,7 +3,6 @@
         <div class="copyright">© ImaxCommerce. Todos os direitos reservados.</div>
     </div>
 </footer>
-
 </div>
 </div>
 <!--   Core JS Files   -->
@@ -40,17 +39,14 @@
 <!-- Library for adding dinamically elements -->
 <script src="{{ asset('material') }}/js/plugins/arrive.min.js"></script>
 <!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE'"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE'"></script> -->
 <!-- Chartist JS -->
 <script src="{{ asset('material') }}/js/plugins/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="{{ asset('material') }}/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{ asset('material') }}/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
-<!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="{{ asset('material') }}/demo/demo.js"></script>
-<script src="{{ asset('material') }}/js/settings.js"></script>
-<script src="{{asset('js/mask.js')}}"></script>
+
 <!-- Select 2 -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
@@ -58,6 +54,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <!-- Axios -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script src="{{asset('js/mask.js')}}"></script>
+
 <script type="text/javascript">
 function slugify(string) {
     const a = 'àáäâãåăæçèéëêǵḧìíïîḿńǹñòóöôœøṕŕßśșțùúüûǘẃẍÿź·/_,:;'

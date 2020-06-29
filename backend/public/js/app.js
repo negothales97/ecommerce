@@ -127,7 +127,7 @@ $(window).scroll(function () {
   } else {
     $("header").removeClass('header-scroll');
   }
-});
+}); // mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
 
 /***/ }),
 
