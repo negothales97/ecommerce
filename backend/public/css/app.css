@@ -11352,6 +11352,15 @@ header .header-scroll {
   border-left: none;
 }
 
+.row-flex {
+  display: flex;
+  justify-content: center;
+}
+
+.content-flex {
+  text-align: center;
+}
+
 .box {
   position: relative;
   display: flex;
@@ -11381,6 +11390,23 @@ header .header-scroll {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
+}
+
+.alert {
+  background-color: #4e1b5d;
+  color: #fff;
+  margin: 20px 25px;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.alert h3 {
+  font-weight: 700;
+  font-size: 1.8em;
+}
+
+.alert h5 {
+  font-size: 1.2em;
 }
 
 #slider {
@@ -11513,41 +11539,6 @@ header .header-scroll {
   right: -70px;
   background-size: 90px;
   background-position-x: -20px;
-}
-
-ul.showcase-titles {
-  margin: 25px 0;
-  padding: 0;
-}
-
-ul.showcase-titles li {
-  margin: 0;
-  padding: 0;
-  display: inline;
-}
-
-ul.showcase-titles li a {
-  color: #ccc;
-  text-decoration: none;
-  font-weight: 900;
-  text-transform: uppercase;
-  font-size: 23px;
-  padding-right: 25px;
-}
-
-ul.showcase-titles li.active a {
-  position: relative;
-  color: #000;
-}
-
-ul.showcase-titles li.active a:after {
-  width: 85px;
-  height: 4px;
-  content: '';
-  position: absolute;
-  top: 30px;
-  left: 0;
-  background-color: #000;
 }
 
 .box-product {
