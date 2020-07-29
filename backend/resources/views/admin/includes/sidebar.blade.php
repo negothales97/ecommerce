@@ -11,8 +11,7 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="#" class="nav-link{{ $activePage == 'dashboard' ? ' active' : '' }}">
                         <i class="nav-icon fas fa-cogs"></i>
@@ -46,7 +45,8 @@
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Produtos</p>
                             </a>
-                            <a href="" class="nav-link {{request()->is('admin/configuracao/social*') ? 'active' : ''}}">
+                            <a href="{{ route('admin.category.index') }}"
+                                class="nav-link{{ $activePage == 'category' ? ' active' : '' }}">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Categorias</p>
                             </a>

@@ -1,6 +1,6 @@
-@extends('admin.templates.default')
+@extends('admin.templates.default', ['activePage' => 'category', 'titlePage' => __('Categorias')])
 
-@section('title', 'Conteúdos')
+@section('title', 'Categorias')
 
 @section('content')
 <div class="content-wrapper">
@@ -9,11 +9,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Conteúdos</h1>
+                    <h1 class="m-0 text-dark">Categorias</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <div class="float-right">
-                        <a href="{{route('admin.content.create')}}">
+                        <a href="{{route('admin.category.create')}}">
                             <button class="btn btn-success act-include">
                                 Adicionar
                             </button>
@@ -28,13 +28,12 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card card-info card-outline">
                         <div class="card-header">
-                            <h3 class="card-title">Filtros de Conteúdo</h3>
+                            <h3 class="card-title">Filtros de Categorias</h3>
                         </div>
-                        <!-- /.card-header -->
                         <form>
                             <div class="card-body p-3">
                                 <div class="row">
@@ -66,20 +65,19 @@
                                 <button type="submit" class="btn btn-primary ">Filtrar</button>
                             </div>
                         </form>
-                        <!-- /.card-body -->
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-12">
                     <div class="card card-info card-outline">
                         <div class="card-header">
-                            <h3 class="card-title">Lista de Conteúdos</h3>
+                            <h3 class="card-title">Lista de Categorias</h3>
                             <div class="card-tools">
                                 <?php
 
-                                $paginate = $resources;
+                                $paginate = $categories;
                                 $link_limit = 7;
 
                                 $filters = '&title_pt_BR='.request('title_pt_BR');
@@ -130,31 +128,31 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Capa</th>
-                                        <th>Título</th>
-                                        <th>Link</th>
-                                        <th>Cliques</th>
-                                        <th>Ação</th>
+                                        <th>Nome</th>
+                                        <th>URL da Categoria</th>
+                                        <th>Título para SEO</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($resources as $resource)
+                                    @forelse($categories as $category)
                                     <tr>
-                                        <td class="align-middle text-center">
-                                            <img src="{{asset('uploads/').'/'.$resource->file}}"
-                                                alt="{{$resource->name}}" class="img-thumbnail">
+                                        <td>{{$category->name}}</td>
+                                        <td>
+                                            <a href="{{route('category', ['slug' => $category->slug])}}" target="_blank">
+                                                {{route('category', ['slug' => $category->slug])}}
+                                            </a>
+
                                         </td>
-                                        <td>{{$resource->title_pt_BR}}</td>
-                                        <td><a href="{{$resource->link}}" target="_blank">Acessar artigo</a></td>
-                                        <td>{{$resource->click == null ? "Nenhum clique" : $resource->click}}</td>
+                                        <td>{{$category->meta_title}}</td>
                                         <td class="text-center align-middle py-0">
                                             <div class="btn-group btn-group-sm">
-                                                <a href="{{route('admin.content.edit', ['resourceId' => $resource->id])}}"
+                                                <a href="{{route('admin.category.edit', ['category' => $category->id])}}"
                                                     class="btn btn-info">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <button onclick="deleteItem(this, 1)"
-                                                    data-href="{{route('admin.content.delete', ['resourceId' => $resource->id])}}"
+                                                    data-href="{{route('admin.category.delete', ['category' => $category->id])}}"
                                                     class="btn btn-danger act-delete">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -163,7 +161,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan=6>Nenhum conteúdo adicionado</td>
+                                        <td colspan=6>Nenhum dado cadastrado</td>
                                     </tr>
                                     @endforelse
 
@@ -179,6 +177,6 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
+    <!-- /.category -->
 </div>
 @endsection

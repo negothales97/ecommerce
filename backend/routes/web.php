@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/categoria/{slug}')->name('category');
 
 Route::group(['prefix' => 'admin'], function(){
     Route::get('/login', 'AdminAuth\LoginController@showLoginForm');
@@ -30,15 +31,15 @@ Route::get('/register/customer', 'Auth\RegisterController@showCustomerRegisterFo
 Route::post('/login/customer', 'Auth\LoginController@customerLogin');
 Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
-    // Categorias
     Route::get('dashboard', 'Admin\DashboardController@index')->name('dashboard');
+    // Categorias
     Route::group(['prefix' => 'categoria', 'as' => 'category.'], function () {
         Route::get('/', 'Admin\CategoryController@index')->name('index');
         Route::get('/create', 'Admin\CategoryController@create')->name('create');
         Route::post('/store', 'Admin\CategoryController@store')->name('store');
-        Route::get('/edit/{resource}', 'Admin\CategoryController@edit')->name('edit');
-        Route::put('/update/{resource}', 'Admin\CategoryController@update')->name('update');
-        Route::delete('/delete/{resource}', 'Admin\CategoryController@delete')->name('delete');
+        Route::get('/edit/{category}', 'Admin\CategoryController@edit')->name('edit');
+        Route::put('/update/{category}', 'Admin\CategoryController@update')->name('update');
+        Route::delete('/delete/{category}', 'Admin\CategoryController@delete')->name('delete');
     });
     // Tags
     Route::group(['prefix' => 'tag', 'as' => 'tag.'], function () {

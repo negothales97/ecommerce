@@ -1,6 +1,6 @@
-@extends('admin.templates.default')
+@extends('admin.templates.default', ['activePage' => 'category', 'titlePage' => __('Categorias')])
 
-@section('title', 'Editar Depoimento')
+@section('title', 'Editar Categoria')
 
 @section('content')
 <div class="content-wrapper">
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-1 text-dark">Meu dados</h1>
+                    <h1 class="m-1 text-dark">Editar Categoria</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -23,17 +23,17 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card card-info card-outline">
-                        <form action="{{route('admin.account.update')}}"
-                            method="post">
-                            {{csrf_field()}}
+                        <form action="{{route('admin.category.update', ['category' => $category])}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('put')
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="input-name">Nome</label>
+                                            <label for="name">Nome</label>
                                             <input type="text"
                                                 class="form-control {{$errors->has('name') ? 'is-invalid' : ''}}"
-                                                value="{{old('name', $admin->name)}}" name="name" id="input-name" required>
+                                                name="name" id="name" value="{{old('name', $category->name)}}">
                                             @if ($errors->has('name'))
                                             <span class="help-block">
                                                 <small>
@@ -43,50 +43,56 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="input-email">E-mail</label>
-                                            <input type="text"
-                                                class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}"
-                                                value="{{old('email', $admin->email)}}" name="email" id="input-email" required>
-                                            @if ($errors->has('email'))
-                                            <span class="help-block">
-                                                <small>
-                                                    <strong>{{ $errors->first('email') }}</strong>
-                                                </small>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="input-password">Senha</label>
-                                            <input type="password"
-                                                class="form-control {{$errors->has('password') ? 'is-invalid' : ''}}"
-                                                name="password" id="input-password">
-                                            @if ($errors->has('password'))
+                                            <label for="slug">URL da Categoria</label>
+                                            <input type="text"
+                                                class="form-control input-slug {{$errors->has('slug') ? 'is-invalid' : ''}}"
+                                                name="slug" id="slug" value="{{old('slug', $category->slug)}}">
+                                            @if ($errors->has('slug'))
                                             <span class="help-block">
                                                 <small>
-                                                    <strong>{{ $errors->first('password') }}</strong>
+                                                    <strong>{{ $errors->first('slug') }}</strong>
                                                 </small>
                                             </span>
                                             @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="input-password_confirmation">Confirmação de Senha</label>
-                                            <input type="password"
-                                                class="form-control {{$errors->has('password') ? 'is-invalid' : ''}}"
-                                                name="password_confirmation" id="input-password_confirmation">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <p><small>Somente preencher a senha, caso deseje realizar alteração.</small></p>
+                                        <div class="form-group">
+                                            <label for="meta_title">Título para SEO</label>
+                                            <input type="text"
+                                                class="form-control input-meta_title {{$errors->has('meta_title') ? 'is-invalid' : ''}}"
+                                                name="meta_title" id="meta_title" value="{{old('meta_title', $category->meta_title)}}">
+                                            @if ($errors->has('meta_title'))
+                                            <span class="help-block">
+                                                <small>
+                                                    <strong>{{ $errors->first('meta_title') }}</strong>
+                                                </small>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="meta_description">Descrição para SEO</label>
+                                            <input type="text"
+                                                class="form-control input-meta_description {{$errors->has('meta_description') ? 'is-invalid' : ''}}"
+                                                name="meta_description" id="meta_description" value="{{old('meta_description', $category->meta_description)}}">
+                                            @if ($errors->has('meta_description'))
+                                            <span class="help-block">
+                                                <small>
+                                                    <strong>{{ $errors->first('meta_description') }}</strong>
+                                                </small>
+                                            </span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
