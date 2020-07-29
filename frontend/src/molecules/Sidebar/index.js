@@ -118,7 +118,7 @@ export default function MiniDrawer() {
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Mini variant drawer
-          </Typography>
+                    </Typography>
                 </Toolbar>
             </AppBar>
             <Drawer

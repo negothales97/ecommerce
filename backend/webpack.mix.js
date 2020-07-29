@@ -11,11 +11,8 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/mobile.js', 'public/js')
-    .js('resources/js/mask.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/sass/admin.scss', 'public/css')
-    .copyDirectory('resources/js/dropzone', 'public/js/dropzone')
-    .copyDirectory('resources/plugins/', 'public/plugins')
-    .copyDirectory('resources/img', 'public/img');
+mix.sass('resources/assets/sass/admin.scss', 'public/css/admin.css')
+    .js('resources/assets/js/mask.js', 'public/js')
+    .copyDirectory('resources/assets/plugins', 'public/plugins')
+    .copyDirectory('resources/assets/img', 'public/img')
+    .copyDirectory('resources/assets/adminlte', 'public/adminlte');

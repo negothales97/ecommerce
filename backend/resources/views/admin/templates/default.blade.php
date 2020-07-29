@@ -5,18 +5,17 @@
     @include('admin.includes.head')
 </head>
 
-<body class="clickup-chrome-ext_installed">
+<body class="hold-transition sidebar-mini layout-fixed">
 
     @include('admin.includes.header')
     
     @include('admin.includes.sidebar')
-    @include('admin.includes.modals')
 
     @yield('content')
 
+    @include('admin.includes.modals')
 
     @include('admin.includes.footer')
-    
 
 </body>
 

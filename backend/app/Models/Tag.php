@@ -8,6 +8,5 @@ class Tag extends Model
 {
     protected $fillable = [
         'name',
-        'product_id'
     ];
 }

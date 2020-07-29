@@ -1,31 +1,49 @@
 @extends('admin.templates.default', ['activePage' => 'product', 'titlePage' => __('Produtos')])
-@section('content')
 
-<div class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-info">
-                        <h4 class="card-title ">Lista de Produtos</h4>
-                        <p class="card-category"> Cadastre os produtos para o seu site</p>
+@section('title', 'Produtos')
+
+@section('content')
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Produtos</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <div class="float-right">
+                        <a href="{{route('admin.product.create')}}">
+                            <button class="btn btn-success act-include">
+                                Adicionar
+                            </button>
+                        </a>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 text-right">
-                                <a href="{{route('admin.product.create')}}"
-                                    class="btn btn-sm btn-info">Adicionar</a>
-                            </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Lista de Produtos</h3>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-info">
+                        <!-- /.card-header -->
+                        <div class="card-body p-3">
+                            <table class="table table-bordered table-striped">
+                                <thead>
                                     <tr>
                                         <th>Nome</th>
                                         <th>URL do Produto</th>
                                         <th>Título para SEO</th>
-                                        <th>Descrição para SEO</th>
-                                        <th class="text-right">Ações</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,52 +52,38 @@
                                         <td>{{$product->name}}</td>
                                         <td>{{$product->slug}}</td>
                                         <td>{{$product->meta_title}}</td>
-                                        <td>{{$product->meta_description}}</td>
-                                        <td class="td-actions text-right">
-                                            <div class="btn-group">
-                                                <a rel="tooltip" class="btn btn-info"
-                                                    href="{{route('admin.product.edit', ['product' => $product])}}"
-                                                    title="Editar">
-                                                    <i class="material-icons">edit</i>
-                                                    <div class="ripple-container"></div>
+                                        <td class="text-center align-middle py-0">
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="{{route('admin.product.edit', ['product' => $product->id])}}"
+                                                    class="btn btn-info">
+                                                    <i class="fa fa-edit"></i>
                                                 </a>
-                                                <a rel="tooltip" class="btn btn-danger btn-delete" href="#"
-                                                    title="Remover">
-                                                    <i class="material-icons">delete</i>
-                                                    <div class="ripple-container"></div>
-                                                </a>
+                                                <button onclick="deleteItem(this, 1)"
+                                                    data-href="{{route('admin.product.delete', ['product' => $product->id])}}"
+                                                    class="btn btn-danger act-delete">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
                                             </div>
-                                            <form id="delete-form"
-                                                action="{{route('admin.product.delete', ['product' => $product])}}"
-                                                method="POST" style="display: none;">
-                                                @csrf
-                                                @method('delete')
-                                            </form>
-
                                         </td>
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="5">Nenhum produto cadastrado</td>
+                                        <td colspan=6>Nenhum dado cadastrado</td>
                                     </tr>
                                     @endforelse
+
                                 </tbody>
                             </table>
                         </div>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
+
+                <!-- ./col -->
             </div>
-        </div>
-    </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
-
-@stack('js')
-@endsection
-
-@section('scripts')
-<script type="text/javascript">
-$('.btn-delete').on('click', function() {
-    $('#delete-form').submit();
-});
-</script>
 @endsection
