@@ -20,19 +20,211 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-lg-6 col-6">
+                <div class="col-lg-4 col-4">
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>0</h3>
 
-                            <p>Produtos Cadastrados</p>
+                            <p>Ticket médio do mês</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-tag"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Saiba mais <i
-                                class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-4">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Novos clientes cadastrados</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-4">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Novos assinantes newsletter</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-4">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Total de pedidos</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-4">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Total de pedidos aprovados</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-4">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Total de pedidos aguardando</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-3">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Ticket médio do mês</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-3">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>E-mails de carrinho enviados</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-3">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Conversões e-mails enviados</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-3">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Conversões e-mails não lidos</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-3">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Total em vendas</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-3">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Total pago</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-3">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Taxa de pagamento</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-3">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Média de vendas diárias</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
@@ -42,4 +234,9 @@
     </section>
     <!-- /.content -->
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+
+</script>
 @endsection

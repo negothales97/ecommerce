@@ -36,6 +36,7 @@ class CreateProductsTable extends Migration
             $table->double('height')->nullable();
             $table->string('sku')->nullable();
             $table->string('barcode')->nullable();
+            $table->string('tag_id')->nullable();
             $table->timestamps();
         });
     }

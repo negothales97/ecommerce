@@ -52,6 +52,8 @@ $.widget.bridge('uibutton', $.ui.button)
 <script src="{{asset('adminlte/dist/js/adminlte.js')}}"></script>
 <!-- Axios -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- DropZone -->
+<script src="{{asset('plugins/dropzone/dropzone.js')}}"></script>
 <!-- Mascaras -->
 <script src="{{asset('js/mask.js')}}"></script>
 <script type="text/javascript">

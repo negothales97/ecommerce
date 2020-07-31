@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="{{asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
 <!-- Daterange picker -->
 <link rel="stylesheet" href="{{asset('adminlte/plugins/daterangepicker/daterangepicker.css')}}">
+<!-- Dropzone -->
+<link rel="stylesheet" href="{{asset('plugins/dropzone/dropzone.css')}}">
 <!-- summernote -->
 <link rel="stylesheet" href="{{asset('adminlte/plugins/summernote/summernote-bs4.css')}}">
 <!-- Google Font: Source Sans Pro -->

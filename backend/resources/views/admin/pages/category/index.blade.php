@@ -137,7 +137,7 @@
                                 <tbody>
                                     @forelse($categories as $category)
                                     <tr>
-                                        <td>{{$category->name}}</td>
+                                        <td><b>{{$category->name}}</b></td>
                                         <td>
                                             <a href="{{route('category', ['slug' => $category->slug])}}" target="_blank">
                                                 {{route('category', ['slug' => $category->slug])}}
@@ -151,9 +151,9 @@
                                                     class="btn btn-info">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <button onclick="deleteItem(this, 1)"
-                                                    data-href="{{route('admin.category.delete', ['category' => $category->id])}}"
-                                                    class="btn btn-danger act-delete">
+                                                <button
+                                                    href="{{route('admin.category.delete', ['category' => $category->id])}}"
+                                                    class="btn btn-danger btn-delete">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </div>

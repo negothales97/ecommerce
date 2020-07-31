@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Tag;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
@@ -32,7 +33,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = $product->categories;
-        $tags = $product->tags;
+        $tags = Tag::get();
         return view('admin.pages.product.edit')
             ->with('categories', $categories)
             ->with('tags', $tags)

@@ -30,6 +30,7 @@ class CategoryService
 
     public static function delete(Category $category)
     {
+        $category->categories()->delete();
         return $category->delete();
     }
 }
