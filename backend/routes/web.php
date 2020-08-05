@@ -11,14 +11,14 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/categoria/{slug}')->name('category');
 
-Route::group(['prefix' => 'admin'], function(){
+Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', 'AdminAuth\LoginController@showLoginForm');
     Route::post('/login', 'AdminAuth\LoginController@login');
     Route::get('/register', 'Auth\RegisterController@showAdminRegisterForm')->name('admin.register');
@@ -56,7 +56,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
         Route::put('/update/{tag}', 'Admin\TagController@update')->name('update');
         Route::delete('/delete/{tag}', 'Admin\TagController@delete')->name('delete');
     });
-    
+
     Route::group(['prefix' => 'variacao', 'as' => 'variation.'], function () {
         Route::get('/', 'Admin\VariationController@index')->name('index');
         Route::get('/create', 'Admin\VariationController@create')->name('create');
@@ -64,8 +64,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
         Route::get('/edit/{variation}', 'Admin\VariationController@edit')->name('edit');
         Route::put('/update/{variation}', 'Admin\VariationController@update')->name('update');
         Route::delete('/delete/{variation}', 'Admin\VariationController@delete')->name('delete');
-        Route::put('option/update/{option}', 'Admin\VariationController@optionUupdate')->name('option.update');
-        Route::delete('option/delete/{option}', 'Admin\VariationController@optionDelete')->name('option.delete');
+
+        Route::group(['prefix' => 'option', 'as' => 'option.'], function () {
+            Route::post('store/', 'Admin\VariationOptionController@store')->name('store');
+            Route::put('update/{option}', 'Admin\VariationOptionController@update')->name('update');
+            Route::delete('delete/{option}', 'Admin\VariationOptionController@delete')->name('delete');
+        });
     });
     // Produtos
     Route::group(['prefix' => 'produtos', 'as' => 'product.'], function () {

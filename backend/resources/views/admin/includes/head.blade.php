@@ -23,6 +23,9 @@
 <link rel="stylesheet" href="{{asset('adminlte/plugins/daterangepicker/daterangepicker.css')}}">
 <!-- Dropzone -->
 <link rel="stylesheet" href="{{asset('plugins/dropzone/dropzone.css')}}">
+<!-- Select2 -->
+<link rel="stylesheet" href="{{asset('adminlte/plugins/select2/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 <!-- summernote -->
 <link rel="stylesheet" href="{{asset('adminlte/plugins/summernote/summernote-bs4.css')}}">
 <!-- Google Font: Source Sans Pro -->

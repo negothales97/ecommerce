@@ -58,6 +58,13 @@
                                 <p>Tags</p>
                             </a>
                         </li>
+                        <li class="nav-item has-treeview">
+                            <a href="{{route('admin.variation.index')}}"
+                                class="nav-link{{ $activePage == 'variation' ? ' active' : '' }}">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Variações</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item has-treeview {{request()->is('admin/configuracao/*') ? 'menu-open' : ''}} ">

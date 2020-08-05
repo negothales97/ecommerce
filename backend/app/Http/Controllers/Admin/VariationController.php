@@ -16,6 +16,10 @@ class VariationController extends Controller
         return view('admin.pages.variation.index')
             ->with('variations', $variations);
     }
+    public function create()
+    {
+        return view('admin.pages.variation.create');
+    }
 
     public function store(Request $request)
     {

@@ -1,6 +1,6 @@
-@extends('admin.templates.default', ['activePage' => 'tag', 'titlePage' => __('Tags')])
+@extends('admin.templates.default', ['activePage' => 'variation', 'titlePage' => __('Variações')])
 
-@section('title', 'Tags')
+@section('title', 'Variações')
 
 @section('content')
 <div class="content-wrapper">
@@ -9,11 +9,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Tags</h1>
+                    <h1 class="m-0 text-dark">Variações</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <div class="float-right">
-                        <a href="{{route('admin.tag.create')}}">
+                        <a href="{{route('admin.variation.create')}}">
                             <button class="btn btn-success act-include">
                                 Adicionar
                             </button>
@@ -33,7 +33,7 @@
                 <div class="col-12">
                     <div class="card card-info card-outline">
                         <div class="card-header">
-                            <h3 class="card-title">Lista de Tags</h3>
+                            <h3 class="card-title">Lista de Variações</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-3">
@@ -45,17 +45,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($tags as $tag)
+                                    @forelse($variations as $variation)
                                     <tr>
-                                        <td>{{$tag->name}}</td>
+                                        <td>{{$variation->name}}</td>
                                         <td class="text-center align-middle py-0">
                                             <div class="btn-group btn-group-sm">
-                                                <a href="{{route('admin.tag.edit', ['tag' => $tag->id])}}"
+                                                <a href="{{route('admin.variation.edit', ['variation' => $variation->id])}}"
                                                     class="btn btn-info">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <button
-                                                    href="{{route('admin.tag.delete', ['tag' => $tag->id])}}"
+                                                    href="{{route('admin.variation.delete', ['variation' => $variation->id])}}"
                                                     class="btn btn-danger btn-delete">
                                                     <i class="fa fa-trash"></i>
                                                 </button>

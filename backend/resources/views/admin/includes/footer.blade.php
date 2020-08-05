@@ -48,6 +48,8 @@ $.widget.bridge('uibutton', $.ui.button)
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <!-- Toastr -->
 <script src="{{asset('adminlte/plugins/toastr/toastr.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.js')}}"></script>
 <!-- Axios -->

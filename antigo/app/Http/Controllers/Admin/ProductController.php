@@ -32,7 +32,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = $product->categories;
-        $tags = $product->tags;
+        $tags = [];
 
         return view('admin.pages.product.edit')
             ->with('categories', $categories)
