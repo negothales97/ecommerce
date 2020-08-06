@@ -424,20 +424,57 @@
                         <div class="card card-outline card-info">
                             <div class="card-header">
                                 <h3 class="card-title">Variações</h3>
-                                <!-- <span class="description">Exemplos de variações são: cores e tamanhos</span> -->
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="input-has_free_shipping"
-                                                value="{{$product->has_free_shipping != null ? 'checked' : ''}}"
-                                                name="has_free_shipping">
-                                            <label class="form-check-label" for="input-has_free_shipping">Esse produto
-                                                possui frete grátis</label>
-                                        </div>
-                                    </div>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-success btn-sm" id="btnAddVariation">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
                                 </div>
+                            </div>
+                            <div class="card-body p-3">
+                                <table class="table table-bordered table-striped"">
+                                    <thead>
+                                        <tr>
+                                            <th>Foto</th>
+                                            <th>Variação</th>
+                                            <th>Estoque</th>
+                                            <th>Preço</th>
+                                            <th>Peso</th>
+                                            <th class=" text-right">Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($product->products as $variation)
+                                        <tr>
+                                            <td>
+                                                <img class="photo" src="{{asset('img/no-photo-50.png')}}" alt=""
+                                                    width="50">
+                                            </td>
+                                            <td>{{$variation->variation}}</td>
+                                            <td> @if($variation->stock == null)&infin; @else $variation->stock @endif
+                                            </td>
+                                            <td>R$ {!!convertMoneyUSAToBrazil($variation->price)!!}</td>
+                                            <td>{{convertMoneyUSAToBrazil($variation->weight)}} Kg</td>
+                                            <td class="text-center align-middle py-0">
+                                                <div class="btn-group btn-group-sm">
+                                                    <a href="#" class="btn btn-info">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <button onclick="deleteItem(this, 1)"
+                                                        data-href="{{route('admin.product.delete', ['product' => $variation])}}"
+                                                        class="btn btn-danger act-delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="5">Nenhum variação cadastrada</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -561,5 +598,106 @@ function sortImagens() {
         }
     });
 }
+
+$('#btnAddVariation').on('click', function(e) {
+    e.preventDefault();
+    $('#modalAddVariation').modal('show');
+});
+
+
+const getVariations = async () => {
+    return await axios.get(`{{route('api.variation.index')}}`)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => console.log(error));
+}
+const getVariationOptions = async (variationId) => {
+    let url = `{{route('api.variation.show', ['variation' => 'variationValue'])}}`;
+    url = url.replace('variationValue', variationId);
+    return await axios.get(url)
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => console.log(error));
+}
+
+window.onload = async () => {
+    let variations = await getVariations();
+    let selectVariations = document.querySelector('#select-variation');
+
+    await createOptions(variations.data, selectVariations);
+}
+
+$('#select-variation').on('change', function() {
+    requestSend($(this).val());
+});
+
+$('.select2').select2();
+
+
+const requestSend = async (optionId) => {
+    let variation = await getVariationOptions(optionId);
+    let selectOption = document.querySelector('#select-variation-option');
+    createOptions(variation.options, selectOption);
+}
+$(document).on('click', '.new-variation-btn', function() {
+    let html = `{{view('admin.components.variation')}}`;
+    $(html).insertBefore(this);
+});
 </script>
+@endsection
+@section('modals')
+<div class="modal fade" id="modalAddVariation" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar Variáveis</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{route('admin.product.variation.store', ['product' => $product])}}" method="post"
+                autocomplete="off" class="form-horizontal">
+                @csrf
+                <div class="modal-body">
+                    <div class="main-variation">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="select-variation">Propriedade</label>
+                                    <select class="form-control" name="variation_id" id="select-variation">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="select-variation-option">Valores da propriedade selecionadas</label>
+                                    <select class="select2" multiple="multiple"
+                                        data-placeholder="Selecione as propriedades" name="variation_option[]"
+                                        id="select-variation-option">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-variation">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-link btn-sm new-variation-btn">Adicionar Nova
+                                propriedade</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-info">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

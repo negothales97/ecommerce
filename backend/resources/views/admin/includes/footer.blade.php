@@ -59,6 +59,20 @@ $.widget.bridge('uibutton', $.ui.button)
 <!-- Mascaras -->
 <script src="{{asset('js/mask.js')}}"></script>
 <script type="text/javascript">
+const createOptions = async (options, select) => {
+    select.innerHTML = '';
+    if (!select.classList.contains('select2')) {
+        select.innerHTML = "<option disabled selected>Selecione..</option>";
+    }
+    options.forEach((option) => {
+        let optionElement = document.createElement('option');
+        let textOption = document.createTextNode(option.name);
+        optionElement.value = option.id;
+        optionElement.appendChild(textOption);
+        select.appendChild(optionElement)
+    });
+}
+
 $('.btn-delete').on('click', function(e) {
     e.preventDefault();
     $('#confirmationModal .modal-title').html('Confirmação');

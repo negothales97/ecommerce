@@ -1,4 +1,4 @@
-@extends('admin.templates.default', ['activePage' => 'contact', 'titlePage' => __('Contatos')])
+@extends('admin.templates.default', ['activePage' => 'newsletter', 'titlePage' => __('Newsletter')])
 
 @section('title', 'Contatos')
 
@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Contatos</h1>
+                    <h1 class="m-0 text-dark">Newsletters</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -24,7 +24,7 @@
                 <div class="col-12">
                     <div class="card card-info card-outline">
                         <div class="card-header">
-                            <h3 class="card-title">Lista de Contatos</h3>
+                            <h3 class="card-title">Lista de Newsletters</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-3">
@@ -37,18 +37,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($contacts as $contact)
+                                    @forelse($newsletters as $newsletter)
                                     <tr>
-                                        <td>{{$contact->name}}</td>
-                                        <td>{{$contact->email}}</td>
+                                        <td>{{$newsletter->genre}}</td>
+                                        <td>{{$newsletter->email}}</td>
                                         <td class="text-center align-middle py-0">
                                             <div class="btn-group btn-group-sm">
-                                                <a href="{{route('admin.contact.edit', ['contact' => $contact->id])}}"
+                                                <!-- <a href="#"
                                                     class="btn btn-info">
                                                     <i class="fa fa-edit"></i>
-                                                </a>
+                                                </a> -->
                                                 <button
-                                                    href="{{route('admin.contact.delete', ['contact' => $contact->id])}}"
+                                                    href="{{route('admin.newsletter.delete', ['newsletter' => $newsletter->id])}}"
                                                     class="btn btn-danger btn-delete">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -57,7 +57,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan=3>Nenhum contato feito</td>
+                                        <td colspan=3>Nenhum dado cadastrado</td>
                                     </tr>
                                     @endforelse
 

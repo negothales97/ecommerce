@@ -152,7 +152,7 @@ $('.btn-save').on('click', function(e) {
 
 $('.select2').select2({
     tags: true
-})
+});
 </script>
 @endsection
 @section('modals')

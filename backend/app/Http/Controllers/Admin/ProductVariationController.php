@@ -12,18 +12,18 @@ class ProductVariationController extends Controller
 {
     public function store(Request $request, Product $product)
     {
-        if(validateRequest('variation_name')){
-                $variation = Variation::create([
-                    'name' => $request->variation_name,
-                ]);
-                $options = explode(',', $request->variation_name_option);
-                foreach ($options as $option) {
+        // if(validateRequest('variation_name')){
+        //         $variation = Variation::create([
+        //             'name' => $request->variation_name,
+        //         ]);
+        //         $options = explode(',', $request->variation_name_option);
+        //         foreach ($options as $option) {
     
-                    $variation->options()->create([
-                        'name' => $option,
-                    ]);
-                }
-        }
+        //             $variation->options()->create([
+        //                 'name' => $option,
+        //             ]);
+        //         }
+        // }
 
         ProductVariationService::create($product, $request->all());
         
