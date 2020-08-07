@@ -16,19 +16,19 @@ class CreateProductVariationsTable extends Migration
         Schema::create('product_variations', function (Blueprint $table) {
             $table->id();
             
-            $table->double('price')->nullable();
-            $table->double('stock')->nullable();
-            $table->double('weight')->nullable();
-            $table->double('depth')->nullable();
-            $table->double('width')->nullable();
-            $table->double('height')->nullable();
-            $table->string('sku')->nullable();
-            $table->string('barcode')->nullable();           
+            // $table->double('price')->nullable();
+            // $table->double('stock')->nullable();
+            // $table->double('weight')->nullable();
+            // $table->double('depth')->nullable();
+            // $table->double('width')->nullable();
+            // $table->double('height')->nullable();
+            // $table->string('sku')->nullable();
+            // $table->string('barcode')->nullable();           
             
-            $table->integer('show')->default(1);
+            // $table->integer('show')->default(1);
+            // $table->unsignedBigInteger('variation_option_id');
+            // $table->unsignedBigInteger('product_image_id')->nullable();           
             $table->unsignedBigInteger('variation_id');
-            $table->unsignedBigInteger('variation_option_id');
-            $table->unsignedBigInteger('product_image_id')->nullable();           
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();

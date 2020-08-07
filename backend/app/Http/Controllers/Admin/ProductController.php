@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Tag;
-use App\Models\Product;
-use Illuminate\Http\Request;
-use App\Models\ProductCategory;
-use App\Services\ProductService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\Product;
+use App\Models\ProductVariation;
+use App\Models\Tag;
+use App\Services\ProductService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {

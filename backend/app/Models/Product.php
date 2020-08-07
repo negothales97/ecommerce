@@ -36,15 +36,20 @@ class Product extends Model
 
     public function products()
     {
-        return $this->hasMany('App\Models\ProductVariation', 'product_id');
+        return $this->hasMany('App\Models\Subproduct', 'product_id');
     }
-   
+
     public function categories()
     {
         return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');
     }
-    // public function tags()
-    // {
-    //     return $this->hasMany('App\Models\Tag');
-    // }
+
+    public function variations()
+    {
+        return $this->belongsToMany('App\Models\Variation', 'product_variations', 'product_id', 'variation_id');
+    }
+    public function tags()
+    {
+        return $this->belongsTo('App\Models\Tag');
+    }
 }

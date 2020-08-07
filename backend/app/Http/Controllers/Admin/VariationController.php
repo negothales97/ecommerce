@@ -23,8 +23,8 @@ class VariationController extends Controller
 
     public function store(Request $request)
     {
-        VariationService::create($request->all());
-        return \redirect()->back()
+        $variation = VariationService::create($request->all());
+        return \redirect()->route('admin.variation.edit', ['variation' => $variation])
             ->with('success', 'Variação adicionada com sucesso');
     }
 

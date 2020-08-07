@@ -112,6 +112,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
                 Route::post('/', 'Admin\ProductVariationController@store')->name('store');
                 Route::delete('/delete/{variation}', 'Admin\ProductVariationController@delete')->name('delete');
             });
+            // Subproduto
+            Route::group(['prefix' => '{product}/subproduct', 'as' => 'subproduct.'], function () {
+                Route::post('/', 'Admin\SubproductController@store')->name('store');
+                Route::delete('/delete/{subproduct}', 'Admin\SubproductController@delete')->name('delete');
+                Route::group(['prefix' => 'image', 'as' => 'image.'], function () {
+                    Route::post('/', 'Admin\SubproductImageController@store')->name('store');
+                });
+            });
         });
     });
 });

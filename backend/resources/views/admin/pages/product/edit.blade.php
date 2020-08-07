@@ -38,8 +38,8 @@
                     </div>
                 </div>
             </div>
-            <form action="{{route('admin.product.edit', ['product' => $product->id])}}" method="post"
-                enctype="multipart/form-data">
+            <form action="{{route('admin.product.update', ['product' => $product->id])}}" method="post"
+                id="formUpdateProduct" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="row">
@@ -164,7 +164,7 @@
                                         <div class="form-group">
                                             <label for="meta_description">Descrição para SEO</label>
                                             <textarea name="meta_description" id="input-meta_description"
-                                                class="form-control textarea {{$errors->has('meta_description') ? 'is-invalid' : ''}}"
+                                                class="form-control {{$errors->has('meta_description') ? 'is-invalid' : ''}}"
                                                 required
                                                 rows="5">{{old('meta_description', $product->meta_description)}}</textarea>
                                             @if ($errors->has('meta_description'))
@@ -204,7 +204,8 @@
                                                 </div>
                                                 <input type="text"
                                                     class="form-control input-money {{$errors->has('price') ? 'is-invalid' : ''}}"
-                                                    name="price" id="price" value="{{old('price', $product->price)}}">
+                                                    name="price" id="price"
+                                                    value="{{old('price', convertMoneyUsaToBrazil($product->price))}}">
                                             </div>
                                             @if ($errors->has('price'))
                                             <span class="help-block">
@@ -225,7 +226,7 @@
                                                 <input type="text"
                                                     class="form-control input-money {{$errors->has('promotional_price') ? 'is-invalid' : ''}}"
                                                     name="promotional_price" id="promotional_price"
-                                                    value="{{old('promotional_price', $product->promotional_price)}}">
+                                                    value="{{old('promotional_price', convertMoneyUsaToBrazil($product->promotional_price))}}">
                                             </div>
                                             @if ($errors->has('promotional_price'))
                                             <span class="help-block">
@@ -317,7 +318,7 @@
                                                 <input type="text"
                                                     class="form-control input-money {{$errors->has('weight') ? 'is-invalid' : ''}}"
                                                     name="weight" id="weight"
-                                                    value="{{old('weight', $product->weight)}}">
+                                                    value="{{old('weight', convertMoneyUsaToBrazil($product->weight))}}">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kg</span>
                                                 </div>
@@ -337,7 +338,8 @@
                                             <div class="input-group">
                                                 <input type="text"
                                                     class="form-control input-money {{$errors->has('depth') ? 'is-invalid' : ''}}"
-                                                    name="depth" id="depth" value="{{old('depth', $product->depth)}}">
+                                                    name="depth" id="depth"
+                                                    value="{{old('depth', convertMoneyUsaToBrazil($product->depth))}}">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">cm</span>
                                                 </div>
@@ -357,7 +359,8 @@
                                             <div class="input-group">
                                                 <input type="text"
                                                     class="form-control input-money {{$errors->has('width') ? 'is-invalid' : ''}}"
-                                                    name="width" id="width" value="{{old('width', $product->width)}}">
+                                                    name="width" id="width"
+                                                    value="{{old('width', convertMoneyUsaToBrazil($product->width))}}">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">cm</span>
                                                 </div>
@@ -378,7 +381,7 @@
                                                 <input type="text"
                                                     class="form-control input-money {{$errors->has('height') ? 'is-invalid' : ''}}"
                                                     name="height" id="height"
-                                                    value="{{old('height', $product->height)}}">
+                                                    value="{{old('height', convertMoneyUsaToBrazil($product->height))}}">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">cm</span>
                                                 </div>
@@ -408,7 +411,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input" id="input-has_free_shipping"
-                                                value="{{$product->has_free_shipping != null ? 'checked' : ''}}"
+                                                value="1" {{$product->has_free_shipping != null ? 'checked' : ''}}
                                                 name="has_free_shipping">
                                             <label class="form-check-label" for="input-has_free_shipping">Esse produto
                                                 possui frete grátis</label>
@@ -434,31 +437,17 @@
                                 <table class="table table-bordered table-striped"">
                                     <thead>
                                         <tr>
-                                            <th>Foto</th>
-                                            <th>Variação</th>
-                                            <th>Estoque</th>
-                                            <th>Preço</th>
-                                            <th>Peso</th>
+                                            <th>Nome</th>
                                             <th class=" text-right">Ações</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($product->products as $variation)
+                                        @forelse($product->variations as $variation)
                                         <tr>
-                                            <td>
-                                                <img class="photo" src="{{asset('img/no-photo-50.png')}}" alt=""
-                                                    width="50">
-                                            </td>
-                                            <td>{{$variation->variation}}</td>
-                                            <td> @if($variation->stock == null)&infin; @else $variation->stock @endif
-                                            </td>
-                                            <td>R$ {!!convertMoneyUSAToBrazil($variation->price)!!}</td>
-                                            <td>{{convertMoneyUSAToBrazil($variation->weight)}} Kg</td>
+                                            <td>{{$variation->name}}</td>
                                             <td class="text-center align-middle py-0">
                                                 <div class="btn-group btn-group-sm">
-                                                    <a href="#" class="btn btn-info">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
+
                                                     <button onclick="deleteItem(this, 1)"
                                                         data-href="{{route('admin.product.delete', ['product' => $variation])}}"
                                                         class="btn btn-danger act-delete">
@@ -471,6 +460,76 @@
                                         @empty
                                         <tr>
                                             <td colspan="5">Nenhum variação cadastrada</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-outline card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Subprodutos</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-success btn-sm" id="btnAddSubproduct">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body p-3">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Foto</th>
+                                            <th>Variação</th>
+                                            <th>Estoque</th>
+                                            <th>Preço</th>
+                                            <th>Peso</th>
+                                            <th class=" text-right">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($product->products as $subproduct)
+                                        <tr>
+                                            <td class="text-center align-middle py-2">
+                                                @if($subproduct->product_image_id == null)
+                                                <img class="photo" data-id="{{$subproduct->id}}"
+                                                    src="{{asset('img/no-photo-50.png')}}" alt="Sem imagem" width="50">
+                                                @else
+                                                <img class="photo" data-id="{{$subproduct->id}}"
+                                                    src="{{ asset('uploads/products/thumbnail')}}/{{$subproduct->image->file}}"
+                                                    alt="Sem imagem" width="50">
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @foreach($subproduct->variationOptions as $option)
+                                                <small>{{$option->name}}</small><br>
+                                                @endforeach
+                                            </td>
+                                            <td> @if($subproduct->stock == null)&infin; @else $subproduct->stock @endif
+                                            </td>
+                                            <td>R$ {!!convertMoneyUSAToBrazil($subproduct->price)!!}</td>
+                                            <td>{{convertMoneyUSAToBrazil($subproduct->weight)}} Kg</td>
+                                            <td class="text-center align-middle py-0">
+                                                <div class="btn-group btn-group-sm">
+                                                    <a href="#" class="btn btn-info">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <button onclick="deleteItem(this, 1)"
+                                                        data-href="{{route('admin.product.delete', ['product' => $subproduct])}}"
+                                                        class="btn btn-danger act-delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="5">Nenhum subproduto cadastrado</td>
                                         </tr>
                                         @endforelse
                                     </tbody>
@@ -566,6 +625,13 @@ $("#images").sortable({
     }
 });
 
+$('.photo').on('click', function(e) {
+    e.preventDefault();
+    let id = $(this).data('id');
+    $('#subproduct_id').val(id);
+    $('#imagesModal').modal('show');
+});
+
 function sortImagens() {
     var i = 0;
     var files = [];
@@ -602,6 +668,11 @@ function sortImagens() {
 $('#btnAddVariation').on('click', function(e) {
     e.preventDefault();
     $('#modalAddVariation').modal('show');
+});
+
+$('#btnAddSubproduct').on('click', function(e) {
+    e.preventDefault();
+    $('#modalAddSubProduct').modal('show');
 });
 
 
@@ -645,6 +716,11 @@ $(document).on('click', '.new-variation-btn', function() {
     let html = `{{view('admin.components.variation')}}`;
     $(html).insertBefore(this);
 });
+
+$("#btnUpdateProduct").on('click', function(e) {
+    e.preventDefault();
+    $("#formUpdateProduct").submit();
+})
 </script>
 @endsection
 @section('modals')
@@ -661,36 +737,109 @@ $(document).on('click', '.new-variation-btn', function() {
                 autocomplete="off" class="form-horizontal">
                 @csrf
                 <div class="modal-body">
-                    <div class="main-variation">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="select-variation">Propriedade</label>
-                                    <select class="form-control" name="variation_id" id="select-variation">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="select-variation-option">Valores da propriedade selecionadas</label>
-                                    <select class="select2" multiple="multiple"
-                                        data-placeholder="Selecione as propriedades" name="variation_option[]"
-                                        id="select-variation-option">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="new-variation">
-                    </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <button type="button" class="btn btn-link btn-sm new-variation-btn">Adicionar Nova
-                                propriedade</button>
+                            <div class="form-group">
+                                <label for="select-variation">Variações disponíveis</label>
+                                <select class="select2" class="select2" multiple="multiple"
+                                    data-placeholder="Selecione as variações" name="variation_id[]"
+                                    id="select-variation">
+                                </select>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-info">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="imagesModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Selecione uma imagem para</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{route('admin.product.subproduct.image.store', ['product' => $product])}}" method="post"
+                autocomplete="off" class="form-horizontal">
+                @csrf
+
+                <input type="hidden" name="subproduct_id" id="subproduct_id">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Imagens do produto</label>
+                            <div class="row">
+                                <?php
+                                $numOfCols = 4;
+                                $rowCount = 0;
+                                $bootstrapColWidth = 12 / $numOfCols;
+                                ?>
+                                @forelse($product->images as $image)
+                                <div class="col-sm-<?= $bootstrapColWidth; ?>">
+                                    <input id="product-image-{{$image->id}}" class="input-subproduct-image" type="radio"
+                                        name="image_id" value="{{$image->id}}">
+                                    <label for="product-image-{{$image->id}}" class="option-subproduct-image">
+                                        <img src="{{ asset('uploads/products/thumbnail')}}/{{$image->file}}">
+                                    </label>
+                                </div>
+                                <?php
+                                $rowCount++;
+                                if($rowCount % $numOfCols == 0) echo '</div><div class="row">';
+                                ?>
+                                @empty
+                                <div class="col-sm-12">
+                                    <p>Ainda nenhuma imagem foi cadastrada</p>
+                                </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-info">Selecionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalAddSubProduct" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar Subproduto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{route('admin.product.subproduct.store', ['product' => $product])}}" method="post"
+                autocomplete="off" class="form-horizontal">
+                @csrf
+                <div class="modal-body">
+                    @foreach($product->variations as $variation)
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{$variation->name}}</label>
+                                <select name="variaton_option_id[]" class="form-control">
+                                    @foreach($variation->options as $option)
+                                    <option value="{{$option->id}}">{{$option->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

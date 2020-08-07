@@ -97,7 +97,7 @@
                                         <div class="form-group">
                                             <label for="meta_description">Descrição para SEO</label>
                                             <textarea name="meta_description" id="input-meta_description"
-                                                class="form-control textarea {{$errors->has('meta_description') ? 'is-invalid' : ''}}"
+                                                class="form-control {{$errors->has('meta_description') ? 'is-invalid' : ''}}"
                                                 required rows="5"></textarea>
                                             @if ($errors->has('meta_description'))
                                             <span class="help-block">

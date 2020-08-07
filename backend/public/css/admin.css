@@ -2,3 +2,45 @@
   display: none;
 }
 
+.photo {
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+  background: #FAFAFA;
+  border: 1px solid;
+  border-top: #EEE;
+  border-left: #DDD;
+  border-right: #DDD;
+  border-bottom: #CCC;
+}
+
+.product-img {
+  width: 150px;
+  height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid #000;
+  border-radius: 2px;
+}
+
+.input-subproduct-image {
+  display: none;
+}
+
+.input-subproduct-image + label {
+  padding: 4px;
+  cursor: pointer;
+}
+
+.input-subproduct-image:checked + label {
+  border: solid 2px #f39c12;
+  border-radius: 5px;
+  padding: 8px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+  transition: 0.2s;
+}
+
+.option-subproduct-image img {
+  width: 100%;
+}
+
