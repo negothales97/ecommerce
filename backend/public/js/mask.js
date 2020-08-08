@@ -135,15 +135,27 @@ function slugify(string) {
 
 /***/ }),
 
+/***/ "./resources/assets/sass/app.scss":
+/*!****************************************!*\
+  !*** ./resources/assets/sass/app.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!******************************************************************************!*\
-  !*** multi ./resources/assets/js/mask.js ./resources/assets/sass/admin.scss ***!
-  \******************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** multi ./resources/assets/js/mask.js ./resources/assets/sass/admin.scss ./resources/assets/sass/app.scss ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\xampp\htdocs\ecommerce\backend\resources\assets\js\mask.js */"./resources/assets/js/mask.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ecommerce\backend\resources\assets\sass\admin.scss */"./resources/assets/sass/admin.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ecommerce\backend\resources\assets\sass\admin.scss */"./resources/assets/sass/admin.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ecommerce\backend\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })

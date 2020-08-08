@@ -1,0 +1,24 @@
+a, p, input, li, button {
+    font-family: $font-family;
+    letter-spacing: $letter-spacing;
+}
+
+input {
+    outline: none;
+    &:focus {
+        outline: none;
+    }
+}
+
+button {
+    outline: none;
+    &:focus {
+        outline: none;
+    }
+}
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}
