@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->text('meta_description');
             $table->text('meta_title');
 
+            $table->integer('featured')->default(0);
             $table->integer('status')->default(1);
             $table->integer('parent_id')->nullable();
             $table->timestamps();

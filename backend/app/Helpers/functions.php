@@ -80,3 +80,11 @@ function validateRequest(String $input)
     return false;
 
 }
+
+function cmp($a, $b)
+{
+    // if ($a['product_id'] == $b['product_id']) {
+    //     return $a['color_id'] - $b['color_id'];
+    // }
+    return strcmp($a['product_id'], $b['product_id']);
+}

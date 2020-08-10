@@ -27,7 +27,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            Logun
+            Keep Jeans
         </div>
         <!-- /.login-logo -->
         <div class="card">

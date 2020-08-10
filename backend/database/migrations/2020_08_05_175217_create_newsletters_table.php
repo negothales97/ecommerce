@@ -17,7 +17,7 @@ class CreateNewslettersTable extends Migration
             $table->id();
             $table->string('email',191)->unique();
             $table->string('policy');
-            $table->string('genre');
+            // $table->string('genre');
             $table->integer('status')->default(1);
             $table->timestamps();
         });

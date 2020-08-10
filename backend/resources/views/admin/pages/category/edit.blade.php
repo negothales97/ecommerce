@@ -29,7 +29,7 @@
                             @method('put')
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="name">Nome</label>
                                             <input type="text"
@@ -44,9 +44,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="slug">URL da Categoria</label>
                                             <input type="text"
@@ -63,7 +61,47 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="input-status">Status</label>
+                                            <select name="status" id="input-status"
+                                                class="form-control input-status {{$errors->has('status') ? 'is-invalid' : ''}}">
+                                                <option disabled>Selecione...</option>
+                                                <option value="1" {{$category->status == 1 ? 'selected' : ''}}>Ativo</option>
+                                                <option value="0" {{$category->status == 0 ? 'selected' : ''}}>Desativo</option>
+                                            </select>
+
+                                            @if ($errors->has('status'))
+                                            <span class="help-block">
+                                                <small>
+                                                    <strong>{{ $errors->first('status') }}</strong>
+                                                </small>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="input-featured">Destaque</label>
+                                            <select name="featured" id="input-featured"
+                                                class="form-control input-featured {{$errors->has('featured') ? 'is-invalid' : ''}}">
+                                                <option disabled selected>Selecione...</option>
+                                                <option value="1" {{$category->featured == 1 ? 'selected' : ''}}>Sim</option>
+                                                <option value="0" {{$category->featured == 0 ? 'selected' : ''}}>Não</option>
+                                            </select>
+
+                                            @if ($errors->has('featured'))
+                                            <span class="help-block">
+                                                <small>
+                                                    <strong>{{ $errors->first('featured') }}</strong>
+                                                </small>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="meta_title">Título para SEO</label>
                                             <input type="text"
@@ -79,9 +117,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="meta_description">Descrição para SEO</label>
                                             <input type="text"

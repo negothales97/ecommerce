@@ -23,6 +23,7 @@ class Product extends Model
         'stock',
         'weight',
         'depth',
+        'use_subproduct',
         'width',
         'height',
         'sku',
@@ -48,8 +49,13 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Variation', 'product_variations', 'product_id', 'variation_id');
     }
-    public function tags()
+    public function tag()
     {
         return $this->belongsTo('App\Models\Tag');
+    }
+
+    public function mainProductImage()
+    {
+        return $this->images()->where('position', 1)->first();
     }
 }

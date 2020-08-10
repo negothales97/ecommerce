@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Tag;
+use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Models\ProductVariation;
+use App\Services\ProductService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
-use App\Models\Product;
-use App\Models\ProductVariation;
-use App\Models\Tag;
-use App\Services\ProductService;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -32,9 +33,12 @@ class ProductController extends Controller
     }
     public function edit(Product $product)
     {
-        $categories = $product->categories;
         $tags = Tag::get();
+        $categories = Category::whereNull('parent_id')->get();;
+
+        $categoriesId = $product->categories()->pluck('categories.id')->toArray();
         return view('admin.pages.product.edit')
+        ->with('categoriesId', $categoriesId)
             ->with('categories', $categories)
             ->with('tags', $tags)
             ->with('product', $product);

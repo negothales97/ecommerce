@@ -13,30 +13,59 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('customer.pages.home.index');
-});
+Route::get('/', 'Customer\HomeController@index')->name('home');
+
+Route::get('categoria/{slug}', 'Customer\CategoryController@index')->name('category');
+
+Route::get('produto/{slug}', 'Customer\ProductController@index')->name('product');
 
 Route::get('/contato', 'Customer\ContactController@index')->name('contact');
 Route::post('/contato', 'Customer\ContactController@store')->name('contact');
 
-Route::get('/categoria/{slug}')->name('category');
-
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/login', 'AdminAuth\LoginController@showLoginForm');
-    Route::post('/login', 'AdminAuth\LoginController@login');
-    Route::get('/register', 'Auth\RegisterController@showAdminRegisterForm')->name('admin.register');
-    Route::post('/register', 'Auth\RegisterController@createAdmin');
-    Route::post('/logout', 'Auth\RegisterController@logout')->name('admin.logout');
+Route::group(['prefix' => 'carrinho', 'as' => 'cart.'], function(){
+    Route::get('/', 'Customer\CartController@index')->name('index');
+    Route::get('/delete', 'Customer\CartController@delete')->name('delete.product');
+    Route::post('/', 'Customer\CartController@store')->name('store');
+    Route::get('checkout/', 'Customer\CheckoutController@index')->name('checkout.index');
+    Route::get('checkout/email', 'Customer\CheckoutController@email')->name('checkout.email');
+    Route::post('checkout/', 'Customer\CheckoutController@store')->name('checkout.store');
 });
 
-Route::get('/login/customer', 'Auth\LoginController@showCustomerLoginForm');
-Route::get('/register/customer', 'Auth\RegisterController@showCustomerRegisterForm');
-Route::post('/login/customer', 'Auth\LoginController@customerLogin');
-Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
+
+Route::get('/checkout1', function () {
+    return view('customer.pages.checkout.checkout1');
+});
+
+Route::get('/checkout2', function () {
+    return view('customer.pages.checkout.checkout2');
+});
+
+// Admin
+Route::group(['prefix' => 'admin', 'namespace' => 'AdminAuth'], function () {
+    Route::get('/login', 'LoginController@showLoginForm');
+    Route::post('/login', 'LoginController@login');
+    Route::get('/logout', 'LoginController@logout')->name('admin.logout');
+    // Route::get('/register', 'Auth\RegisterController@showAdminRegisterForm')->name('admin.register');
+    // Route::post('/register', 'Auth\RegisterController@register');
+});
+// Custoemr
+Route::group(['prefix' => 'customer', 'namespace' => 'CustomerAuth'], function () {
+    Route::get('/login', 'LoginController@showLoginForm');
+    Route::post('/login', 'LoginController@login');
+    Route::get('/register', 'RegisterController@showRegisterForm')->name('admin.register');
+    Route::post('/register', 'RegisterController@register');
+    Route::get('/logout', 'LoginController@logout')->name('customer.logout');
+});
+
+// Route::get('/login/customer', 'Auth\LoginController@showCustomerLoginForm');
+// Route::get('/register/customer', 'Auth\RegisterController@showCustomerRegisterForm');
+// Route::post('/login/customer', 'Auth\LoginController@customerLogin');
+// Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
+
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
     Route::get('dashboard', 'Admin\DashboardController@index')->name('dashboard');
-    // Contao
+    // Contato
     Route::group(['prefix' => 'contato', 'as' => 'contact.'], function () {
         Route::get('/', 'Admin\ContactController@index')->name('index');
         Route::get('/edit/{contact}', 'Admin\ContactController@edit')->name('edit');
@@ -100,16 +129,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
                 Route::get('list/{id}', 'Admin\ProductImageController@list')->name('list');
                 Route::post('sort/', 'Admin\ProductImageController@sort')->name('sort');
                 Route::post('/', 'Admin\ProductImageController@store')->name('store');
-                Route::delete('/delete/{image}', 'Admin\ProductImageController@delete')->name('delete');
+                Route::delete('/delete/{file}', 'Admin\ProductImageController@delete')->name('delete');
             });
             // Categoria do Produto
             Route::group(['prefix' => '{product}/category', 'as' => 'category.'], function () {
                 Route::post('/', 'Admin\ProductCategoryController@store')->name('store');
+                Route::get('/change/{category}', 'Admin\ProductCategoryController@change')->name('change');
                 Route::delete('/delete/{category}', 'Admin\ProductCategoryController@delete')->name('delete');
             });
             // Variação do produto
             Route::group(['prefix' => '{product}/variation', 'as' => 'variation.'], function () {
                 Route::post('/', 'Admin\ProductVariationController@store')->name('store');
+                Route::post('change/', 'Admin\ProductVariationController@change')->name('change');
                 Route::delete('/delete/{variation}', 'Admin\ProductVariationController@delete')->name('delete');
             });
             // Subproduto

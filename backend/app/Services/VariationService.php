@@ -25,6 +25,7 @@ class VariationService
                 ]);
             }
         }
+        return $variation;
     }
 
     public static function show(Variation $variation)

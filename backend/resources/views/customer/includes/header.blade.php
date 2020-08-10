@@ -1,3 +1,7 @@
+@php
+$cart = session()->get('cart');
+$countCart = isset($cart) ? count($cart) : 0;
+@endphp
 <header id="header">
     <div class="container">
         <div class="row">
@@ -15,11 +19,11 @@
             <div class="col-4">
                 <div id="box-user">
                     <i class="icon-user"></i>
-                    <a href="#"><strong>Entre</strong><br>ou cadastre-se</a>
+                    <a href="{{url('customer/login')}}"><strong>Entre</strong><br>ou cadastre-se</a>
                 </div>
                 <div id="box-bag">
                     <i class="icon-bag"></i>
-                    <a href="#"><strong>Sacola</strong><br>2 itens na sacola</a>
+                    <a href="{{route('cart.index')}}"><strong>Sacola</strong><br>{{$countCart}} itens na sacola</a>
                 </div>
             </div>
         </div>

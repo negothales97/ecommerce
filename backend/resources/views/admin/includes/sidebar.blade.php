@@ -3,14 +3,14 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
                 <a href="#" class="d-block">Thales Serrra</a>
             </div>
-        </div>
+        </div> -->
 
         <!-- Sidebar Menu -->
-        <nav class="mt-2">
+        <nav>
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{route('admin.dashboard')}}" class="nav-link{{ $activePage == 'dashboard' ? ' active' : '' }}">
@@ -77,78 +77,24 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.product.index') }}"
-                                class="nav-link{{ $activePage == 'product' ? ' active' : '' }}">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Compre x, ganhe desconto em x</p>
-                            </a>
-                            <a href="{{ route('admin.category.index') }}"
-                                class="nav-link{{ $activePage == 'category' ? ' active' : '' }}">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Compre x e ganhe frete grátis</p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{route('admin.tag.index')}}"
-                                class="nav-link{{ $activePage == 'tag' ? ' active' : '' }}">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Descontos progressivos</p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{route('admin.tag.index')}}"
-                                class="nav-link{{ $activePage == 'tag' ? ' active' : '' }}">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Compre e ganhe</p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{route('admin.tag.index')}}"
-                                class="nav-link{{ $activePage == 'tag' ? ' active' : '' }}">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Compre junto</p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{route('admin.tag.index')}}"
-                                class="nav-link{{ $activePage == 'tag' ? ' active' : '' }}">
+                            <a href="#"
+                                class="nav-link{{ $activePage == 'promotion' ? ' active' : '' }}">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Cupons de desconto</p>
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="{{route('admin.tag.index')}}"
-                                class="nav-link{{ $activePage == 'tag' ? ' active' : '' }}">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Compre por kits</p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{route('admin.tag.index')}}"
-                                class="nav-link{{ $activePage == 'tag' ? ' active' : '' }}">
+                            <a href="#"
+                                class="nav-link{{ $activePage == 'promotion' ? ' active' : '' }}">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Cronômetro</p>
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="{{route('admin.tag.index')}}"
-                                class="nav-link{{ $activePage == 'tag' ? ' active' : '' }}">
+                            <a href="#"
+                                class="nav-link{{ $activePage == 'promotion' ? ' active' : '' }}">
                                 <i class="nav-icon far fa-circle"></i>
-                                <p>Preço por origem de acesso</p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{route('admin.tag.index')}}"
-                                class="nav-link{{ $activePage == 'tag' ? ' active' : '' }}">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Cronômetro</p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{route('admin.tag.index')}}"
-                                class="nav-link{{ $activePage == 'tag' ? ' active' : '' }}">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Blackfriday</p>
+                                <p>Frete Grátis</p>
                             </a>
                         </li>
                     </ul>
@@ -168,13 +114,13 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('admin.contact.index')}}" class="nav-link {{ $activePage == 'contact' ? ' active' : '' }}">
-                    <i class="far fa-file nav-icon"></i>
+                    <i class="fas fa-phone nav-icon"></i>
                         <p>Contatos</p>
                     </a>
                 </li>
                 <li class="nav-item{{ $activePage == 'newsletter' ? ' active' : '' }}">
                     <a href="{{route('admin.newsletter.index')}}" class="nav-link">
-                    <i class="far fa-file nav-icon"></i>
+                    <i class="fas fa-newspaper nav-icon"></i>
                         <p>Newsletter</p>
                     </a>
                 </li>

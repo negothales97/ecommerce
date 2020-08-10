@@ -26,7 +26,6 @@ class NewsletterRequest extends FormRequest
         return [
             'email' => 'required',
             'policy' => 'required',
-            'genre' => 'required',
         ];
     }
 }

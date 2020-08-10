@@ -187,5 +187,11 @@
         }, 1000);
         $('#overlay').css('display', 'none');
     });
+
+    $(".product-carousel").on('click', function(e){
+        e.preventDefault();
+        let url = $(this).data('url');
+        window.location.href=url;
+    })
 </script>
 @yield('scripts')

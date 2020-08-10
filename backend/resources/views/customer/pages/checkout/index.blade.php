@@ -4,13 +4,14 @@
 <section class="content">
     <section class="checkout">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="title-register">
-                        <span>Cadastro</span>
-                    </div>
-                    <div class="box-register box-register-with-title">
-                        <form>
+            <form action="{{route('cart.checkout.store')}}" method="post">
+                @csrf
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="title-register">
+                            <span>Cadastro</span>
+                        </div>
+                        <div class="box-register box-register-with-title">
                             <div class="form-group">
                                 <label for="email">E-mail</label>
                                 <input type="email" class="form-control" id="email" name="email">
@@ -47,15 +48,14 @@
                                 <label for="celphone">Celular</label>
                                 <input type="text" class="form-control" id="celphone" name="celphone">
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="title-register">
-                        <span>Entrega</span>
-                    </div>
-                    <div class="box-register box-register-with-title">
-                        <form>
+                    <div class="col-sm-4">
+                        <div class="title-register">
+                            <span>Entrega</span>
+                        </div>
+                        <div class="box-register box-register-with-title">
+
                             <div class="form-group">
                                 <label for="cep">CEP</label>
                                 <input type="text" class="form-control" id="cep" name="cep">
@@ -64,13 +64,15 @@
                                 <div class="row">
                                     <div class="col-sm-10">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                id="gridRadios1" value="option1" checked>
                                             <label class="form-check-label" for="gridRadios1">
                                                 First radio
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                id="gridRadios2" value="option2">
                                             <label class="form-check-label" for="gridRadios2">
                                                 Second radio
                                             </label>
@@ -102,23 +104,23 @@
                                 <label for="city">Cidade</label>
                                 <input type="text" class="form-control" id="city" name="city">
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="title-register">
-                        <span>Pagamento</span>
-                    </div>
-                    <div class="box-register box-register-with-title">
-                        <form>
+                    <div class="col-sm-4">
+                        <div class="title-register">
+                            <span>Pagamento</span>
+                        </div>
+                        <div class="box-register box-register-with-title">
                             <img id="card-checkout" src="{{ asset('img/card-checkout.png') }}" alt="Cartão">
                             <div class="form-group">
                                 <label for="number-card">Número do cartão de crédito</label>
-                                <input type="text" class="form-control" id="number-card" name="number-card" placeholder="0000 0000 0000 0000">
+                                <input type="text" class="form-control" id="number-card" name="number-card"
+                                    placeholder="0000 0000 0000 0000">
                             </div>
                             <div class="form-group">
                                 <label for="validity">Validade</label>
-                                <input type="text" class="form-control" id="validity" name="validity" placeholder="MM/AA">
+                                <input type="text" class="form-control" id="validity" name="validity"
+                                    placeholder="MM/AA">
                             </div>
                             <div class="form-group">
                                 <label for="name-card">NOme escrito no cartão</label>
@@ -126,37 +128,33 @@
                             </div>
                             <div class="form-group">
                                 <label for="code-security">Código de segurança</label>
-                                <input type="text" class="form-control" id="code-security" name="code-security" placeholder="CVV">
+                                <input type="text" class="form-control" id="code-security" name="code-security"
+                                    placeholder="CVV">
                             </div>
                             <div class="form-group">
                                 <label for="parcels">Número de parcelas</label>
                                 <select class="form-control" id="parcels" name="parcels">
-                                    <option>6x de R$31,65 sem juros</option>
-                                    <option>6x de R$31,65 sem juros</option>
-                                    <option>6x de R$31,65 sem juros</option>
-                                    <option>6x de R$31,65 sem juros</option>
+                                    @for($i = 1; $i< 7; $i++) <option>{{$i}}x de
+                                        R${{convertMoneyUsaToBrazil($total /$i) }} sem juros</option>
+                                        @endfor
                                 </select>
                             </div>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="delivery">
-                                <label class="custom-control-label" for="delivery">Endereço de entrega igual ao de cobrança</label>
+                                <label class="custom-control-label" for="delivery">Endereço de entrega igual ao de
+                                    cobrança</label>
                             </div>
-                        </form>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit">Finalizar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 </section>
 
-@endsection
-@section('scripts')
-<script type="text/javascript">
-    $('.link-content').on('click', function(e) {
-        let id = $(this).data('id');
-        axios.get(`api/click/${id}`)
-            .then(response => console.log(response))
-            .catch(error => console.log(error))
-    });
-</script>
 @endsection

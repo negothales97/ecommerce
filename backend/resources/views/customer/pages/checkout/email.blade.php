@@ -9,16 +9,24 @@
                     <div class="box-register">
                         <p>Para continuar, informe seu e-mail</p>
                         <form>
-                            <input type="email" name="email" placeholder="Seu e-mail">
-                            <button type="submit">Continuar</button>
+                        
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Seu e-mail">
+                            </div>
+                            <!-- <div class="form-group">
+                                <input type="email" name="email" placeholder="Seu e-mail">
+                            </div> -->
+                            <button type="button" onclick="window.location.href='{{route('cart.checkout.index')}}';">Continuar</button>
                         </form>
                     </div>
                     <h5>Usamos seu e-mail de forma segura para</h5>
                     <ul>
                         <li><img src="{{ asset('img/check.png') }}" alt="Check">Identificar seu perfil</li>
-                        <li><img src="{{ asset('img/check.png') }}" alt="Check">Notificar sobre o andamento do seu pedido</li>
+                        <li><img src="{{ asset('img/check.png') }}" alt="Check">Notificar sobre o andamento do seu
+                            pedido</li>
                         <li><img src="{{ asset('img/check.png') }}" alt="Check">Gerenciar seu histórico de compras</li>
-                        <li><img src="{{ asset('img/check.png') }}" alt="Check">Acelerar o preechimento de suas informações</li>
+                        <li><img src="{{ asset('img/check.png') }}" alt="Check">Acelerar o preechimento de suas
+                            informações</li>
                     </ul>
                 </div>
             </div>
@@ -28,12 +36,5 @@
 
 @endsection
 @section('scripts')
-<script type="text/javascript">
-    $('.link-content').on('click', function(e) {
-        let id = $(this).data('id');
-        axios.get(`api/click/${id}`)
-            .then(response => console.log(response))
-            .catch(error => console.log(error))
-    });
-</script>
+
 @endsection

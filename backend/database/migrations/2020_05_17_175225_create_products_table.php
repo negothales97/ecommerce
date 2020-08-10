@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->integer('primary')->default(0);
             $table->integer('new')->default(0);
             $table->integer('sale')->default(0);
+            $table->integer('use_subproduct')->default(0);
             
             $table->boolean('has_free_shipping')->nullable();
             $table->double('promotional_price')->nullable();

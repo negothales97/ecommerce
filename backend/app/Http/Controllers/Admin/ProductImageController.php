@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Subproduct;
 use Illuminate\Http\Request;
 
 class ProductImageController extends Controller
@@ -17,7 +18,7 @@ class ProductImageController extends Controller
 
         $position = $product->images()->count();
         $fileName = saveImage($file, $product->name);
-        
+
         $product->images()->create([
             'position' => $position,
             'file' => $fileName,
@@ -62,6 +63,15 @@ class ProductImageController extends Controller
                 $i++;
             }
         }
+    }
 
+    public function delete($file)
+    {
+        $image = ProductImage::where('file', $file)->first();
+        $subproduct = Subproduct::where('product_image_id', $image->id)
+            ->update(['product_image_id' => null]);
+        $image->delete();
+        return redirect()->back()
+            ->with('success', 'Imagem Removida');
     }
 }

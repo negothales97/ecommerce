@@ -10,14 +10,13 @@ class Newsletter extends Model
         'email',
         'policy',
         'status',
-        'genre'
     ];
 
-    public function getGenreAttribute($value){
-        $genre = [
-            'f' => 'Feminino',
-            'm' => 'Masculino'
-        ];
-        return $genre[$value];
-    }
+    // public function getGenreAttribute($value){
+    //     $genre = [
+    //         'f' => 'Feminino',
+    //         'm' => 'Masculino'
+    //     ];
+    //     return $genre[$value];
+    // }
 }

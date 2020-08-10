@@ -1,5 +1,5 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2020 <a href="https://imaxinformatica.com.br/">IEAGA. </a></strong>
+    <strong>Copyright &copy; 2020 <a href="https://imaxinformatica.com.br/">Keep Jeans. </a></strong>
     TODOS OS DIREITOS RESERVADOS.
     <div class="float-right d-none d-sm-inline-block">
         <b>Versão</b> 1.0.0

@@ -42,6 +42,8 @@
                 id="formUpdateProduct" enctype="multipart/form-data">
                 @csrf
                 @method('put')
+
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-info card-outline">
@@ -57,7 +59,8 @@
                                                 class="form-control {{$errors->has('status') ? 'is-invalid' : ''}}">
                                                 <option value="1" {{$product->status == 1 ? "selected" : ""}}>Ativo
                                                 </option>
-                                                <option value="0" {{$product->status == 0 ? "selected" : ""}}>Desativo
+                                                <option value="0" {{$product->status == 0 ? "selected" : ""}}>
+                                                    Desativo
                                                 </option>
                                             </select>
                                             @if ($errors->has('status'))
@@ -77,7 +80,8 @@
                                                 <option disabled selected>Selecione...</option>
                                                 @foreach($tags as $tag)
                                                 <option value="{{$tag->id}}"
-                                                    {{$product->tag_id == $tag->id ? "selected" : ""}}>{{$tag->name}}
+                                                    {{$product->tag_id == $tag->id ? "selected" : ""}}>
+                                                    {{$tag->name}}
                                                 </option>
                                                 @endforeach
                                             </select>
@@ -187,115 +191,239 @@
 
                     <!-- ./col -->
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-info card-outline">
-                            <div class="card-header">
-                                <h3 class="card-title">Preços</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="price">Preço Original</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">R$</span>
+                @if($product->use_subproduct == 0)
+                <div class="product-data">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-info card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">Preços</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="price">Preço Original</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">R$</span>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control input-money {{$errors->has('price') ? 'is-invalid' : ''}}"
+                                                        name="price" id="price"
+                                                        value="{{old('price', convertMoneyUsaToBrazil($product->price))}}">
                                                 </div>
-                                                <input type="text"
-                                                    class="form-control input-money {{$errors->has('price') ? 'is-invalid' : ''}}"
-                                                    name="price" id="price"
-                                                    value="{{old('price', convertMoneyUsaToBrazil($product->price))}}">
+                                                @if ($errors->has('price'))
+                                                <span class="help-block">
+                                                    <small>
+                                                        <strong>{{ $errors->first('price') }}</strong>
+                                                    </small>
+                                                </span>
+                                                @endif
                                             </div>
-                                            @if ($errors->has('price'))
-                                            <span class="help-block">
-                                                <small>
-                                                    <strong>{{ $errors->first('price') }}</strong>
-                                                </small>
-                                            </span>
-                                            @endif
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="promotional_price">Preço Promocional</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">R$</span>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="promotional_price">Preço Promocional</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">R$</span>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control input-money {{$errors->has('promotional_price') ? 'is-invalid' : ''}}"
+                                                        name="promotional_price" id="promotional_price"
+                                                        value="{{old('promotional_price', convertMoneyUsaToBrazil($product->promotional_price))}}">
                                                 </div>
-                                                <input type="text"
-                                                    class="form-control input-money {{$errors->has('promotional_price') ? 'is-invalid' : ''}}"
-                                                    name="promotional_price" id="promotional_price"
-                                                    value="{{old('promotional_price', convertMoneyUsaToBrazil($product->promotional_price))}}">
+                                                @if ($errors->has('promotional_price'))
+                                                <span class="help-block">
+                                                    <small>
+                                                        <strong>{{ $errors->first('promotional_price') }}</strong>
+                                                    </small>
+                                                </span>
+                                                @endif
                                             </div>
-                                            @if ($errors->has('promotional_price'))
-                                            <span class="help-block">
-                                                <small>
-                                                    <strong>{{ $errors->first('promotional_price') }}</strong>
-                                                </small>
-                                            </span>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-info card-outline">
-                            <div class="card-header">
-                                <h3 class="card-title">Gestão</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="stock">Estoque</label>
-                                            <input type="text"
-                                                class="form-control {{$errors->has('stock') ? 'is-invalid' : ''}}"
-                                                name="stock" id="stock" value="{{old('stock', $product->stock)}}">
-                                            @if ($errors->has('stock'))
-                                            <span class="help-block">
-                                                <small>
-                                                    <strong>{{ $errors->first('stock') }}</strong>
-                                                </small>
-                                            </span>
-                                            @endif
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-info card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">Gestão</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="stock">Estoque</label>
+                                                <input type="text"
+                                                    class="form-control {{$errors->has('stock') ? 'is-invalid' : ''}}"
+                                                    name="stock" id="stock" value="{{old('stock', $product->stock)}}">
+                                                @if ($errors->has('stock'))
+                                                <span class="help-block">
+                                                    <small>
+                                                        <strong>{{ $errors->first('stock') }}</strong>
+                                                    </small>
+                                                </span>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="sku">SKU</label>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="sku">SKU</label>
 
-                                            <input type="text"
-                                                class="form-control {{$errors->has('sku') ? 'is-invalid' : ''}}"
-                                                name="sku" id="sku" value="{{old('sku', $product->sku)}}">
-                                            @if ($errors->has('sku'))
-                                            <span class="help-block">
-                                                <small>
-                                                    <strong>{{ $errors->first('sku') }}</strong>
-                                                </small>
-                                            </span>
-                                            @endif
+                                                <input type="text"
+                                                    class="form-control {{$errors->has('sku') ? 'is-invalid' : ''}}"
+                                                    name="sku" id="sku" value="{{old('sku', $product->sku)}}">
+                                                @if ($errors->has('sku'))
+                                                <span class="help-block">
+                                                    <small>
+                                                        <strong>{{ $errors->first('sku') }}</strong>
+                                                    </small>
+                                                </span>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="barcode">Código de barras (GTIN, EAN, ISBN, etc.)</label>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="barcode">Código de barras (GTIN, EAN, ISBN, etc.)</label>
 
-                                            <input type="text"
-                                                class="form-control {{$errors->has('barcode') ? 'is-invalid' : ''}}"
-                                                name="barcode" id="barcode"
-                                                value="{{old('barcode', $product->barcode)}}">
-                                            @if ($errors->has('barcode'))
-                                            <span class="help-block">
-                                                <small>
-                                                    <strong>{{ $errors->first('barcode') }}</strong>
-                                                </small>
-                                            </span>
-                                            @endif
+                                                <input type="text"
+                                                    class="form-control {{$errors->has('barcode') ? 'is-invalid' : ''}}"
+                                                    name="barcode" id="barcode"
+                                                    value="{{old('barcode', $product->barcode)}}">
+                                                @if ($errors->has('barcode'))
+                                                <span class="help-block">
+                                                    <small>
+                                                        <strong>{{ $errors->first('barcode') }}</strong>
+                                                    </small>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-info card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">Peso e dimensões</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="weight">Peso</label>
+                                                <div class="input-group">
+                                                    <input type="text"
+                                                        class="form-control input-money {{$errors->has('weight') ? 'is-invalid' : ''}}"
+                                                        name="weight" id="weight"
+                                                        value="{{old('weight', convertMoneyUsaToBrazil($product->weight))}}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">kg</span>
+                                                    </div>
+                                                </div>
+                                                @if ($errors->has('weight'))
+                                                <span class="help-block">
+                                                    <small>
+                                                        <strong>{{ $errors->first('weight') }}</strong>
+                                                    </small>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="depth">Comprimento</label>
+                                                <div class="input-group">
+                                                    <input type="text"
+                                                        class="form-control input-money {{$errors->has('depth') ? 'is-invalid' : ''}}"
+                                                        name="depth" id="depth"
+                                                        value="{{old('depth', convertMoneyUsaToBrazil($product->depth))}}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">cm</span>
+                                                    </div>
+                                                </div>
+                                                @if ($errors->has('depth'))
+                                                <span class="help-block">
+                                                    <small>
+                                                        <strong>{{ $errors->first('depth') }}</strong>
+                                                    </small>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="width">Largura</label>
+                                                <div class="input-group">
+                                                    <input type="text"
+                                                        class="form-control input-money {{$errors->has('width') ? 'is-invalid' : ''}}"
+                                                        name="width" id="width"
+                                                        value="{{old('width', convertMoneyUsaToBrazil($product->width))}}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">cm</span>
+                                                    </div>
+                                                </div>
+                                                @if ($errors->has('width'))
+                                                <span class="help-block">
+                                                    <small>
+                                                        <strong>{{ $errors->first('width') }}</strong>
+                                                    </small>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="height">Altura</label>
+                                                <div class="input-group">
+                                                    <input type="text"
+                                                        class="form-control input-money {{$errors->has('height') ? 'is-invalid' : ''}}"
+                                                        name="height" id="height"
+                                                        value="{{old('height', convertMoneyUsaToBrazil($product->height))}}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">cm</span>
+                                                    </div>
+                                                </div>
+                                                @if ($errors->has('height'))
+                                                <span class="help-block">
+                                                    <small>
+                                                        <strong>{{ $errors->first('height') }}</strong>
+                                                    </small>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-outline card-info">
+                                <div class="card-header">
+                                    <h3 class="card-title">Frete Grátis</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input"
+                                                    id="input-has_free_shipping" value="1"
+                                                    {{$product->has_free_shipping != null ? 'checked' : ''}}
+                                                    name="has_free_shipping">
+                                                <label class="form-check-label" for="input-has_free_shipping">Esse
+                                                    produto
+                                                    possui frete grátis</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -303,241 +431,204 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-info card-outline">
-                            <div class="card-header">
-                                <h3 class="card-title">Peso e dimensões</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="weight">Peso</label>
-                                            <div class="input-group">
-                                                <input type="text"
-                                                    class="form-control input-money {{$errors->has('weight') ? 'is-invalid' : ''}}"
-                                                    name="weight" id="weight"
-                                                    value="{{old('weight', convertMoneyUsaToBrazil($product->weight))}}">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">kg</span>
-                                                </div>
-                                            </div>
-                                            @if ($errors->has('weight'))
-                                            <span class="help-block">
-                                                <small>
-                                                    <strong>{{ $errors->first('weight') }}</strong>
-                                                </small>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="depth">Comprimento</label>
-                                            <div class="input-group">
-                                                <input type="text"
-                                                    class="form-control input-money {{$errors->has('depth') ? 'is-invalid' : ''}}"
-                                                    name="depth" id="depth"
-                                                    value="{{old('depth', convertMoneyUsaToBrazil($product->depth))}}">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">cm</span>
-                                                </div>
-                                            </div>
-                                            @if ($errors->has('depth'))
-                                            <span class="help-block">
-                                                <small>
-                                                    <strong>{{ $errors->first('depth') }}</strong>
-                                                </small>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="width">Largura</label>
-                                            <div class="input-group">
-                                                <input type="text"
-                                                    class="form-control input-money {{$errors->has('width') ? 'is-invalid' : ''}}"
-                                                    name="width" id="width"
-                                                    value="{{old('width', convertMoneyUsaToBrazil($product->width))}}">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">cm</span>
-                                                </div>
-                                            </div>
-                                            @if ($errors->has('width'))
-                                            <span class="help-block">
-                                                <small>
-                                                    <strong>{{ $errors->first('width') }}</strong>
-                                                </small>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="height">Altura</label>
-                                            <div class="input-group">
-                                                <input type="text"
-                                                    class="form-control input-money {{$errors->has('height') ? 'is-invalid' : ''}}"
-                                                    name="height" id="height"
-                                                    value="{{old('height', convertMoneyUsaToBrazil($product->height))}}">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">cm</span>
-                                                </div>
-                                            </div>
-                                            @if ($errors->has('height'))
-                                            <span class="help-block">
-                                                <small>
-                                                    <strong>{{ $errors->first('height') }}</strong>
-                                                </small>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @else
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-outline card-info">
-                            <div class="card-header">
-                                <h3 class="card-title">Frete Grátis</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="input-has_free_shipping"
-                                                value="1" {{$product->has_free_shipping != null ? 'checked' : ''}}
-                                                name="has_free_shipping">
-                                            <label class="form-check-label" for="input-has_free_shipping">Esse produto
-                                                possui frete grátis</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-outline card-info">
-                            <div class="card-header">
-                                <h3 class="card-title">Variações</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-success btn-sm" id="btnAddVariation">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </div>
                             <div class="card-body p-3">
                                 <table class="table table-bordered table-striped"">
+                                    <tbody>
+                                    <tr>
+                                        <td>Utilizando variações.</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                <div class=" row">
+                                    <div class="col-12">
+                                        <div class="card card-outline card-info">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Categorias</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <?php
+                                    $countCategories = count($categories);
+                                    $firstColQty = (int)($countCategories / 2);
+                                    $i = 0;
+
+                                    ?>
+                                                    <div class="col-md-6">
+                                                        @forelse($categories as $category)
+                                                        <div class="form-group form-group-category">
+                                                            <div class="checkbox">
+                                                                <label class="main-category">
+                                                                    <input type="checkbox" name="category"
+                                                                        @if(in_array($category->id,
+                                                                    $categoriesId)) checked @endif
+                                                                    class="checkbox-category"
+                                                                    value="{{$category->id}}">
+                                                                    {{$category->name}}@if(count($category->categories)
+                                                                    > 0)
+                                                                    <small>*</small>
+                                                                    @endif
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        @component('admin.components.categories',['category' =>
+                                                        $category,
+                                                        'categoriesId' => $categoriesId])
+                                                        @endcomponent
+
+                                                        <?php $i++; ?>
+
+                                                        @if($i == $firstColQty)
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        @endif
+
+                                                        @empty
+                                                        <p>Nenhuma categoria cadastrada</p>
+                                                        @endforelse
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card card-outline card-info">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Variações</h3>
+                                            <div class="card-tools">
+                                                <div class="btn-group btn-group-sm">
+
+                                                    <button type="button" class="btn btn-primary btnChange btn-sm"
+                                                        title="Utilizar Variação">
+                                                        <i
+                                                            class="fas fa-toggle-{{$product->use_subproduct == 1 ? 'on' : 'off'}}"></i>
+                                                    </button>
+                                                    @if($product->use_subproduct == 1)
+                                                    <button type="button" class="btn btn-success btn-sm"
+                                                        id="btnAddVariation">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <table class="table table-bordered table-striped"">
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
                                             <th class=" text-right">Ações</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($product->variations as $variation)
-                                        <tr>
-                                            <td>{{$variation->name}}</td>
-                                            <td class="text-center align-middle py-0">
-                                                <div class="btn-group btn-group-sm">
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse($product->variations as $variation)
+                                                    <tr>
+                                                        <td>{{$variation->name}}</td>
+                                                        <td class="text-center align-middle py-0">
+                                                            <div class="btn-group btn-group-sm">
+                                                                <button type="button"
+                                                                    href="{{route('admin.product.variation.delete', ['product' => $product,'variation' => $variation])}}"
+                                                                    class="btn btn-danger btn-delete">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </button>
+                                                            </div>
 
-                                                    <button onclick="deleteItem(this, 1)"
-                                                        data-href="{{route('admin.product.delete', ['product' => $variation])}}"
-                                                        class="btn btn-danger act-delete">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </div>
-
-                                            </td>
-                                        </tr>
-                                        @empty
-                                        <tr>
-                                            <td colspan="5">Nenhum variação cadastrada</td>
-                                        </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-outline card-info">
-                            <div class="card-header">
-                                <h3 class="card-title">Subprodutos</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-success btn-sm" id="btnAddSubproduct">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </button>
+                                                        </td>
+                                                    </tr>
+                                                    @empty
+                                                    <tr>
+                                                        <td colspan="5">Nenhum variação cadastrada</td>
+                                                    </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card-body p-3">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Foto</th>
-                                            <th>Variação</th>
-                                            <th>Estoque</th>
-                                            <th>Preço</th>
-                                            <th>Peso</th>
-                                            <th class=" text-right">Ações</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($product->products as $subproduct)
-                                        <tr>
-                                            <td class="text-center align-middle py-2">
-                                                @if($subproduct->product_image_id == null)
-                                                <img class="photo" data-id="{{$subproduct->id}}"
-                                                    src="{{asset('img/no-photo-50.png')}}" alt="Sem imagem" width="50">
-                                                @else
-                                                <img class="photo" data-id="{{$subproduct->id}}"
-                                                    src="{{ asset('uploads/products/thumbnail')}}/{{$subproduct->image->file}}"
-                                                    alt="Sem imagem" width="50">
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @foreach($subproduct->variationOptions as $option)
-                                                <small>{{$option->name}}</small><br>
-                                                @endforeach
-                                            </td>
-                                            <td> @if($subproduct->stock == null)&infin; @else $subproduct->stock @endif
-                                            </td>
-                                            <td>R$ {!!convertMoneyUSAToBrazil($subproduct->price)!!}</td>
-                                            <td>{{convertMoneyUSAToBrazil($subproduct->weight)}} Kg</td>
-                                            <td class="text-center align-middle py-0">
-                                                <div class="btn-group btn-group-sm">
-                                                    <a href="#" class="btn btn-info">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    <button onclick="deleteItem(this, 1)"
-                                                        data-href="{{route('admin.product.delete', ['product' => $subproduct])}}"
-                                                        class="btn btn-danger act-delete">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card card-outline card-info">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Subprodutos</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-success btn-sm"
+                                                    id="btnAddSubproduct">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Foto</th>
+                                                        <th>Variação</th>
+                                                        <th>Estoque</th>
+                                                        <th>Preço</th>
+                                                        <th>Peso</th>
+                                                        <th class=" text-right">Ações</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse($product->products as $subproduct)
+                                                    <tr>
+                                                        <td class="text-center align-middle py-2">
+                                                            @if($subproduct->product_image_id == null)
+                                                            <img class="photo" data-id="{{$subproduct->id}}"
+                                                                src="{{asset('img/no-photo-50.png')}}" alt="Sem imagem"
+                                                                width="50">
+                                                            @else
+                                                            <img class="photo" data-id="{{$subproduct->id}}"
+                                                                src="{{ asset('uploads/products/thumbnail')}}/{{$subproduct->image->file}}"
+                                                                alt="Sem imagem" width="50">
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @foreach($subproduct->variationOptions as $option)
+                                                            <small>{{$option->name}}</small><br>
+                                                            @endforeach
+                                                        </td>
+                                                        <td> @if($subproduct->stock == null)&infin; @else
+                                                            $subproduct->stock @endif
+                                                        </td>
+                                                        <td>R$ {!!convertMoneyUSAToBrazil($subproduct->price)!!}</td>
+                                                        <td>{{convertMoneyUSAToBrazil($subproduct->weight)}} Kg</td>
+                                                        <td class="text-center align-middle py-0">
+                                                            <div class="btn-group btn-group-sm">
+                                                                <a href="#" class="btn btn-info">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                                <button onclick="deleteItem(this, 1)"
+                                                                    data-href="{{route('admin.product.delete', ['product' => $subproduct])}}"
+                                                                    class="btn btn-danger act-delete">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </button>
+                                                            </div>
 
-                                            </td>
-                                        </tr>
-                                        @empty
-                                        <tr>
-                                            <td colspan="5">Nenhum subproduto cadastrado</td>
-                                        </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
+                                                        </td>
+                                                    </tr>
+                                                    @empty
+                                                    <tr>
+                                                        <td colspan="5">Nenhum subproduto cadastrado</td>
+                                                    </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
             </form>
         </div><!-- /.container-fluid -->
     </section>
@@ -546,8 +637,25 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-// Dropzone
+$('.btnChange').on('click', function(e) {
+    e.preventDefault();
+    axios.post(`{{route('admin.product.variation.change', ['product' => $product])}}`)
+        .then(function(response) {
+            document.location.reload(true);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+});
 
+function imageDelete(file) {
+    $('#confirmationModal .modal-title').html('Confirmação');
+    $('#confirmationModal .modal-body p').html('Tem certeza que deseja realizar esta exclusão?');
+    var href = $(this).attr('href');
+    $('#confirmationModal form').attr('action',"{{ url('admin/catalogo/produtos/image/delete')}}/" + file);
+    $('#confirmationModal').modal('show');
+}
+// Dropzone
 Dropzone.options.images = {
     addRemoveLinks: true,
     removedfile: function(file) {
@@ -720,7 +828,82 @@ $(document).on('click', '.new-variation-btn', function() {
 $("#btnUpdateProduct").on('click', function(e) {
     e.preventDefault();
     $("#formUpdateProduct").submit();
-})
+});
+
+
+$(document).ready(function() {
+    inspectChecked();
+});
+
+$('.checkbox-category').change(function() {
+    var categoryId = $(this).val();
+    var productId = "{{$product->id}}";
+    let url =
+        "{{route('admin.product.category.change',['product' => 'productValue', 'category' => 'categoryValue'])}}";
+    url = url.replace('productValue', productId);
+    url = url.replace('categoryValue', categoryId);
+    $.get(url, function() {});
+
+    if (!$(this).is(':checked')) {
+        changeIsChecked(categoryId);
+    } else {
+        changeIsNotChecked(categoryId);
+    }
+});
+
+const inspectChecked = () => {
+    $('.main-category input').each(function() {
+        let id = $(this).val();
+        let isChecked = $(this).is(':checked');
+        loadCheckeds(id, isChecked);
+    });
+}
+
+const loadCheckeds = (categoryId, isChecked) => {
+    let categoryDiv = $('#box-category-' + categoryId + ' input');
+    if (categoryDiv.length == 0) {
+        return;
+    }
+    if (!isChecked) {
+        $('#box-category-' + categoryId).addClass('no-checked');
+    } else {
+        $('#box-category-' + categoryId).removeClass('no-checked');
+    }
+    categoryDiv.each(function() {
+        loadCheckeds($(this).val(), $(this).is(':checked'));
+    });
+}
+
+const changeIsChecked = (categoryId) => {
+    let categoryDiv = $('#box-category-' + categoryId + ' input');
+    if (categoryDiv.length == 0) {
+        return;
+    }
+    $('#box-category-' + categoryId).addClass('no-checked');
+
+    categoryDiv.prop("checked", false);
+    if (!categoryDiv.is(':checked')) {
+        categoryDiv.each(function() {
+            changeIsChecked($(this).val());
+        });
+    }
+
+}
+
+const changeIsNotChecked = (categoryId) => {
+    let categoryDiv = $('#box-category-' + categoryId + ' input');
+    if (categoryDiv.length == 0) {
+        return;
+    }
+    $('#box-category-' + categoryId).removeClass('no-checked');
+    categoryDiv.prop("checked", true);
+    if (categoryDiv.is(':checked')) {
+        categoryDiv.each(function() {
+            changeIsNotChecked($(this).val());
+        });
+    }
+
+}
 </script>
 @endsection
 @section('modals')
