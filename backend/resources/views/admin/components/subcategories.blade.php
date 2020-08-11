@@ -1,6 +1,12 @@
     @foreach($category->categories as $subcategory)
     <tr>
         <td>{{$subcategory->name}}</td>
+        <td>
+            <a href="{{route('category', ['slug' => $category->slug])}}" target="_blank">
+                {{route('category', ['slug' => $category->slug])}}
+            </a>
+
+        </td>
         <td class="text-center align-middle py-0">
             <div class="btn-group btn-group-sm">
                 <a href="{{route('admin.category.edit', ['category' => $subcategory->id])}}" class="btn btn-info">

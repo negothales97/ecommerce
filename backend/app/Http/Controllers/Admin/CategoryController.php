@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = CategoryService::index($request);
+        $categories = Category::whereNull('parent_id')->paginate(10);
         return view('admin.pages.category.index')
             ->with('categories', $categories);
     }

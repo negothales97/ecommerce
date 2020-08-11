@@ -31,7 +31,6 @@
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Nome</th>
                                         <th>E-mail</th>
                                         <th>Ação</th>
                                     </tr>
@@ -39,7 +38,6 @@
                                 <tbody>
                                     @forelse($newsletters as $newsletter)
                                     <tr>
-                                        <td>{{$newsletter->genre}}</td>
                                         <td>{{$newsletter->email}}</td>
                                         <td class="text-center align-middle py-0">
                                             <div class="btn-group btn-group-sm">

@@ -162,6 +162,7 @@
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
+                                        <th>URL da Categoria</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>

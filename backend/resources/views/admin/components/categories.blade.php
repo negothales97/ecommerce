@@ -3,7 +3,7 @@
 
     <div class="form-group">
         <div class="checkbox">
-            <label class="sub-category">
+            <label class="sub-category" style="font-weight:500">
                 <input type="checkbox" name="category" class="checkbox-category" value="{{$category->id}}"
                     @if(in_array($category->id,$categoriesId)) checked @endif>
                 {{$category->name}}

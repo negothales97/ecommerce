@@ -76,8 +76,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
         Route::get('/', 'Admin\NewsletterController@index')->name('index');
         Route::delete('/delete/{newsletter}', 'Admin\NewsletterController@delete')->name('delete');
     });
-    // Categorias
+
+    // Clientes
+    Route::group(['prefix' => 'customer', 'as' => 'customer.'], function () {
+        Route::get('/', 'Admin\CustomerController@index')->name('index');
+        Route::get('/create', 'Admin\CustomerController@create')->name('create');
+        Route::post('/store', 'Admin\CustomerController@store')->name('store');
+        Route::get('/edit/{customer}', 'Admin\CustomerController@edit')->name('edit');
+        Route::put('/update/{customer}', 'Admin\CustomerController@update')->name('update');
+        Route::delete('/delete/{customer}', 'Admin\CustomerController@delete')->name('delete');
+    });
+    // Catálogo
     Route::group(['prefix' => 'catalogo'], function () {
+        // Categorias
         Route::group(['prefix' => 'categoria', 'as' => 'category.'], function () {
             Route::get('/', 'Admin\CategoryController@index')->name('index');
             Route::get('/create', 'Admin\CategoryController@create')->name('create');
@@ -146,6 +157,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
             // Subproduto
             Route::group(['prefix' => '{product}/subproduct', 'as' => 'subproduct.'], function () {
                 Route::post('/', 'Admin\SubproductController@store')->name('store');
+                Route::get('/change/{subproduct}', 'Admin\SubproductController@change')->name('change');
+                Route::put('update/', 'Admin\SubproductController@update')->name('update');
                 Route::delete('/delete/{subproduct}', 'Admin\SubproductController@delete')->name('delete');
                 Route::group(['prefix' => 'image', 'as' => 'image.'], function () {
                     Route::post('/', 'Admin\SubproductImageController@store')->name('store');

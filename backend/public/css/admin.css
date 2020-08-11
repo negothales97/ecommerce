@@ -44,3 +44,11 @@
   width: 100%;
 }
 
+.no-checked {
+  display: none;
+}
+
+.sub-categories {
+  margin-left: 15px;
+}
+

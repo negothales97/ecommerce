@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class TagService
 {
-
     public static function index(Request $request)
     {
         return Tag::get();

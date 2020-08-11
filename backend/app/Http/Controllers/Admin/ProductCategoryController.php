@@ -22,7 +22,6 @@ class ProductCategoryController extends Controller
     {
         $productCategories = ProductCategory::where('category_id', $category->id)
             ->where('product_id', $product->id);
-
         if ($productCategories->count() == 0) {
             ProductCategoryService::create($category, $product);
         } else {

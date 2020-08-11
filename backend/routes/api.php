@@ -21,4 +21,5 @@ Route::post('newsletter', 'Api\NewsletterController@store')->name('api.newslette
 Route::get('category', 'Api\CategoryController@index')->name('api.category.index');
 Route::get('variation', 'Api\VariationController@index')->name('api.variation.index');
 Route::get('variation/{variation}/', 'Api\VariationController@show')->name('api.variation.show');
+Route::get('subproduct/{resource}/', 'Api\SubproductController@show')->name('api.subproduct.show');
 

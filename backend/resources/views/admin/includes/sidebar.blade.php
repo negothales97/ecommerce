@@ -24,8 +24,8 @@
                         <p>Pedidos</p>
                     </a>
                 </li>
-                <li class="nav-item{{ $activePage == 'customer' ? ' active' : '' }}">
-                    <a href="#" class="nav-link">
+                <li class="nav-item">
+                <a href="{{route('admin.customer.index')}}" class="nav-link {{ $activePage == 'customer' ? ' active' : '' }}">
                     <i class="fas fa-users nav-icon"></i>
                         <p>Clientes</p>
                     </a>
@@ -101,13 +101,13 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ $activePage == 'customer' ? ' active' : '' }}">
+                    <a href="#" class="nav-link {{ $activePage == 'banner' ? ' active' : '' }}">
                     <i class="far fa-image nav-icon"></i>
                         <p>Banners</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ $activePage == 'customer' ? ' active' : '' }}">
+                    <a href="#" class="nav-link {{ $activePage == 'pages' ? ' active' : '' }}">
                     <i class="far fa-file nav-icon"></i>
                         <p>Páginas</p>
                     </a>
@@ -118,14 +118,14 @@
                         <p>Contatos</p>
                     </a>
                 </li>
-                <li class="nav-item{{ $activePage == 'newsletter' ? ' active' : '' }}">
-                    <a href="{{route('admin.newsletter.index')}}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{route('admin.newsletter.index')}}" class="nav-link {{ $activePage == 'newsletter' ? ' active' : '' }}">
                     <i class="fas fa-newspaper nav-icon"></i>
                         <p>Newsletter</p>
                     </a>
                 </li>
                 <li class="nav-item{{ $activePage == 'customer' ? ' active' : '' }}">
-                    <a href="" class="nav-link">
+                    <a href="#" class="nav-link">
                     <i class="fas fa-dolly nav-icon"></i>
                         <p>Transportadoras</p>
                     </a>

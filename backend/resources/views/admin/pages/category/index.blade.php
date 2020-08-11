@@ -130,7 +130,6 @@
                                     <tr>
                                         <th>Nome</th>
                                         <th>URL da Categoria</th>
-                                        <th>Título para SEO</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -139,12 +138,12 @@
                                     <tr>
                                         <td><b>{{$category->name}}</b></td>
                                         <td>
-                                            <a href="{{route('category', ['slug' => $category->slug])}}" target="_blank">
+                                            <a href="{{route('category', ['slug' => $category->slug])}}"
+                                                target="_blank">
                                                 {{route('category', ['slug' => $category->slug])}}
                                             </a>
 
                                         </td>
-                                        <td>{{$category->meta_title}}</td>
                                         <td class="text-center align-middle py-0">
                                             <div class="btn-group btn-group-sm">
                                                 <a href="{{route('admin.category.edit', ['category' => $category->id])}}"
@@ -159,6 +158,8 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @component('admin.components.subcategories',['category' => $category])
+                                    @endcomponent
                                     @empty
                                     <tr>
                                         <td colspan=6>Nenhum dado cadastrado</td>
