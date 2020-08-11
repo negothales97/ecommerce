@@ -130,8 +130,8 @@
                         <p>Transportadoras</p>
                     </a>
                 </li>
-                <li class="nav-item{{ $activePage == 'customer' ? ' active' : '' }}">
-                    <a href="#" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{route('admin.payment.edit')}}" class="nav-link {{ $activePage == 'payment' ? ' active' : '' }}">
                     <i class="fas fa-money-bill-wave-alt nav-icon"></i>
                         <p>Pagamento</p>
                     </a>

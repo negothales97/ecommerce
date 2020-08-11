@@ -166,4 +166,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
             });
         });
     });
+
+    // Configuracoes
+    Route::group(['prefix' => 'configuration', 'as' => 'configuration.'], function () {
+        Route::get('/', 'Admin\CustomerController@index')->name('index');
+        Route::get('/create', 'Admin\CustomerController@create')->name('create');
+        Route::post('/store', 'Admin\CustomerController@store')->name('store');
+        Route::get('/edit/{customer}', 'Admin\CustomerController@edit')->name('edit');
+        Route::put('/update/{customer}', 'Admin\CustomerController@update')->name('update');
+        Route::delete('/delete/{customer}', 'Admin\CustomerController@delete')->name('delete');
+    });
+    // Pagamento
+
+    Route::group(['prefix' => 'pagamento', 'as' => 'payment.'], function () {
+        Route::get('/edit', 'Admin\PaymentController@edit')->name('edit');
+        Route::put('/update/', 'Admin\PaymentController@update')->name('update');
+    });
 });
