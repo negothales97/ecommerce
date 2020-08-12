@@ -10,7 +10,15 @@ use Auth;
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
-    protected $redirectTo = '/';
+    protected function redirectTo()
+    {
+        dd(request()->all());
+        if(validateRequest('checkout')){
+            return '/checkout';
+        } else {
+            return '/';
+        }
+    }
 
     public function __construct()
     {

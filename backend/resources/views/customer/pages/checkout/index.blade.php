@@ -25,20 +25,24 @@
                                 <input type="password" class="form-control" id="verifypassword" name="verifypassword">
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="fisica" name="pessoa" class="custom-control-input">
-                                <label class="custom-control-label" for="fisica">Pessoa física</label>
+                                <input type="radio" id="fisica" name="document_type" checked class="custom-control-input">
+                                <label class="custom-control-label" for="fisica" value="cpf">Pessoa física</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="juridica" name="pessoa" class="custom-control-input">
-                                <label class="custom-control-label" for="juridica">Pessoa jurídica</label>
+                                <input type="radio" id="juridica" name="document_type" class="custom-control-input">
+                                <label class="custom-control-label" for="juridica" value="cnpj">Pessoa jurídica</label>
                             </div>
                             <div class="form-group">
                                 <label for="name">Nome completo</label>
                                 <input type="text" class="form-control" id="name" name="name">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="form-cpf">
                                 <label for="cpf">CPF</label>
-                                <input type="text" class="form-control" id="cpf" name="cpf">
+                                <input type="text" class="form-control input-cpf" id="cpf" name="cpf">
+                            </div>
+                            <div class="form-group display-none" id="form-cnpj">
+                                <label for="cnpj">CNPJ</label>
+                                <input type="text" class="form-control input-cnpj" id="cnpj" name="cnpj" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="date">Data de nascimento</label>
@@ -123,7 +127,7 @@
                                     placeholder="MM/AA">
                             </div>
                             <div class="form-group">
-                                <label for="name-card">NOme escrito no cartão</label>
+                                <label for="name-card">Nome escrito no cartão</label>
                                 <input type="text" class="form-control" id="name-card" name="name-card">
                             </div>
                             <div class="form-group">
@@ -157,4 +161,24 @@
     </section>
 </section>
 
+@section('scripts')
+    <script type="text/javascript">
+        $('input[name=document_type]').on('change', function() {
+            let documentType = $("input[name=document_type]:checked").attr('id');
+            if (documentType == "fisica") {
+                $("#form-cnpj").addClass('display-none');
+                $("#form-cpf").removeClass('display-none')
+
+                $("#cnpj").attr('disabled', true);
+                $("#cpf").attr('disabled', false);
+            } else {
+                $("#form-cpf").addClass('display-none');
+                $("#form-cnpj").removeClass('display-none');
+
+                $("#cnpj").attr('disabled', false);
+                $("#cpf").attr('disabled', true)
+            }
+        });
+
+    </script>
 @endsection

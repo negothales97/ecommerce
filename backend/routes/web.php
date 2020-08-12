@@ -22,15 +22,16 @@ Route::get('produto/{slug}', 'Customer\ProductController@index')->name('product'
 Route::get('/contato', 'Customer\ContactController@index')->name('contact');
 Route::post('/contato', 'Customer\ContactController@store')->name('contact');
 
-Route::group(['prefix' => 'carrinho', 'as' => 'cart.'], function(){
+Route::group(['prefix' => 'carrinho', 'as' => 'cart.'], function () {
     Route::get('/', 'Customer\CartController@index')->name('index');
     Route::get('/delete', 'Customer\CartController@delete')->name('delete.product');
     Route::post('/', 'Customer\CartController@store')->name('store');
-    Route::get('checkout/', 'Customer\CheckoutController@index')->name('checkout.index');
-    Route::get('checkout/email', 'Customer\CheckoutController@email')->name('checkout.email');
-    Route::post('checkout/', 'Customer\CheckoutController@store')->name('checkout.store');
+    Route::group(['prefix' => 'checkout', 'as' => 'checkout.'], function () {
+        Route::get('/email', 'Customer\CheckoutController@email')->name('email');
+        Route::get('/', 'Customer\CheckoutController@index')->name('index');
+        Route::post('/', 'Customer\CheckoutController@store')->name('store');
+    });
 });
-
 
 Route::get('/checkout1', function () {
     return view('customer.pages.checkout.checkout1');
@@ -44,7 +45,7 @@ Route::get('/checkout2', function () {
 Route::group(['prefix' => 'admin', 'namespace' => 'AdminAuth'], function () {
     Route::get('/login', 'LoginController@showLoginForm');
     Route::post('/login', 'LoginController@login');
-    Route::get('/logout', 'LoginController@logout')->name('admin.logout');
+    Route::post('/logout', 'LoginController@logout')->name('admin.logout');
     // Route::get('/register', 'Auth\RegisterController@showAdminRegisterForm')->name('admin.register');
     // Route::post('/register', 'Auth\RegisterController@register');
 });
@@ -61,7 +62,6 @@ Route::group(['prefix' => 'customer', 'namespace' => 'CustomerAuth'], function (
 // Route::get('/register/customer', 'Auth\RegisterController@showCustomerRegisterForm');
 // Route::post('/login/customer', 'Auth\LoginController@customerLogin');
 // Route::post('/register/customer', 'Auth\RegisterController@createCustomer');
-
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
     Route::get('dashboard', 'Admin\DashboardController@index')->name('dashboard');

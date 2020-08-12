@@ -65,7 +65,7 @@ class CartController extends Controller
         // }
         $cart[$i] = [
             'product_id' => $request->product_id,
-            'quantity' => 1,
+            'quantity' => $request->qty,
         ];
         usort($cart, "cmp");
 

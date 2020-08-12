@@ -30,7 +30,7 @@ class CheckoutController extends Controller
         $customer = auth()->guard('customer')->user();
         if ($customer) {
             return redirect()
-                ->route('customer.checkout.index');
+                ->route('cart.checkout.index');
         }
         return view('customer.pages.checkout.email');
     }
@@ -38,27 +38,26 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $pagarme = new PagarMe\Client( config('pagarme.api_key') );
-        $transaction = $pagarme->transactions()->create([
-            'amount' => 1000,
-            'payment_method' => 'boleto',
-            'async' => false,
-            'customer' => [
-              'external_id' => '1',
-              'name' => 'Nome do cliente',
-              'type' => 'individual',
-              'country' => 'br',
-              'documents' => [
-                [
-                  'type' => 'cpf',
-                  'number' => '00000000000'
-                ]
-              ],
-              'phone_numbers' => [ '+551199999999' ],
-              'email' => 'cliente@email.com'
-            ]
-          ]);
-        dd($transaction);
+        // $pagarme = new PagarMe\Client( config('pagarme.api_key') );
+        // $transaction = $pagarme->transactions()->create([
+        //     'amount' => 1000,
+        //     'payment_method' => 'boleto',
+        //     'async' => false,
+        //     'customer' => [
+        //       'external_id' => '1',
+        //       'name' => 'Nome do cliente',
+        //       'type' => 'individual',
+        //       'country' => 'br',
+        //       'documents' => [
+        //         [
+        //           'type' => 'cpf',
+        //           'number' => '00000000000'
+        //         ]
+        //       ],
+        //       'phone_numbers' => [ '+551199999999' ],
+        //       'email' => 'cliente@email.com'
+        //     ]
+        //   ]);
 
 
         // $transaction = $pagarme->transactions()->create([

@@ -36,7 +36,7 @@
                 <button class="next-carousel"><i class="fas fa-chevron-right"></i></button>
                 <div class="slider-carousel">
                     @foreach($promotions as $promotion)
-                    @component('customer.components.product', ['product' => $promotion])
+                    @component('customer.components.carousel', ['product' => $promotion])
                     @endcomponent
                     @endforeach
                 </div>
@@ -86,7 +86,7 @@
                 <div class="slider-carousel-news">
                     @foreach($novelties as $novelty)
                     <div class="box-carousel">
-                        @component('customer.components.product', ['product' => $novelty])
+                        @component('customer.components.carousel', ['product' => $novelty])
                         @endcomponent
                     </div>
                     @endforeach
@@ -126,38 +126,15 @@
                 <div class="slider-carousel-promotion">
 
                     @foreach($fastPromotions as $fastPromotion)
-                    @component('customer.components.product', ['product' => $fastPromotion])
+                    @component('customer.components.carousel', ['product' => $fastPromotion])
                     @endcomponent
                     @endforeach
                 </div>
             </div>
         </div>
     </section>
-    <section class="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="box-about">
-                        <h2>Sobre a marca</h2>
-                        <p>
-                            A Keep Jeans é uma marca de moda voltada aos públicos feminino e masculino, e tem como aseu
-                            principal produto desenvolvido o jeans.<br><br>
-
-                            Num universo cercado de boas ideias e um público cada vez mais exigente e admirador de novas
-                            tendências, a Keep visa oferecer as melhores peças de roupas, estudando e pesquisando tudo
-                            em relação à moda e o que está em alta no mercado.<br><br>
-
-                            Assim, seus produtos são desenvolvidos da melhor qualidade, alcançando o principal objetivo
-                            Keep, que é a total satisfação dos seus consumidores, principalmente dos apreciadores de
-                            moda.
-                        </p>
-                    </div>
-                </div>
-                @component('customer.components.newsletter')
-                @endcomponent
-            </div>
-        </div>
-    </section>
+    @component('customer.components.about')
+    @endcomponent
 </section>
 
 @component('customer.components.social-media')
